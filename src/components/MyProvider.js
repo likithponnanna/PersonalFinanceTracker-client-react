@@ -8,7 +8,7 @@ import MyContext from './MyContext'
 class MyProvider extends Component {
     state = {
         name: 'Alice',
-        age: 100
+        age: 21
     };
     render() {
         return (
