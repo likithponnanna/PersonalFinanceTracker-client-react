@@ -143,6 +143,42 @@ a.download {
     color: rgb(0, 0, 0);
 }
 
+
+
+.web-dev-active-pills-user-home{
+    color: white;
+}
+
+.web-dev-active-pills-user-home{
+   border-bottom-color: #47748b;
+    border-bottom-width: 4px;
+}
+
+.web-dev-active-pills-user-home-n{
+    color: #282c34;
+}
+
+
+
+.web-dev-tab-style-par{
+    display: inline-block;
+}
+
+.web-dev-border-bottom{
+    border-bottom: #474747;
+    border-bottom-width: medium;
+}
+
+li.nav-item.nav-link.active.bg-dark{
+    color: white;
+}
+
+
+
+.nav-link.active{
+    color: white;
+}
+
 .web-dev-overflowScroll{
     overflow-y: scroll;
     overflow-x: scroll;

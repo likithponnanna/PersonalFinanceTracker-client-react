@@ -1,21 +1,18 @@
-import React, {Component} from 'react'
-import MyContext from './MyContext'
-import '@trendmicro/react-sidenav/dist/react-sidenav.css';
+import React, {Component} from 'react';
+import MyContext from "./MyContext";
 import SideBarUser from "./SideBarUser";
 import UserNavBar from "./UserNavBar";
 import UserOptionTabsNav from "./UserOptionTabsNav";
-import UserOverViewTabContent from "./UserOverViewTabContent";
+import BudgetTabContent from "./BudgetTabContent";
 
-class UserHome extends Component{
-    constructor(props){
-        super(props);
-        this.state = {}
-    }
+class BudgetTabMainContent  extends Component{
+
     render() {
+
         return(
 
             <div>
-              <MyContext.Consumer>
+                <MyContext.Consumer>
                     {(context) => (
                         <React.Fragment>
                             <div className="wrapper">
@@ -26,7 +23,7 @@ class UserHome extends Component{
                                     <div className="container">
                                         <UserOptionTabsNav/>
                                         <br/><br/> <br/>
-                                        <UserOverViewTabContent/>
+                                        <BudgetTabContent/>
                                     </div>
                                 </div>
                             </div>
@@ -38,5 +35,8 @@ class UserHome extends Component{
             </div>
         )
     }
+
+
 }
-export default UserHome
+
+export default BudgetTabMainContent

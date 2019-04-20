@@ -99,13 +99,6 @@ class Charts extends Component{
 
                 });
 
-                console.log("After 1", this.state.stateSearchData);
-
-                let stockList = [];
-                let stockNames = [];
-                let stockEquities = [];
-
-
                 for (let stock in symbols["bestMatches"]) {
                     this.state.stateSearchData.push([{
                         id: new Date().getTime(),
@@ -119,7 +112,6 @@ class Charts extends Component{
                     stateSearchData: this.state.stateSearchData
                 });
 
-                console.log("After Fin", this.state.stateSearchData);
             });
     }
 

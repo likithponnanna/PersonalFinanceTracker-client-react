@@ -7,6 +7,14 @@ import Charts from "./Charts";
 import MyProvider from "./MyProvider";
 import UserHome from "./UserHome";
 import BarChart from "./BarChart";
+import {HorizontalBar} from "react-chartjs-2";
+import PieChart from "./PieChart";
+import TransactionPage from "./TransactionPage";
+import CreditScoreMainComponent from "./CreditScoreMainComponent";
+import BillsMainComponent from "./BillsMainComponent";
+import ForexConversionMainComponent from "./ForexConversionMainComponent";
+import BudgetTabMainContent from "./BudgetTabMainContent";
+import StockSearchMainComponent from "./StockSearchMainComponent";
 
 class HomePage extends Component{
 
@@ -36,16 +44,31 @@ class HomePage extends Component{
                         <Route path="/user/:id" exact
                                component={Charts}
                         />
-                        <Route path='/charts'
-                               render={() => <Charts/>}/>
+                        <Route path='/credit-score'
+                               render={() => <CreditScoreMainComponent/>}/>
                         <Route path="/user"exact
                                component={UserHome}
                         />
-                        <Route path="/chart" exact
-                               component={Charts}/>
-                        <Route path="/bar" exact
-                               component={BarChart}
+                        <Route path="/transactions" exact
+                               component={TransactionPage}/>
+                        <Route path="/bills" exact
+                               component={BillsMainComponent}
                         />
+
+                        <Route path="/forex-conversion" exact
+                               component={ForexConversionMainComponent}
+                        />
+                        <Route path="/budget" exact
+                               component={BudgetTabMainContent}
+                        />
+                        <Route path="/stock-search" exact
+                               component={StockSearchMainComponent}
+                        />
+                        <Route path="/stock-search/search" exact
+                               component={StockSearchMainComponent}/>
+
+
+
 
 
 
