@@ -5,6 +5,8 @@ import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 import CustomerOnBoardPage from "./CustomerOnBoardPage";
 import Charts from "./Charts";
 import MyProvider from "./MyProvider";
+import UserHome from "./UserHome";
+import BarChart from "./BarChart";
 
 class HomePage extends Component{
 
@@ -33,10 +35,20 @@ class HomePage extends Component{
                                         />}/>
                         <Route path="/user/:id" exact
                                component={Charts}
-
                         />
                         <Route path='/charts'
                                render={() => <Charts/>}/>
+                        <Route path="/user"exact
+                               component={UserHome}
+                        />
+                        <Route path="/chart" exact
+                               component={Charts}/>
+                        <Route path="/bar" exact
+                               component={BarChart}
+                        />
+
+
+
                     </div>
                 </Router>
                 </MyProvider>

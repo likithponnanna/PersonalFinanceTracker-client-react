@@ -3,15 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@trendmicro/react-sidenav": "^0.4.5",
     "alphavantage": "^1.2.4",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
+    "decouple": "^1.0.1",
+    "emitter": "0.0.5",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.4.0",
+    "popper": "^1.0.1",
+    "popper.js": "^1.15.0",
     "react": "^16.8.6",
     "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.8.6",
+    "react-helmet": "^5.2.0",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "reactstrap": "^8.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

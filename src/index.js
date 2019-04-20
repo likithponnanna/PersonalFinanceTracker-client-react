@@ -5,9 +5,18 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import "./styling/Charts.css"
+import  './styling/user-home.style.client.css'
 //import $ from 'jquery';
 //import Popper from 'popper.js';
-//import "../node_modules/jquery/dist/jquery.min.js";
+import "../node_modules/jquery/dist/jquery.min.js";
+//import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
+
+
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
+import '../node_modules/font-awesome/css/font-awesome.min.css';
+import $ from 'jquery';
+import Popper from 'popper.js';
+import "../node_modules/jquery/dist/jquery.min.js";
 //import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 
 import Charts from './components/Charts'
