@@ -20,6 +20,18 @@ class StockSearchMainComponent  extends Component{
         }
     }
 
+    componentDidMount() {
+        console.log(this.props.location.search);
+        const values = queryString.parse(this.props.location.search);
+        console.log(values.stockSymbol);
+        this.setState({
+            stockSymbol: values.stockSymbol
+        })
+
+        if(this.state.stockSymbol!==undefined){
+            this.searchStock(values.stockSymbol)
+        }
+    }
 
     searchStock = (stockSymbol) => {
         this.alpha.data.search(stockSymbol)
