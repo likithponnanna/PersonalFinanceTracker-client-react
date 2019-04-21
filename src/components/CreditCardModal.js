@@ -1,137 +1,112 @@
 import React, {Component} from 'react'
 import MyContext from './MyContext'
-import Login from "./Login";
-import Register from "./Register";
-import UserService from '../service/user.service.client'
+import '../styling/modals.style.client.css'
 
 class CreditCardModal extends Component{
     constructor(props){
         super(props);
-        this.userService = new UserService();
-
         this.state ={
-            loginRegisterFlag: true,
-            loginUserName: '',
-            passwordLogin: '',
-            registerPassword: '',
-            verifyPassword: null,
-            registerUserName: '',
-            user: undefined
-
+            accountNo: "",
+            bankName: "",
+            accountName: "",
+            maxLimit: "",
+            rewardAmount: "",
+            interestRate: "",
         }
     }
 
-    registerUserNameChanged = (event) =>
+    accountNoChanged = (event) =>
         this.setState({
-            registerUserName: event.target.value
+            accountNo: event.target.value
         });
 
-    loginUserNameChanged = (event) =>
+    bankNameChanged = (event) =>
         this.setState({
-            loginUserName: event.target.value
+            bankName: event.target.value
         });
-    passwordLoginChanged = (event) =>
+    accountNameChanged = (event) =>
         this.setState({
-            passwordLogin: event.target.value
+            accountName: event.target.value
         });
-    registerPasswordChanged = (event) =>
+    maxLimitChanged = (event) =>
         this.setState({
-            registerPassword: event.target.value
+            maxLimit: event.target.value
         });
-    verifyPasswordChanged = (event) =>
+    rewardAmountChanged = (event) =>
         this.setState({
-            verifyPassword: event.target.value
-        });
-
-    loginRegisterFlagToggle = () =>
-        this.setState({
-            loginRegisterFlag: !this.state.loginRegisterFlag
+            rewardAmount: event.target.value
         });
 
-    loginUser = () => {
-        let credentials ={
-            username: this.state.loginUserName,
-            password: this.state.passwordLogin
-        };
-        this.userService.loginUser(credentials)
-            .then(user =>{
-                console.log("Reg User", user);
-                if(user.username!==null && user.status===undefined && user._id !== null) {
-                    this.context.setUser(user);
-                }else {
-                    alert("User does not exist");
-                }}).catch(reason => alert("Server Error"));
+    interestRateChanged = (event) =>
+        this.setState({
+            interestRate: event.target.value
+        });
 
-    };
+    addCreditCard = () => {
+        this.props.addCreditCard(this.state);
 
-    signUpUser = () =>{
-        if(this.state.registerPassword === this.state.verifyPassword){
-            let user = {
-                username: this.state.registerUserName,
-                password: this.state.registerPassword
-            };
-            this.userService.registerUser(user)
-                .then(user => {
-                    console.log("Reg User", user);
-                    if(user.username!==null && user.status===undefined && user._id !== null) {
-                        this.context.setUser(user);
-                        this.props.history.push('/users')
-                    }else {
-                        alert("Issue registering");
-                    }
-                }).catch(reason => alert("Server Error"))
 
-        }else {
-            alert("Password's don't match");
-        }
-    };
+    }
+    clearForm = () => {
+        document.getElementById("create-credit-form").reset();
+    }
+
+
+
 
 
     render() {
         return(
-            <div className="container">
-                <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog"
+            <div className="container web-dev-z-index" >
+                <div className="modal fade" id="exampleModalCenter" tabIndex="1" role="dialog"
                      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
-
-
-                            {
-                                this.state.loginRegisterFlag ?
-                                    <div>
                                         <div className="modal-header bg-secondary web-dev-login-margin-adjust ">
-                                            <h5 className="modal-title " id="exampleModalLongTitle">Login</h5>
+                                            <h5 className="modal-title " id="exampleModalLongTitle">Credit Modal</h5>
                                             <button type="button" className="close web-dev-close-color" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        {
-                                            <div className="modal-body">
-                                                <Login loginUserNameChanged={this.loginUserNameChanged}
-                                                       passwordLoginChanged={this.passwordLoginChanged}
-                                                       loginUser ={this.loginUser}
-                                                />
-                                            </div>
-                                        }</div>: <div> <div className="modal-header bg-secondary web-dev-login-margin-adjust">
-                                        <h5 className="modal-title" id="exampleModalLongTitle">SignUp</h5>
-                                        <button type="button" className="close web-dev-close-color" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                            <div className="modal-body">
+                                <form id="create-credit-form">
+                                    <div className="form-group">
+                                        <label htmlFor="cardNumFld">Card Number</label>
+                                        <input type="number" className="form-control" id="cardNumFld"
+                                               aria-describedby="card" placeholder="111-4454-1111-1111" onChange={(event)=> this.accountNoChanged(event)}/>
+                                            <small id="emailHelp" className="form-text text-muted">Enter Number on your card</small>
                                     </div>
-                                        <div className="modal-body">
-                                            <Register registerPasswordChanged={this.registerPasswordChanged}
-                                                      verifyPasswordChanged={this.verifyPasswordChanged}
-                                                      registerUserNameChanged ={this.registerUserNameChanged}
-                                                      signUpUser = {this.signUpUser}
-                                            />
-                                        </div>
+                                    <div className="form-group">
+                                        <label htmlFor="bankNameFld">Bank Name</label>
+                                        <input type="text" className="form-control" id="bankNameFld"
+                                               placeholder="Capital One" onChange={(event)=> this.bankNameChanged(event)}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="accNameFld">Account Name</label>
+                                        <input type="text" className="form-control" id="accNameFld"
+                                               placeholder="Premium Rewards" onChange={(event)=> this.accountNameChanged(event)}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="creditLimitFld">Credit Limit</label>
+                                        <input type="number" className="form-control" id="creditLimitFld"
+                                               placeholder="1500" onChange={(event)=> this.maxLimitChanged(event)}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="aprFld">APR</label>
+                                        <input type="number" className="form-control" id="aprFld"
+                                               placeholder="15" onChange={(event)=> this.interestRateChanged(event)}/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="rewFld">Reward Rate</label>
+                                        <input type="number" className="form-control" id="rewFld"
+                                               placeholder="2" onChange={(event)=> this.rewardAmountChanged(event)}/>
+                                    </div>
 
-                                    </div>
-                            }
+                                </form>
+                            </div>
 
                             <div className="modal-footer row btn-group m-2">
-                                {this.state.loginRegisterFlag ===false &&  <button type="button" className="btn btn-block btn-outline-info border-0 " onClick={() => this.loginRegisterFlagToggle()} >Login ?</button> }
-                                {this.state.loginRegisterFlag ===true &&  <button type="button" className="btn btn-block btn-outline-info border-0 " onClick={() => this.loginRegisterFlagToggle()}>Sign Up ?</button> }
+                               <button type="reset" className="btn btn-block btn-outline-info border-0 "  onClick={() =>{ this.addCreditCard(); this.clearForm()} }>Add</button>
                             </div>
                         </div>
                     </div>

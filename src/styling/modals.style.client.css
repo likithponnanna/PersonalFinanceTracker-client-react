@@ -1,0 +1,16 @@
+/*#exampleModalCenter{
+    z-index: 10;
+}*/
+.web-dev-z-index{
+    z-index: initial;
+}
+
+.web-dev-credit-card{
+    background: #5a5a5a;
+    color: white;
+}
+
+.web-dev-credit-card-black{
+    color: #0d0409;
+}
+

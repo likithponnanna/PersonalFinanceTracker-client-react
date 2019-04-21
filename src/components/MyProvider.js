@@ -21,7 +21,8 @@ class MyProvider extends Component {
         creditCards: [],
         savingsAccounts: [],
         checkingAccounts: [],
-        properties: []
+        properties: [],
+        showCreditModal: false
     };
     render() {
         return (
@@ -64,6 +65,15 @@ class MyProvider extends Component {
                     newCreditCards.push(creditCard);
                     this.setState(state => ({creditCards: newCreditCards}))
                 },
+                deleteCreditCard: (creditId) => {
+                    this.setState(state => ({ creditCards:  this.state.creditCards.filter(creditCard => creditCard._id !== creditId) }))
+                },
+                updateCreditCard: (creditCardN) =>{
+                    this.setState({
+                      creditCards: this.state.creditCards.map(creditCard =>
+                                creditCard._id === creditCardN._id ? creditCardN : creditCard,
+                        )})
+                },
                 setSavingsAccounts: (savingsAccounts) =>
                     this.setState(state => ({ savingsAccounts: savingsAccounts })),
                 pushSavingsAccount: (savingsAccount) => {
@@ -85,6 +95,8 @@ class MyProvider extends Component {
                     newProperties.push(Property);
                     this.setState(state => ({properties: newProperties}))
                 },
+                handleCreditModalShow: () =>
+                    this.setState(state => ({ showCreditModal: true }))
 
 
             }}>

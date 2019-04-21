@@ -5,6 +5,7 @@ import SideBarUser from "./SideBarUser";
 import UserNavBar from "./UserNavBar";
 import UserOptionTabsNav from "./UserOptionTabsNav";
 import UserOverViewTabContent from "./UserOverViewTabContent";
+import CreditCardModal from "./CreditCardModal";
 
 class UserHome extends Component{
     constructor(props){
@@ -15,16 +16,20 @@ class UserHome extends Component{
         return(
 
             <div>
+
               <MyContext.Consumer>
                     {(context) => (
                         <React.Fragment>
+
                             <div className="wrapper">
                                 <SideBarUser/>
                                 <div id="content" className={` ${context.state.sidebarAct  ? 'active' : ''} `}>
                                     <UserNavBar
                                         sidebarCollapse={context.sidebarCollapse}/>
+                                        <div className="ml-5">
+                                            <UserOptionTabsNav/></div>
                                     <div className="container">
-                                        <UserOptionTabsNav/>
+
                                         <br/><br/> <br/>
                                         <UserOverViewTabContent/>
                                     </div>

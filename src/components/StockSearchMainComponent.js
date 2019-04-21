@@ -74,8 +74,9 @@ class StockSearchMainComponent  extends Component{
                                 <div id="content" className={` ${context.state.sidebarAct  ? 'active' : ''} `}>
                                     <UserNavBar
                                         sidebarCollapse={context.sidebarCollapse}/>
+                                    <div className="ml-5">
+                                        <UserOptionTabsNav/></div>
                                     <div className="container ">
-                                        <UserOptionTabsNav/>
                                         <br/><br/> <br/>
                                         <StockSearchContent
                                         urlStockSymbol = {this.state.stockSymbol}

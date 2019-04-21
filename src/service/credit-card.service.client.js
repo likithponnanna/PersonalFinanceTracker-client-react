@@ -23,9 +23,9 @@ class CreditCardService {
             .then(response =>
                 response.json());
 
-    deleteCreditCard = (creditCard) =>
+    deleteCreditCard = (creditCardId) =>
     {
-        return fetch(this.API_URL+'creditCard/'+creditCard._id, {
+        return fetch(this.API_URL+'creditCard/'+creditCardId, {
             headers: {
                 'Content-Type': 'application/json'
             },

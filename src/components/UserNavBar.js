@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import MyContext from "./MyContext";
+import UserOptionTabsNav from "./UserOptionTabsNav";
 
 const UserNavBar = ({sidebarCollapse}) =>
     <MyContext.Consumer>
@@ -30,6 +31,8 @@ const UserNavBar = ({sidebarCollapse}) =>
                 </ul>
             </div>
         </div>
+
+
     </nav>
             </React.Fragment>
         )}
