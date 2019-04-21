@@ -10,7 +10,9 @@ class MyProvider extends Component {
         name: 'Alice',
         age: 21,
         selectedTabForGuest: 'CREDIT_CARD',
-        guestForm:false
+        guestForm:false,
+        selectedTabForAdminUser: ' ',
+        addUserByGuestButton:false
     };
     render() {
         return (
@@ -21,7 +23,14 @@ class MyProvider extends Component {
                 }),
                 setSelectedTabForGuest : (tab) => this.setState({
                    selectedTabForGuest:tab
-                   })
+                   }),
+                setSelectedTabForAdminUser : (tab) => this.setState({
+                selectedTabForAdminUser:tab
+                }),
+                setAddUserByGuestButton : (tab) => this.setState({
+                    addUserByGuestButton:tab
+                 })
+
 
 
             }}>
