@@ -6,6 +6,7 @@ import CustomerOnBoardPage from "./CustomerOnBoardPage";
 import Charts from "./Charts";
 import MyProvider from "./MyProvider";
 import MainPage from "./MainPage";
+import AdminUser from "./AdminUser";
 
 class HomePage extends Component{
 
@@ -42,6 +43,10 @@ class HomePage extends Component{
                         <Route path ='/home' exact
                         render={() =>
                         <MainPage/>}/>
+
+                        <Route path ='/admin' exact
+                               render={() =>
+                                   <AdminUser/>}/>
 
 
 

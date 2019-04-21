@@ -113,20 +113,20 @@ class MainPage extends React.Component {
 
                   <ul className="nav nav-tabs">
 
-                  <li className="active" onClick = {() => {
+                  <li  onClick = {() => {
                   this.getProducts('CREDIT_CARD');
                   context.state.selectedTabForGuest = 'CREDIT_CARD'
-                  }}><a href="#">CREDIT CARD</a></li>
+                  }}><a className="nav-link"  data-toggle="tab" href="#">CREDIT CARD</a></li>
 
                   <li onClick = {() =>{
                       this.getProducts('SAVING');
                       context.state.selectedTabForGuest = 'SAVING'
-                  }}><a href="#">SAVING</a></li>
+                  }}><a className="nav-link" data-toggle="tab" href="#">SAVING</a></li>
 
                   <li onClick = {() => {
                       this.getProducts('CHECKING');
                       context.state.selectedTabForGuest = 'CHECKING'
-                  }}><a href="#">CHECKING</a></li>
+                  }}><a className="nav-link" data-toggle="tab" href="#">CHECKING</a></li>
 
               </ul>
 
