@@ -5,6 +5,7 @@ import CreditCardService from '../service/credit-card.service.client'
 import Login from "./Login";
 import CreditCardModal from "./CreditCardModal";
 import '../styling/modals.style.client.css'
+import CreditCardMainComponent from "./CreditCardMainComponent";
 
 
 class SideBarUser extends Component {
@@ -180,50 +181,52 @@ class SideBarUser extends Component {
                                         Add Credit Card
                                     </button>
                                     <div>
-                                    {
+                                        {
 
-                                        context.state.creditCards.map((creditCard,index)  =>
-                                            <div key={index}>
-                                                {creditCard._id !== this.state.selectedCreditCard  &&
-                                                <div className="list-group border border-white m-2" key={index} onMouseEnter={()=>{ this.flipCreditCardOpen(); this.selectCreditCard(creditCard._id)}}>
-                                                <div className="list-group-item list-group-item-action flex-column align-items-start web-dev-credit-card"
-                                                     >
-                                                    <div className="d-flex w-100 justify-content-between"  >
-                                                        <h6 className="mb-1"> Card: {creditCard.accountName}  </h6>
-                                                        <small>Limit: {creditCard.maxLimit}</small>
-                                                    </div>
-                                                    <p className="mb-1">  {creditCard.accountNo}   </p>
-                                                    <div className="row">
-                                                        <small className="col-12">Bank: {creditCard.bankName}</small>
-                                                        <small className="col-12">Reward: {creditCard.rewardAmount}</small>
-                                                    </div>
-                                                </div>
-                                            </div> }
-                                                {creditCard._id === this.state.selectedCreditCard &&
-                                                <div className="list-group border border-info m-2" key={index} onMouseLeave={()=>{ this.flipCreditCardClose();this.selectCreditCard("");}}>
-                                                    <div className="list-group-item list-group-item-action flex-column align-items-start"
-                                                    >
-                                                    <div className="d-flex w-100 justify-content-between" >
+                                            context.state.creditCards.map((creditCard,index)  =>
+                                                <div>
+                                                <div key={index}>
+                                                    {creditCard._id !== this.state.selectedCreditCard  &&
+                                                    <div className="list-group border border-white m-2" key={index} onMouseEnter={()=>{ this.flipCreditCardOpen(); this.selectCreditCard(creditCard._id)}}>
+                                                        <div className="list-group-item list-group-item-action flex-column align-items-start web-dev-credit-card"
+                                                        >
+                                                            <div className="d-flex w-100 justify-content-between"  >
+                                                                <h6 className="mb-1"> Card: {creditCard.accountName}  </h6>
+                                                                <small>Limit: {creditCard.maxLimit}</small>
+                                                            </div>
+                                                            <p className="mb-1">  {creditCard.accountNo}   </p>
                                                             <div className="row">
-                                                            <button className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2" onClick={()=> this.deleteCreditCard(creditCard._id)}>  Delete Card </button>
-                                                            { this.state.toggleUpdate===false && <button className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2" onClick={()=>{ this.toggleUpdate()}}> Update Card Num </button>}
+                                                                <small className="col-12">Bank: {creditCard.bankName}</small>
+                                                                <small className="col-12">Reward: {creditCard.rewardAmount}</small>
                                                             </div>
                                                         </div>
-                                                        { this.state.toggleUpdate===false &&  <div>
-                                                        <small className="mb-1 web-dev-credit-card-black overflow-auto"> Card: {creditCard.accountName}   </small>
-                                                        <h6 className="mb-1 web-dev-credit-card-black">  {creditCard.accountNo}   </h6>
-                                                        </div>}
-                                                        { this.state.toggleUpdate===true && creditCard._id ===this.state.selectedCreditCard
-                                                        &&  <div><input type="number" onChange={(event) => this.cardNumChanged(event)} placeholder="Enter CardNumber" className="col-12"/>
-                                                            <i onClick={()=>{ this.updateCreditCardNum(creditCard); this.toggleUpdate();}} className="fa fa-check my-float ml-4 align-content-center col-2"/></div>}
+                                                    </div> }
+                                                    {creditCard._id === this.state.selectedCreditCard &&
+                                                    <div className="list-group border border-info m-2" key={index} onMouseLeave={()=>{ this.flipCreditCardClose();this.selectCreditCard("");}}>
+                                                        <div className="list-group-item list-group-item-action flex-column align-items-start"
+                                                        >
+                                                            <div className="d-flex w-100 justify-content-between" >
+                                                                <div className="row">
+                                                                    <button className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2" onClick={()=> this.deleteCreditCard(creditCard._id)}>  Delete Card </button>
+                                                                    { this.state.toggleUpdate===false && <button className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2" onClick={()=>{ this.toggleUpdate()}}> Update Card Num </button>}
+                                                                </div>
+                                                            </div>
+                                                            { this.state.toggleUpdate===false &&  <div>
+                                                                <small className="mb-1 web-dev-credit-card-black overflow-auto"> Card: {creditCard.accountName}   </small>
+                                                                <h6 className="mb-1 web-dev-credit-card-black">  {creditCard.accountNo}   </h6>
+                                                            </div>}
+                                                            { this.state.toggleUpdate===true && creditCard._id ===this.state.selectedCreditCard
+                                                            &&  <div><input type="number" onChange={(event) => this.cardNumChanged(event)} placeholder="Enter CardNumber" className="col-12"/>
+                                                                <i onClick={()=>{ this.updateCreditCardNum(creditCard); this.toggleUpdate();}} className="fa fa-check my-float ml-4 align-content-center col-2"/></div>}
 
-                                                    </div>}
+                                                        </div>}
                                                     </div>
-                                                }
-                                            </div>
-                                        )
-                                        
-                                    }
+                                                    }
+                                                </div>
+                                                </div>
+                                            )
+
+                                        }
                                     </div>
                                 </ListGroup>
                             </div>

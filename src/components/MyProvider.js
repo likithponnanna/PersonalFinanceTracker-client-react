@@ -22,6 +22,7 @@ class MyProvider extends Component {
         savingsAccounts: [],
         checkingAccounts: [],
         properties: [],
+        stocksOwned: [],
         showCreditModal: false
     };
     render() {
@@ -81,6 +82,15 @@ class MyProvider extends Component {
                     newSavingsAccount.push(savingsAccount);
                     this.setState(state => ({savingsAccounts: newSavingsAccount}))
                 },
+                deleteSavingsAccount: (savingsAccId) => {
+                    this.setState(state => ({ savingsAccounts:  this.state.savingsAccounts.filter(savingsAccount => savingsAccount._id !== savingsAccId) }))
+                },
+                updatesavingsAccId: (savingsAccN) =>{
+                    this.setState({
+                        creditCards: this.state.savingsAccounts.map(savingsAccount =>
+                            savingsAccount._id === savingsAccN._id ? savingsAccN : savingsAccount,
+                        )})
+                },
                 setcheckingAccounts: (checkingAccounts) =>
                     this.setState(state => ({ checkingAccounts: checkingAccounts })),
                 pushCheckingAccount: (checkingAccount) => {
@@ -88,15 +98,47 @@ class MyProvider extends Component {
                     newCheckingAccounts.push(checkingAccount);
                     this.setState(state => ({checkingAccounts: newCheckingAccounts}))
                 },
+                deleteCheckingAccount: (CheckingAccountId) => {
+                    this.setState(state => ({ checkingAccounts:  this.state.checkingAccounts.filter(checkingAccount => checkingAccount._id !== CheckingAccountId) }))
+                },
+                updateCheckingAccount: (CheckingAccountN) =>{
+                    this.setState({
+                        checkingAccounts: this.state.checkingAccounts.map(checkingAccount =>
+                            checkingAccount._id === CheckingAccountN._id ? CheckingAccountN : checkingAccount,
+                        )})
+                },
                 setProperties: (Properties) =>
                     this.setState(state => ({ properties: Properties })),
-                pushProperties: (Property) => {
+                pushProperty: (Property) => {
                     let newProperties = this.state.properties;
                     newProperties.push(Property);
                     this.setState(state => ({properties: newProperties}))
                 },
-                handleCreditModalShow: () =>
-                    this.setState(state => ({ showCreditModal: true }))
+                deleteProperty: (PropertyId) => {
+                    this.setState(state => ({ properties:  this.state.properties.filter(property => property._id !== PropertyId) }))
+                },
+                updateProperty: (PropertyN) =>{
+                    this.setState({
+                        properties: this.state.properties.map(Property =>
+                            Property._id === PropertyN._id ? PropertyN : Property,
+                        )})
+                },
+                setStocksOwned: (Stocks) =>
+                    this.setState(state => ({ stocksOwned: Stocks })),
+                pushStockOwned: (Stock) => {
+                    let newStocks = this.state.properties;
+                    newStocks.push(Stock);
+                    this.setState(state => ({stocksOwned: newStocks}))
+                },
+                deleteStockOwned: (StockId) => {
+                    this.setState(state => ({ stocksOwned:  this.state.stocksOwned.filter(Stock => Stock._id !== StockId) }))
+                },
+                updateStockOwned: (StockN) =>{
+                    this.setState({
+                        stocksOwned: this.state.stocksOwned.map(Stock =>
+                            Stock._id === StockN._id ? StockN : Stock,
+                        )})
+                },
 
 
             }}>
