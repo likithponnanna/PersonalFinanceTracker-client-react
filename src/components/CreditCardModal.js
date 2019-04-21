@@ -4,7 +4,7 @@ import Login from "./Login";
 import Register from "./Register";
 import UserService from '../service/user.service.client'
 
-class UserOnboardModal extends Component{
+class CreditCardModal extends Component{
     constructor(props){
         super(props);
         this.userService = new UserService();
@@ -57,10 +57,10 @@ class UserOnboardModal extends Component{
             .then(user =>{
                 console.log("Reg User", user);
                 if(user.username!==null && user.status===undefined && user._id !== null) {
-                this.context.setUser(user);
-            }else {
-                alert("User does not exist");
-            }}).catch(reason => alert("Server Error"));
+                    this.context.setUser(user);
+                }else {
+                    alert("User does not exist");
+                }}).catch(reason => alert("Server Error"));
 
     };
 
@@ -90,29 +90,29 @@ class UserOnboardModal extends Component{
     render() {
         return(
             <div className="container">
-            <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog"
-                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered" role="document">
-                    <div className="modal-content">
+                <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
+                        <div className="modal-content">
 
 
                             {
                                 this.state.loginRegisterFlag ?
-                                <div>
-                                    <div className="modal-header bg-secondary web-dev-login-margin-adjust ">
-                                        <h5 className="modal-title " id="exampleModalLongTitle">Login</h5>
-                                        <button type="button" className="close web-dev-close-color" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                {
-                                        <div className="modal-body">
-                                            <Login loginUserNameChanged={this.loginUserNameChanged}
-                                            passwordLoginChanged={this.passwordLoginChanged}
-                                                   loginUser ={this.loginUser}
-                                            />
+                                    <div>
+                                        <div className="modal-header bg-secondary web-dev-login-margin-adjust ">
+                                            <h5 className="modal-title " id="exampleModalLongTitle">Login</h5>
+                                            <button type="button" className="close web-dev-close-color" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                }</div>: <div> <div className="modal-header bg-secondary web-dev-login-margin-adjust">
+                                        {
+                                            <div className="modal-body">
+                                                <Login loginUserNameChanged={this.loginUserNameChanged}
+                                                       passwordLoginChanged={this.passwordLoginChanged}
+                                                       loginUser ={this.loginUser}
+                                                />
+                                            </div>
+                                        }</div>: <div> <div className="modal-header bg-secondary web-dev-login-margin-adjust">
                                         <h5 className="modal-title" id="exampleModalLongTitle">SignUp</h5>
                                         <button type="button" className="close web-dev-close-color" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
@@ -120,27 +120,27 @@ class UserOnboardModal extends Component{
                                     </div>
                                         <div className="modal-body">
                                             <Register registerPasswordChanged={this.registerPasswordChanged}
-                                                   verifyPasswordChanged={this.verifyPasswordChanged}
+                                                      verifyPasswordChanged={this.verifyPasswordChanged}
                                                       registerUserNameChanged ={this.registerUserNameChanged}
                                                       signUpUser = {this.signUpUser}
                                             />
                                         </div>
 
-                                </div>
+                                    </div>
                             }
 
-                        <div className="modal-footer row btn-group m-2">
-                            {this.state.loginRegisterFlag ===false &&  <button type="button" className="btn btn-block btn-outline-info border-0 " onClick={() => this.loginRegisterFlagToggle()} >Login ?</button> }
-                            {this.state.loginRegisterFlag ===true &&  <button type="button" className="btn btn-block btn-outline-info border-0 " onClick={() => this.loginRegisterFlagToggle()}>Sign Up ?</button> }
+                            <div className="modal-footer row btn-group m-2">
+                                {this.state.loginRegisterFlag ===false &&  <button type="button" className="btn btn-block btn-outline-info border-0 " onClick={() => this.loginRegisterFlagToggle()} >Login ?</button> }
+                                {this.state.loginRegisterFlag ===true &&  <button type="button" className="btn btn-block btn-outline-info border-0 " onClick={() => this.loginRegisterFlagToggle()}>Sign Up ?</button> }
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         )
     }
 
 
 }
-UserOnboardModal.contextType = MyContext;
-export default UserOnboardModal
+CreditCardModal.contextType = MyContext;
+export default CreditCardModal

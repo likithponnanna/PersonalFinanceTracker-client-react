@@ -16,7 +16,12 @@ class MyProvider extends Component {
         stockCollapse: false,
         propertyCollapse: false,
         userMainNavBar: false,
-        currentSelectedTab : 'OVERVIEW'
+        currentSelectedTab : 'OVERVIEW',
+        user: undefined,
+        creditCards: [],
+        savingsAccounts: [],
+        checkingAccounts: [],
+        properties: []
     };
     render() {
         return (
@@ -49,7 +54,37 @@ class MyProvider extends Component {
                 setCurrentSelectedTab: (tabName) =>
                     this.setState({
                         currentSelectedTab: tabName
-                    })
+                    }),
+                setUser: (user) =>
+                    this.setState(state => ({ user: user })),
+                setCreditCards: (creditCards) =>
+                    this.setState(state => ({ creditCards: creditCards })),
+                pushCreditCard: (creditCard) => {
+                    let newCreditCards = this.state.creditCards;
+                    newCreditCards.push(creditCard);
+                    this.setState(state => ({creditCards: newCreditCards}))
+                },
+                setSavingsAccounts: (savingsAccounts) =>
+                    this.setState(state => ({ savingsAccounts: savingsAccounts })),
+                pushSavingsAccount: (savingsAccount) => {
+                    let newSavingsAccount = this.state.savingsAccounts;
+                    newSavingsAccount.push(savingsAccount);
+                    this.setState(state => ({savingsAccounts: newSavingsAccount}))
+                },
+                setcheckingAccounts: (checkingAccounts) =>
+                    this.setState(state => ({ checkingAccounts: checkingAccounts })),
+                pushCheckingAccount: (checkingAccount) => {
+                    let newCheckingAccounts = this.state.checkingAccounts;
+                    newCheckingAccounts.push(checkingAccount);
+                    this.setState(state => ({checkingAccounts: newCheckingAccounts}))
+                },
+                setProperties: (Properties) =>
+                    this.setState(state => ({ properties: Properties })),
+                pushProperties: (Property) => {
+                    let newProperties = this.state.properties;
+                    newProperties.push(Property);
+                    this.setState(state => ({properties: newProperties}))
+                },
 
 
             }}>

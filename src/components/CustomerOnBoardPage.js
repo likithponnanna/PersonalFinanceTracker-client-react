@@ -3,6 +3,7 @@ import MyContext from './MyContext'
 
 import '../styling/CustomerOnboard.style.client.css'
 import UserOnboardModal from "./UserOnboardModal";
+import ParticlesComponent from "./ParticlesComponent";
 
 class CustomerOnBoardPage extends Component{
 
@@ -33,7 +34,7 @@ class CustomerOnBoardPage extends Component{
                 <MyContext.Consumer>
                     {(context) => (
                         <React.Fragment>
-                            <nav className="navbar navbar-expand-lg navbar-light bg-dark">
+                            <nav className="navbar navbar-expand-lg navbar-light bg-dark pb-0 mb-0 mt-0 pt-0">
                                 <a className="web-dev-logo" href="#">Logo<i className="fa fa-piggy-bank btn-outline-success p-1 web-dev-logo"/></a>
                                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                                         data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
@@ -51,8 +52,8 @@ class CustomerOnBoardPage extends Component{
                                             <a className="nav-link" href="#">About</a>
                                         </li>
                                     </ul>
-                                    <div className="form-inline my-2 my-lg-0">
-                                        <button type="button" className="btn btn-primary" data-toggle="modal"
+                                    <div className="form-inline">
+                                        <button type="button" className="btn  btn-outline-secondary web-dev-logo" data-toggle="modal"
                                                 data-target="#exampleModalCenter" onClick={this.handleShow}>
                                             Login / SingUp
                                         </button>
@@ -62,9 +63,15 @@ class CustomerOnBoardPage extends Component{
                             </nav>
 
                       <UserOnboardModal/>
-                            <p>Age: {context.state.age}</p>
-                            <p>Name: {context.state.name}</p>
-                            <button onClick={context.growAYearOlder}>Add one to age</button>
+                      <ParticlesComponent/>
+                      <div className="container mt-5 web-dev-particle-text-center">
+                            <div className="web-dev-particle-text-center-child"><h1>Hello Financial Freedom</h1></div>
+                      </div>
+
+                            <div className="container mt-5 bg-light ">
+                                <div className="web-dev-particle-text-center-child">Content</div>
+                            </div>
+
                         </React.Fragment>
                     )}
                 </MyContext.Consumer>
