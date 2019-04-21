@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 import CustomerOnBoardPage from "./CustomerOnBoardPage";
 import Charts from "./Charts";
 import MyProvider from "./MyProvider";
+import MainPage from "./MainPage";
 
 class HomePage extends Component{
 
@@ -37,6 +38,13 @@ class HomePage extends Component{
                         />
                         <Route path='/charts'
                                render={() => <Charts/>}/>
+
+                        <Route path ='/home' exact
+                        render={() =>
+                        <MainPage/>}/>
+
+
+
                     </div>
                 </Router>
                 </MyProvider>

@@ -8,7 +8,9 @@ import MyContext from './MyContext'
 class MyProvider extends Component {
     state = {
         name: 'Alice',
-        age: 21
+        age: 21,
+        selectedTabForGuest: 'CREDIT_CARD',
+        guestForm:false
     };
     render() {
         return (
@@ -16,7 +18,12 @@ class MyProvider extends Component {
                 state: this.state,
                 growAYearOlder: () => this.setState({
                     age: this.state.age + 1
-                })
+                }),
+                setSelectedTabForGuest : (tab) => this.setState({
+                   selectedTabForGuest:tab
+                   })
+
+
             }}>
                 {this.props.children}
             </MyContext.Provider>

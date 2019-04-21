@@ -7,12 +7,7 @@ class TransactionService {
     }
 
 
-/*    findAllCourses = () =>
-        fetch(this.COURSE_API_URL,{
-            credentials: "include"
-        })
-            .then(response =>
-                response.json());*/
+
 
 
 

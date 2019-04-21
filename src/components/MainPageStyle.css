@@ -1,0 +1,45 @@
+#button{
+float: right;
+    padding-top: 10px;
+}
+
+body {
+    /*background: url("https://images.pexels.com/photos/1022923/pexels-photo-1022923.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");*/
+    /*background-repeat: no-repeat;*/
+    background-color: bisque ;
+    /*background-size: 100% 100%;*/
+    /*height: 100%;*/
+    /*margin: 0;*/
+
+}
+
+h1 {
+    text-align: center;
+    color: #61dafb;
+    font-family: "Times New Roman";
+}
+
+#card1{
+    margin-top: 100px;
+    margin-left: 30px;
+}
+
+#cardImage {
+    height: 170px;
+
+}
+
+/*#pills {*/
+    /*align: center;*/
+    /*background-color: aquamarine;*/
+
+/*}*/
+
+
+/*!*.mainPage {*!*/
+    /*background-image: url("https://images.pexels.com/photos/1022923/pexels-photo-1022923.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");*/
+    /*height: 100%;*/
+    /*background-position: center;*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+/*}*/
