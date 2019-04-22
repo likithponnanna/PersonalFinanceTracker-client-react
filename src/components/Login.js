@@ -7,6 +7,7 @@ class Login extends Component{
 
  render(){
      if(this.context.state.user !==undefined) {
+        // this.props.history.push('/user')
          return (<Redirect to="/user"/>)
      }
  return(

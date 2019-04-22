@@ -4,7 +4,8 @@ import {ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import UserService from "../service/user.service.client";
 import Login from "./Login";
 import Register from "./Register";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
+import MyContext from "./MyContext";
 
 class CenterLoginModal extends React.Component {
 
@@ -56,6 +57,8 @@ class CenterLoginModal extends React.Component {
             username: this.state.loginUserName,
             password: this.state.passwordLogin
         };
+
+        console.log("Login cred" , credentials);
         this.userService.loginUser(credentials)
             .then(user =>{
                 console.log("Reg User", user);
@@ -90,6 +93,10 @@ class CenterLoginModal extends React.Component {
     };
 
     render() {
+        if(this.context.state.user !==undefined) {
+            // this.props.history.push('/user')
+            return (<Redirect to="/user"/>)
+        }
         return (
 
             <Modal
@@ -142,6 +149,6 @@ class CenterLoginModal extends React.Component {
         );
     }
 }
-
+CenterLoginModal.contextType = MyContext;
 export default CenterLoginModal
 

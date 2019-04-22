@@ -67,7 +67,7 @@ class CustomerOnBoardPage extends Component{
                                     <div className="form-inline">
                                         <Link to="/login">    <button type="button" className="btn  btn-outline-secondary web-dev-logo" data-toggle="modal"
                                                 data-target="#exampleModalCenter" onClick={()=>{this.handleShow();}}>
-                                            Login / SingUp
+                                            Login / SignUp
                                         </button> </Link>
 
                                     </div>

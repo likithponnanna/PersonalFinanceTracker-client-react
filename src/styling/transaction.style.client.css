@@ -1,3 +1,13 @@
 .pt-3-half {
     padding-top: 1.4rem;
 }
+
+.web-dev-overflow{
+    overflow-x: scroll;
+
+}
+
+.web-dev-text-size-transaction{
+    font-size: small;
+    font-style: normal;
+}

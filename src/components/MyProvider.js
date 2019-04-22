@@ -23,6 +23,7 @@ class MyProvider extends Component {
         checkingAccounts: [],
         properties: [],
         stocksOwned: [],
+        transactions: [],
         showCreditModal: false
     };
     render() {
@@ -137,6 +138,22 @@ class MyProvider extends Component {
                     this.setState({
                         stocksOwned: this.state.stocksOwned.map(Stock =>
                             Stock._id === StockN._id ? StockN : Stock,
+                        )})
+                },
+                setTransactions: (transactions) =>
+                    this.setState(state => ({ transactions: transactions })),
+                pushTransaction: (transaction) => {
+                    let newTransactions = this.state.transactions;
+                    newTransactions.push(transaction);
+                    this.setState(state => ({transactions: newTransactions}))
+                },
+                deleteTransaction: (transactionId) => {
+                    this.setState(state => ({ transactions:  this.state.transactions.filter(transaction => transaction._id !== transactionId) }))
+                },
+                updateTransaction: (transactionN) =>{
+                    this.setState({
+                        transactions: this.state.transactions.map(transaction =>
+                            transaction._id === transactionN._id ? transactionN : transaction,
                         )})
                 },
 
