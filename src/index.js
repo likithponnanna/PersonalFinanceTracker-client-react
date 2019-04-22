@@ -13,6 +13,7 @@ import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import "../node_modules/jquery/dist/jquery.min.js";
+import 'react-router-modal/css/react-router-modal.css';
 
 import HomePage from "./components/HomePage";
 

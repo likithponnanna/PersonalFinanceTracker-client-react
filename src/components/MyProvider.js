@@ -85,7 +85,7 @@ class MyProvider extends Component {
                 deleteSavingsAccount: (savingsAccId) => {
                     this.setState(state => ({ savingsAccounts:  this.state.savingsAccounts.filter(savingsAccount => savingsAccount._id !== savingsAccId) }))
                 },
-                updatesavingsAccId: (savingsAccN) =>{
+                updateSavingsAccount: (savingsAccN) =>{
                     this.setState({
                         creditCards: this.state.savingsAccounts.map(savingsAccount =>
                             savingsAccount._id === savingsAccN._id ? savingsAccN : savingsAccount,

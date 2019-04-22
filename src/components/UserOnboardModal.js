@@ -3,6 +3,7 @@ import MyContext from './MyContext'
 import Login from "./Login";
 import Register from "./Register";
 import UserService from '../service/user.service.client'
+import '../styling/modals.style.client.css'
 
 class UserOnboardModal extends Component{
     constructor(props){
@@ -89,8 +90,8 @@ class UserOnboardModal extends Component{
 
     render() {
         return(
-            <div className="container">
-            <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog"
+            <div className="container web-dev-test">
+            <div className="modal fade show" id="exampleModalCenter" tabIndex="-1" role="dialog"
                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">

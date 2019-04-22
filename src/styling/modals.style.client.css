@@ -8,9 +8,36 @@
 .web-dev-credit-card{
     background: #5a5a5a;
     color: white;
+    text-overflow: ellipsis;
 }
+
+.web-dev-property{
+    background: ActiveBorder;
+    text-overflow: ellipsis;
+}
+
+.web-dev-savings{
+    background: indigo;
+    animation-fill-mode: forwards;
+    color: white;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+}
+
+
+.web-dev-checking{
+    background: midnightblue;
+    animation-fill-mode: forwards;
+    color: white;
+    text-overflow: ellipsis;
+}
+
 
 .web-dev-credit-card-black{
     color: #0d0409;
 }
 
+
+.web-dev-test{
+    z-index: 999;
+}

@@ -5,7 +5,7 @@ class SavingsAccountService {
     }
 
     findAllSavingsAccounts = () => {
-        return fetch(this.API_URL+'savings-account', {
+        return fetch(this.API_URL+'saving/account', {
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
@@ -17,7 +17,7 @@ class SavingsAccountService {
     };
 
     findSavingsAccountId = (savingsAcc) =>
-        fetch(this.API_URL+'savings-account/'+savingsAcc._id,{
+        fetch(this.API_URL+'saving/account/'+savingsAcc._id,{
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
@@ -29,7 +29,7 @@ class SavingsAccountService {
 
     deleteSavingsAccount = (savingsAccId) =>
     {
-        return fetch(this.API_URL+'savings-account/'+savingsAccId, {
+        return fetch(this.API_URL+'saving/account/'+savingsAccId, {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -42,7 +42,7 @@ class SavingsAccountService {
     };
 
     createSavingsAccount = (savingsAcc) => {
-        return fetch(this.API_URL + 'savings-account', {
+        return fetch(this.API_URL + 'saving/account', {
             body: JSON.stringify(savingsAcc),
             headers: {
                 'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ class SavingsAccountService {
 
 
     updateSavingsAccount = (savingsAcc) => {
-        return fetch(this.API_URL+'creditCard/'+savingsAcc._id, {
+        return fetch(this.API_URL+'saving/account/'+savingsAcc._id, {
             body: JSON.stringify(savingsAcc),
             headers: {
                 'Content-Type': 'application/json'

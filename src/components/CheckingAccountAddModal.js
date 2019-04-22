@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import MyContext from './MyContext'
 import '../styling/modals.style.client.css'
 
-class SavingsAccountAddModal extends Component{
+class CheckingAccountAddModal extends Component{
     constructor(props){
         super(props);
         this.state ={
@@ -10,7 +10,7 @@ class SavingsAccountAddModal extends Component{
             bankName: "",
             accountName: "",
             balance: "",
-            type: 'SAVING',
+            type: 'CHECKING',
         }
     }
 
@@ -35,13 +35,13 @@ class SavingsAccountAddModal extends Component{
 
 
 
-    addSavingsAcc = () => {
-        this.props.addSavingsAccount(this.state);
+    addCheckingAcc = () => {
+        this.props.addCheckingAccountAccount(this.state);
 
 
     };
     clearForm = () => {
-        document.getElementById("savings-form").reset();
+        document.getElementById("checking-form").reset();
     };
 
 
@@ -51,18 +51,18 @@ class SavingsAccountAddModal extends Component{
     render() {
         return(
             <div className="container web-dev-z-index" >
-                <div className="modal fade" id="savingsModalCenter" tabIndex="1" role="dialog"
+                <div className="modal fade" id="checkingModalCenter" tabIndex="1" role="dialog"
                      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header bg-secondary web-dev-login-margin-adjust ">
-                                <h5 className="modal-title " id="exampleModalLongTitle">Savings Account Creation Form</h5>
+                                <h5 className="modal-title " id="exampleModalLongTitle">Checking Account Creation Form</h5>
                                 <button type="button" className="close web-dev-close-color" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <form id="savings-form">
+                                <form id="checking-form">
                                     <div className="form-group">
                                         <label htmlFor="cardNumFld">Account Number</label>
                                         <input type="number" className="form-control" id="cardNumFld"
@@ -89,7 +89,7 @@ class SavingsAccountAddModal extends Component{
                             </div>
 
                             <div className="modal-footer row btn-group m-2">
-                                <button type="reset" className="btn btn-block btn-outline-info border-0 "  onClick={() =>{ this.addSavingsAcc(); this.clearForm()} }>Add</button>
+                                <button type="reset" className="btn btn-block btn-outline-info border-0 "  onClick={() =>{ this.addCheckingAcc(); this.clearForm()} }>Add</button>
                             </div>
                         </div>
                     </div>
@@ -100,5 +100,5 @@ class SavingsAccountAddModal extends Component{
 
 
 }
-SavingsAccountAddModal.contextType = MyContext;
-export default SavingsAccountAddModal
+CheckingAccountAddModal.contextType = MyContext;
+export default CheckingAccountAddModal

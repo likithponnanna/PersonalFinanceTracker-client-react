@@ -93,6 +93,7 @@ class Charts extends Component{
         console.log("Before", this.state.stateSearchData);
         this.alpha.data.search(stockSymbol)
             .then(symbols => {
+
                 this.setState({
                     searchStockData: [],
                     stateSearchData: []

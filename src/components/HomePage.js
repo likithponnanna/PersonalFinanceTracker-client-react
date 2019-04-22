@@ -15,6 +15,10 @@ import BillsMainComponent from "./BillsMainComponent";
 import ForexConversionMainComponent from "./ForexConversionMainComponent";
 import BudgetTabMainContent from "./BudgetTabMainContent";
 import StockSearchMainComponent from "./StockSearchMainComponent";
+import UserOnboardModal from "./UserOnboardModal";
+import 'react-router-modal/css/react-router-modal.css';
+import { ModalContainer, ModalRoute } from 'react-router-modal';
+import CustomerOnBoardLogin from "./CustomerOnBoardLogin";
 
 class HomePage extends Component{
 
@@ -37,10 +41,21 @@ class HomePage extends Component{
                 <Router>
                     <div>
 
-                        <Route path='/' exact
+                       {/* <Route path='/' exact
                                render={() =>
                                    <CustomerOnBoardPage
-                                        />}/>
+                                        />}/>*/}
+
+                        <Route path='/' exact
+                               render={(props) =>{
+                                   return( <CustomerOnBoardPage {...props}
+
+                                   />) } }/>
+                        <Route path='/login' exact
+                               render={(props) =>{
+                                   return( <CustomerOnBoardLogin {...props}
+
+                                   />) } }/>
                         <Route path="/user/:id" exact
                                component={Charts}
                         />
@@ -66,6 +81,17 @@ class HomePage extends Component{
                         />
                         <Route path="/stock-search/search" exact
                                component={StockSearchMainComponent}/>
+                        <Route path="/charts" exact
+                               component={Charts}/>
+
+                        <Route path="/login" exact
+                               component={UserOnboardModal}/>
+                        <ModalRoute path='/modal-test' parentPath='/'>
+                            Hello
+                        </ModalRoute>
+                        <ModalRoute component={UserOnboardModal} path='/login' className='test-modal test-modal-foo'/>
+
+
 
 
 

@@ -42,7 +42,7 @@ class StockService {
     };
 
     createStock = (Stock) => {
-        return fetch(this.API_URL + 'stock', {
+        return fetch(this.API_URL+'stock', {
             body: JSON.stringify(Stock),
             headers: {
                 'Content-Type': 'application/json'

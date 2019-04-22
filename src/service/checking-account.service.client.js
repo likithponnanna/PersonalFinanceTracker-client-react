@@ -5,7 +5,7 @@ class CheckingAccountService {
     }
 
     findAllCheckingAccounts = () => {
-        return fetch(this.API_URL+'checking-account', {
+        return fetch(this.API_URL+'checking/account', {
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
@@ -17,7 +17,7 @@ class CheckingAccountService {
     };
 
     findCheckingAccountId = (checkingAcc) =>
-        fetch(this.API_URL+'checking-account/'+checkingAcc._id,{
+        fetch(this.API_URL+'checking/account/'+checkingAcc._id,{
             credentials: "include",
             headers: {
                 'Content-Type': 'application/json'
@@ -29,7 +29,7 @@ class CheckingAccountService {
 
     deleteCheckingAccount = (checkingAccId) =>
     {
-        return fetch(this.API_URL+'checking-account/'+checkingAccId, {
+        return fetch(this.API_URL+'checking/account/'+checkingAccId, {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -42,7 +42,7 @@ class CheckingAccountService {
     };
 
     createCheckingAccount = (checkingAcc) => {
-        return fetch(this.API_URL + 'checking-account', {
+        return fetch(this.API_URL + 'checking/account', {
             body: JSON.stringify(checkingAcc),
             headers: {
                 'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ class CheckingAccountService {
 
 
     updateCheckingAccount = (checkingAcc) => {
-        return fetch(this.API_URL+'checking-account/'+checkingAcc._id, {
+        return fetch(this.API_URL+'checking/account/'+checkingAcc._id, {
             body: JSON.stringify(checkingAcc),
             headers: {
                 'Content-Type': 'application/json'
