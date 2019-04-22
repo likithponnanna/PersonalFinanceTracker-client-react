@@ -357,12 +357,6 @@ class AdminUser extends React.Component{
                                          </tr>
                                          </thead>
                                          <tbody>
-
-
-                                             {
-                                                 console.log("inside mdddap",
-                                                             this.state.guestList[1])
-                                         }
                                              {this.state.guestList.map(
                                                  (guest) =>
                                                      <tr key={guest._id}>
@@ -374,12 +368,7 @@ class AdminUser extends React.Component{
                                                          <td>{guest.email}</td>
                                                          <td>{guest.phoneNumber}</td>
                                                          <td>{guest.status}</td>
-                                                         {
-                                                             console.log("inside map",guest.product)
-
-                                                         }
-
-
+                                                         <td>{guest.product ? guest.product.name: "No Product Exists" }</td>
                                                         </tr>
                                              )
                                          }
