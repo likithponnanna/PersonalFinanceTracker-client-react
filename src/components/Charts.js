@@ -7,6 +7,7 @@ import BarChart from "./BarChart";
 import PieChart from "./PieChart";
 import DoughnutChart from "./DoughnutChart";
 import HorizontalBarChart from "./HorizontalBarChart";
+import GuageChart from  './GuageChart'
 
 const options = {
     scales: {
@@ -93,6 +94,7 @@ class Charts extends Component{
         console.log("Before", this.state.stateSearchData);
         this.alpha.data.search(stockSymbol)
             .then(symbols => {
+
                 this.setState({
                     searchStockData: [],
                     stateSearchData: []
@@ -140,6 +142,8 @@ class Charts extends Component{
                 <PieChart/>
                 <br/>
                 <BarChart/>
+
+
 
                 <br/>
                 <Line  data={this.state.data} options={options}/>

@@ -1,0 +1,96 @@
+/*#exampleModalCenter{
+    z-index: 10;
+}*/
+.web-dev-z-index{
+    z-index: initial;
+}
+
+.web-dev-credit-card{
+    background: #5a5a5a;
+    color: white;
+    text-overflow: ellipsis;
+}
+
+.web-dev-property{
+    background: ActiveBorder;
+    text-overflow: ellipsis;
+}
+
+.web-dev-savings{
+    background: indigo;
+    animation-fill-mode: forwards;
+    color: white;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+}
+
+
+.web-dev-checking{
+    background: midnightblue;
+    animation-fill-mode: forwards;
+    color: white;
+    text-overflow: ellipsis;
+}
+
+
+.web-dev-credit-card-black{
+    color: #0d0409;
+}
+
+
+.web-dev-test{
+    z-index: 999;
+}
+
+.web-dev-parent{
+text-align: center;
+    margin-left: auto;
+}
+
+.web-dev-child{
+  display: inline-block;
+}
+
+.web-dev-overflow-scroll{
+    overflow-x: scroll;
+}
+
+.web-dev-green{
+    color: #079f4b;
+}
+
+.web-dev-light-green{
+    color: #9f9f17;
+}
+
+.web-dev-red{
+    color: #9f1715;
+}
+
+@media (max-width: 250px) {
+    .web-dev-parent{
+        text-align: center;
+        margin-left: 1%;
+    }
+
+}
+.web-dev-text-align-center-n{
+    display: inline-block;
+}
+web-dev-text-align-center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.web-dev-inline-block{
+    display: inline-block;
+}
+
+. web-deb-overflow-stack{
+    display:block;
+}
+
+.web-dev-cred-score-color{
+    color: darkblue;
+}

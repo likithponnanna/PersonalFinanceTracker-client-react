@@ -7,21 +7,26 @@ import ParticlesComponent from "./ParticlesComponent";
 import { withRouter } from 'react-router'
 import {ModalRoute}  from 'react-router-modal';
 import StockSearchMainComponent from "./StockSearchMainComponent";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import CenterLoginModal from "./CenterLoginModal";
-import {Button} from "react-bootstrap";
-import {Link} from "react-router-dom";
 
-class CustomerOnBoardPage extends Component{
+class CustomerOnBoardLogin extends Component{
 
 
     constructor(props){
         super(props);
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
-            this.state = {
-                show: false,
-                modalShow: true
-            }
+        this.state = {
+            show: true,
+            modal: true,
+            modalShow: true
+        }
+        this.toggle = this.toggle.bind(this);
+
+    }
+
+    componentDidMount() {
 
     }
 
@@ -33,13 +38,19 @@ class CustomerOnBoardPage extends Component{
         this.setState({ show: true });
     }
 
+    pushLogin =() =>
+        // this.props.history.push("/login");
+        this.context.router.push('/bar');
 
+    toggle() {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+    }
 
 
     render() {
         let modalClose = () => this.setState({ modalShow: false });
-
-
         return(
 
             <div className="container-fluid p-0 m-0">
@@ -65,22 +76,23 @@ class CustomerOnBoardPage extends Component{
                                         </li>
                                     </ul>
                                     <div className="form-inline">
-                                        <Link to="/login">    <button type="button" className="btn  btn-outline-secondary web-dev-logo" data-toggle="modal"
-                                                data-target="#exampleModalCenter" onClick={()=>{this.handleShow();}}>
-                                            Login / SignUp
-                                        </button> </Link>
+                                        <button type="button" className="btn  btn-outline-secondary web-dev-logo" data-toggle="modal"
+                                                data-target="#exampleModalCenter" onClick={()=>this.handleShow()}>
+                                            Login / SingUp
+                                        </button>
 
                                     </div>
                                 </div>
                             </nav>
 
+                            <CenterLoginModal
+                                show={this.state.modalShow}
+                                onHide={modalClose}/>
 
-
-
-                      <ParticlesComponent/>
-                      <div className="container mt-5 web-dev-particle-text-center">
-                            <div className="web-dev-particle-text-center-child"><h1>Hello Financial Freedom</h1></div>
-                      </div>
+                            <ParticlesComponent/>
+                            <div className="container mt-5 web-dev-particle-text-center">
+                                <div className="web-dev-particle-text-center-child"><h1>Hello Financial Freedom</h1></div>
+                            </div>
 
                             <div className="container mt-5 bg-light ">
                                 <div className="web-dev-particle-text-center-child">Content</div>
@@ -90,7 +102,6 @@ class CustomerOnBoardPage extends Component{
                     )}
                 </MyContext.Consumer>
 
-                <ModalRoute component={UserOnboardModal} path={`/login`} parentPath='/basic' />
 
             </div>
         )
@@ -98,5 +109,5 @@ class CustomerOnBoardPage extends Component{
 
 
 }
-CustomerOnBoardPage.contextType = MyContext;
-export default CustomerOnBoardPage
+CustomerOnBoardLogin.contextType = MyContext;
+export default CustomerOnBoardLogin

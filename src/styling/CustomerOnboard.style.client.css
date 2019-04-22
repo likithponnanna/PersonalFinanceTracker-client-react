@@ -1,0 +1,47 @@
+div.container-fluid.h-100{
+    padding: 0;
+    margin: 0;
+}
+
+.web-dev-logo{
+    color: white;
+}
+
+
+.container a{
+    position:relative;
+    z-index:9999;
+    color:#fff;
+    font-size:32px;
+}
+
+#particles canvas{
+    position: fixed;
+    width: 100%;
+    height: 100px;
+    z-index: -999;
+}
+
+.web-dev-particle-text-center{
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    color: #dddddd;
+
+}
+
+#exampleModalLongTitle{
+    color: white;
+
+}
+
+.web-dev-close-color{
+    color: white;
+}
+
+.web-dev-login-margin-adjust{
+    margin-top: -4em;
+}
+
+.btn-outline-secondary.web-dev-logo{
+    outline: none;
+}

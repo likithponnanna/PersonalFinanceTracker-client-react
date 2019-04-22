@@ -16,7 +16,15 @@ class MyProvider extends Component {
         stockCollapse: false,
         propertyCollapse: false,
         userMainNavBar: false,
-        currentSelectedTab : 'OVERVIEW'
+        currentSelectedTab : 'OVERVIEW',
+        user: undefined,
+        creditCards: [],
+        savingsAccounts: [],
+        checkingAccounts: [],
+        properties: [],
+        stocksOwned: [],
+        transactions: [],
+        showCreditModal: false
     };
     render() {
         return (
@@ -49,7 +57,105 @@ class MyProvider extends Component {
                 setCurrentSelectedTab: (tabName) =>
                     this.setState({
                         currentSelectedTab: tabName
-                    })
+                    }),
+                setUser: (user) =>
+                    this.setState(state => ({ user: user })),
+                setCreditCards: (creditCards) =>
+                    this.setState(state => ({ creditCards: creditCards })),
+                pushCreditCard: (creditCard) => {
+                    let newCreditCards = this.state.creditCards;
+                    newCreditCards.push(creditCard);
+                    this.setState(state => ({creditCards: newCreditCards}))
+                },
+                deleteCreditCard: (creditId) => {
+                    this.setState(state => ({ creditCards:  this.state.creditCards.filter(creditCard => creditCard._id !== creditId) }))
+                },
+                updateCreditCard: (creditCardN) =>{
+                    this.setState({
+                      creditCards: this.state.creditCards.map(creditCard =>
+                                creditCard._id === creditCardN._id ? creditCardN : creditCard,
+                        )})
+                },
+                setSavingsAccounts: (savingsAccounts) =>
+                    this.setState(state => ({ savingsAccounts: savingsAccounts })),
+                pushSavingsAccount: (savingsAccount) => {
+                    let newSavingsAccount = this.state.savingsAccounts;
+                    newSavingsAccount.push(savingsAccount);
+                    this.setState(state => ({savingsAccounts: newSavingsAccount}))
+                },
+                deleteSavingsAccount: (savingsAccId) => {
+                    this.setState(state => ({ savingsAccounts:  this.state.savingsAccounts.filter(savingsAccount => savingsAccount._id !== savingsAccId) }))
+                },
+                updateSavingsAccount: (savingsAccN) =>{
+                    this.setState({
+                        creditCards: this.state.savingsAccounts.map(savingsAccount =>
+                            savingsAccount._id === savingsAccN._id ? savingsAccN : savingsAccount,
+                        )})
+                },
+                setcheckingAccounts: (checkingAccounts) =>
+                    this.setState(state => ({ checkingAccounts: checkingAccounts })),
+                pushCheckingAccount: (checkingAccount) => {
+                    let newCheckingAccounts = this.state.checkingAccounts;
+                    newCheckingAccounts.push(checkingAccount);
+                    this.setState(state => ({checkingAccounts: newCheckingAccounts}))
+                },
+                deleteCheckingAccount: (CheckingAccountId) => {
+                    this.setState(state => ({ checkingAccounts:  this.state.checkingAccounts.filter(checkingAccount => checkingAccount._id !== CheckingAccountId) }))
+                },
+                updateCheckingAccount: (CheckingAccountN) =>{
+                    this.setState({
+                        checkingAccounts: this.state.checkingAccounts.map(checkingAccount =>
+                            checkingAccount._id === CheckingAccountN._id ? CheckingAccountN : checkingAccount,
+                        )})
+                },
+                setProperties: (Properties) =>
+                    this.setState(state => ({ properties: Properties })),
+                pushProperty: (Property) => {
+                    let newProperties = this.state.properties;
+                    newProperties.push(Property);
+                    this.setState(state => ({properties: newProperties}))
+                },
+                deleteProperty: (PropertyId) => {
+                    this.setState(state => ({ properties:  this.state.properties.filter(property => property._id !== PropertyId) }))
+                },
+                updateProperty: (PropertyN) =>{
+                    this.setState({
+                        properties: this.state.properties.map(Property =>
+                            Property._id === PropertyN._id ? PropertyN : Property,
+                        )})
+                },
+                setStocksOwned: (Stocks) =>
+                    this.setState(state => ({ stocksOwned: Stocks })),
+                pushStockOwned: (Stock) => {
+                    let newStocks = this.state.properties;
+                    newStocks.push(Stock);
+                    this.setState(state => ({stocksOwned: newStocks}))
+                },
+                deleteStockOwned: (StockId) => {
+                    this.setState(state => ({ stocksOwned:  this.state.stocksOwned.filter(Stock => Stock._id !== StockId) }))
+                },
+                updateStockOwned: (StockN) =>{
+                    this.setState({
+                        stocksOwned: this.state.stocksOwned.map(Stock =>
+                            Stock._id === StockN._id ? StockN : Stock,
+                        )})
+                },
+                setTransactions: (transactions) =>
+                    this.setState(state => ({ transactions: transactions })),
+                pushTransaction: (transaction) => {
+                    let newTransactions = this.state.transactions;
+                    newTransactions.push(transaction);
+                    this.setState(state => ({transactions: newTransactions}))
+                },
+                deleteTransaction: (transactionId) => {
+                    this.setState(state => ({ transactions:  this.state.transactions.filter(transaction => transaction._id !== transactionId) }))
+                },
+                updateTransaction: (transactionN) =>{
+                    this.setState({
+                        transactions: this.state.transactions.map(transaction =>
+                            transaction._id === transactionN._id ? transactionN : transaction,
+                        )})
+                },
 
 
             }}>

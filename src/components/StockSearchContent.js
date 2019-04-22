@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import MyContext from './MyContext'
 import {Link} from "react-router-dom";
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-const StockSearchContent = ({stateSearchData,stockSymbolSearchChange, searchStock, stockSymbolForSearch}) =>
+import SideBarUser from "./SideBarUser";
+const StockSearchContent = ({stateSearchData,stockSymbolSearchChange, searchStock, stockSymbolForSearch, buyStock}) =>
     <div>
         <div className="input-group mb-3">
             <input onChange={(event) => stockSymbolSearchChange(event)} type="text" className="form-control" placeholder="Type your Search Query here"
@@ -19,6 +20,7 @@ const StockSearchContent = ({stateSearchData,stockSymbolSearchChange, searchStoc
                 <th scope="col">Symbol</th>
                 <th scope="col">Name</th>
                 <th scope="col">Type</th>
+                <th scope="col"> </th>
             </tr>
             </thead>
             <tbody>
@@ -31,6 +33,7 @@ const StockSearchContent = ({stateSearchData,stockSymbolSearchChange, searchStoc
                                 <td>{stock[0].stockSymbol}</td>
                                 <td>{stock[0].stockName}</td>
                                 <td>{stock[0].stockEquity}</td>
+                                <td className="mb-1 mt-1 btn  btn-success" onClick={()=>buyStock(stock[0].stockSymbol, stock)}>Purchase</td>
                             </tr>
                         )})
             }
@@ -39,4 +42,5 @@ const StockSearchContent = ({stateSearchData,stockSymbolSearchChange, searchStoc
         </table>
     </div>;
 
+StockSearchContent.contextType = MyContext;
 export default StockSearchContent

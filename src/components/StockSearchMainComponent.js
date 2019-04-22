@@ -6,11 +6,14 @@ import UserOptionTabsNav from "./UserOptionTabsNav";
 import CreditScoreContent from "./CreditScoreContent";
 import StockSearchContent from "./StockSearchContent";
 import queryString from 'query-string'
+import AlphaVantageService from '../service/AlphaVantage';
+import StockService from '../service/stocks.service.client'
 
 class StockSearchMainComponent  extends Component{
 
     constructor(props){
         super(props);
+        this.stockService = new StockService();
         const values = queryString.parse(this.props.location.search);
         this.alpha = require('alphavantage')({ key: 'QZTS8QOG36E6LQEI' });
         this.state = {
@@ -61,6 +64,66 @@ class StockSearchMainComponent  extends Component{
                 stockSymbolForSearch: event.target.value
             });
 
+
+    buyStock =(StockSymbol, stock) => {
+        console.log("Stock Buy", StockSymbol);
+        let newStock = ""+StockSymbol+"";
+        if (StockSymbol !== [] || StockSymbol !== undefined) {
+
+            this.alpha.data.daily_adjusted(newStock, `compact`, `json`, 60).then(data => {
+
+                let openPrice;
+                let dateN;
+                for(let i in data["Time Series (Daily)"]){
+                    let key = i;
+                    dateN =i;
+                    openPrice = data["Time Series (Daily)"][key]["1. open"];
+                    if(openPrice!==undefined && openPrice>0){
+                        break;
+                    }
+                }
+
+                let stockToAdd = {
+                    stock_name: stock[0].stockName,
+                    stock_symbol: StockSymbol,
+                    purchase_price: openPrice,
+                    category: stock[0].stockEquity,
+                    purchase_date: dateN,
+                    no_of_shares: 1
+
+                };
+
+                console.log("Data", data);
+                console.log("Date",dateN );
+                console.log("openPrice", openPrice);
+
+
+
+                this.stockService.createStock(stockToAdd)
+                    .then(Stock => {
+                        console.log("Stock inside then add", Stock);
+                        this.context.pushStockOwned(Stock)
+                    })
+
+
+
+
+
+            })
+
+            /*            this.alpha.data.daily_adjusted(this.state.stockSymbolForSearch, `compact`, `json`, 60)
+                            .then(stock => console.log("Stock Buy after", stock))
+                            .catch(reason => console.log(reason))*/
+
+            /*
+                        this.stockService.createStock(Stock)
+                            .then(Stock => {
+                                this.context.pushStockOwned(Stock)
+                            })*/
+
+        }
+    }
+
     render() {
 
         return(
@@ -74,8 +137,9 @@ class StockSearchMainComponent  extends Component{
                                 <div id="content" className={` ${context.state.sidebarAct  ? 'active' : ''} `}>
                                     <UserNavBar
                                         sidebarCollapse={context.sidebarCollapse}/>
+                                    <div className="ml-5">
+                                        <UserOptionTabsNav/></div>
                                     <div className="container ">
-                                        <UserOptionTabsNav/>
                                         <br/><br/> <br/>
                                         <StockSearchContent
                                         urlStockSymbol = {this.state.stockSymbol}
@@ -83,6 +147,7 @@ class StockSearchMainComponent  extends Component{
                                         searchStock ={this.searchStock}
                                         stateSearchData ={this.state.stateSearchData}
                                         stockSymbolSearchChange ={this.stockSymbolSearchChange}
+                                        buyStock ={this.buyStock}
                                         />
                                     </div>
                                 </div>
@@ -98,5 +163,5 @@ class StockSearchMainComponent  extends Component{
 
 
 }
-
+StockSearchMainComponent.contextType = MyContext;
 export default StockSearchMainComponent
