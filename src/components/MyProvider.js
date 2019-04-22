@@ -12,7 +12,8 @@ class MyProvider extends Component {
         selectedTabForGuest: 'CREDIT_CARD',
         guestForm:false,
         selectedTabForAdminUser: ' ',
-        addUserByGuestButton:false
+        addUserByGuestButton:false,
+        userForViewingTrans:undefined
     };
     render() {
         return (
@@ -29,7 +30,10 @@ class MyProvider extends Component {
                 }),
                 setAddUserByGuestButton : (tab) => this.setState({
                     addUserByGuestButton:tab
-                 })
+                 }),
+                setUserForViewingTrans : (tab) => this.setState({
+                            userForViewingTrans:tab
+                    })
 
 
 

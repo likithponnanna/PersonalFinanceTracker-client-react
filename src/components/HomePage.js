@@ -7,6 +7,7 @@ import Charts from "./Charts";
 import MyProvider from "./MyProvider";
 import MainPage from "./MainPage";
 import AdminUser from "./AdminUser";
+import TransactionsForAdmin from "./TransactionsForAdmin";
 
 class HomePage extends Component{
 
@@ -47,6 +48,10 @@ class HomePage extends Component{
                         <Route path ='/admin' exact
                                render={() =>
                                    <AdminUser/>}/>
+
+                        <Route path ='/transForAdmin/:userid' exact
+                               render = {(props) =>
+                               <TransactionsForAdmin{...props}/>}/>
 
 
 

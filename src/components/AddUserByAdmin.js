@@ -15,7 +15,9 @@ class AddUserByAdmin extends React.Component{
             phoneNumber:" ",
             email:" ",
             username:" ",
-            password:" "
+            password:" ",
+            addFormFlag:this.props.addForm,
+            falseFlag:false
         }
     }
 
@@ -69,138 +71,168 @@ class AddUserByAdmin extends React.Component{
 
     createUser = () => {
         console.log(this.state.product)
-        this.adminUserService.createUser(this.state);
+        this.adminUserService.createUser(this.state).then(
+            () => this.getAllUsers()
+        );
 
     };
+
+
+
+    getAllUsers = () => {
+        this.props.getAllUsers()
+    }
+
+    setAddFormFlag = () => {
+        this.setState({
+        addFormFlag:this.state.falseFlag
+                      })
+        console.log("addFormFlag",this.state.addFormFlag)
+    }
+
+
+
+    componentDidMount = () =>
+        this.props.getAllUsers();
 
 
     render() {
     return (
         <div>
 
-            <div className="form-group row">
-                <label htmlFor="username" className="col-sm-2">
-                    UserName
-                </label>
-                <div className="col-sm-10">
-                    <input
-                        className="form-control"
-                        placeholder="username"
-                        id="username"
-                        onChange={this.userNameChanged}
-                    />
-                </div>
-            </div>
+            {this.state.addFormFlag === true &&
 
-            <div className="form-group row">
+                <div>
+
+                <div className="form-group row">
+                    <label htmlFor="username" className="col-sm-2">
+                        UserName
+                    </label>
+                    <div className="col-sm-10">
+                        <input
+                            className="form-control"
+                            placeholder="username"
+                            id="username"
+                            onChange={this.userNameChanged}
+                        />
+                    </div>
+                </div>
+
+                < div className="form-group row">
                 <label htmlFor="password" className="col-sm-2">
-                    Password
+                Password
                 </label>
                 <div className="col-sm-10">
-                    <input
-                        className="form-control"
-                        placeholder="password"
-                        id="password"
-                        onChange={this.passwordChanged}
-                    />
+                <input
+                className="form-control"
+                placeholder="password"
+                id="password"
+                onChange={this.passwordChanged}
+                />
                 </div>
-            </div>
+                </div>
 
 
-            <div className="form-group row">
+                <div className="form-group row">
                 <label htmlFor="firstName" className="col-sm-2">
-                    First Name
+                First Name
                 </label>
                 <div className="col-sm-10">
-                    <input
-                        className="form-control"
-                        placeholder="firstName"
-                        id="firstName"
-                        onChange={this.firstNameChanged}
-                    />
+                <input
+                className="form-control"
+                placeholder="firstName"
+                id="firstName"
+                onChange={this.firstNameChanged}
+                />
                 </div>
-            </div>
+                </div>
 
 
-            <div className="form-group row">
+                <div className="form-group row">
                 <label htmlFor="lastName" className="col-sm-2">
-                    Last Name
+                Last Name
                 </label>
                 <div className="col-sm-10">
-                    <input
-                        className="form-control"
-                        placeholder="lastName"
-                        id="lastName"
-                        onChange={this.lastNameChanged}
-                    />
+                <input
+                className="form-control"
+                placeholder="lastName"
+                id="lastName"
+                onChange={this.lastNameChanged}
+                />
                 </div>
-            </div>
+                </div>
 
-            <div className="form-group row">
+                <div className="form-group row">
                 <label htmlFor="dob" className="col-sm-2">
-                    Date of Birth
+                Date of Birth
                 </label>
                 <div className="col-sm-10">
-                    <input
-                        className="form-control"
-                        placeholder="dob"
-                        id="dob"
-                        onChange={this.dobChanged}
-                    />
+                <input
+                className="form-control"
+                placeholder="dob"
+                id="dob"
+                onChange={this.dobChanged}
+                />
                 </div>
-            </div>
+                </div>
 
-            <div className="form-group row">
+                <div className="form-group row">
                 <label htmlFor="address" className="col-sm-2">
-                    Address
+                Address
                 </label>
                 <div className="col-sm-10">
-                    <input
-                        className="form-control"
-                        placeholder="address"
-                        id="address"
-                        onChange={this.addressChanged}
-                    />
+                <input
+                className="form-control"
+                placeholder="address"
+                id="address"
+                onChange={this.addressChanged}
+                />
                 </div>
-            </div>
+                </div>
 
-            <div className="form-group row">
+                <div className="form-group row">
                 <label htmlFor="phoneNumber" className="col-sm-2">
-                    Phone Number
+                Phone Number
                 </label>
                 <div className="col-sm-10">
-                    <input
-                        className="form-control"
-                        placeholder="phoneNumber"
-                        id="phoneNumber"
-                        onChange={this.phoneNumberChanged}
-                    />
+                <input
+                className="form-control"
+                placeholder="phoneNumber"
+                id="phoneNumber"
+                onChange={this.phoneNumberChanged}
+                />
                 </div>
-            </div>
+                </div>
 
 
-            <div className="form-group row">
+                <div className="form-group row">
                 <label htmlFor="email" className="col-sm-2">
-                    Email
+                Email
                 </label>
                 <div className="col-sm-10">
-                    <input
-                        className="form-control"
-                        placeholder="email"
-                        id="email"
-                        onChange={this.emailChanged}
-                    />
+                <input
+                className="form-control"
+                placeholder="email"
+                id="email"
+                onChange={this.emailChanged}
+                />
                 </div>
-            </div>
+                </div>
 
-            <button
+                <button
                 className="btn-primary"
-                onClick={() => {this.createUser()
-
-                }}
-            >
+                onClick={() => {
+                this.createUser();
+                this.setAddFormFlag();
+            }}
+                >
                 ADD
-            </button>
+                </button>
+
+                </div>
+
+            }
+
 
 
 

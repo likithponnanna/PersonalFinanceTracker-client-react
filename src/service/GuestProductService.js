@@ -21,7 +21,7 @@ class GuestProductService {
         let newUser = {
             firstName: user.firstName,
             lastName: user.lastName,
-            dob: user.dob,
+            DOB: user.DOB,
             phoneNumber: user.phoneNumber,
             email: user.email,
             address: user.address,
@@ -36,12 +36,20 @@ class GuestProductService {
             credentials: "include",
             method: 'POST'
                      }
-
-
         ).then(response => response.json())
 
 
     };
+
+    getGuestUsers = () => {
+        return fetch(this.API_URL+"guest", {
+            method: "GET",
+            headers: { "content-type": "application/json" },
+            credentials: "include"
+        }).then(function (response) {
+            return response.json();
+        })
+    }
 
 
 }

@@ -59,9 +59,9 @@ class MainPage extends React.Component {
 
                 }
 
-                console.log(this.state.creditCardList);
-                console.log(this.state.savingList);
-                console.log(this.state.checkingList);
+                // console.log(this.state.creditCardList);
+                // console.log(this.state.savingList);
+                // console.log(this.state.checkingList);
 
 
                 this.setState({
@@ -69,11 +69,11 @@ class MainPage extends React.Component {
                                   savingList: this.state.savingList,
                                   checkingList: this.state.checkingList
                               })
-
-                console.log("after set state");
-                console.log(this.state.creditCardList);
-                console.log(this.state.savingList);
-                console.log(this.state.checkingList);
+                //
+                // console.log("after set state");
+                // console.log(this.state.creditCardList);
+                // console.log(this.state.savingList);
+                // console.log(this.state.checkingList);
 
 
 
@@ -135,7 +135,7 @@ class MainPage extends React.Component {
 
                                 this.state.creditCardList.map(
                                     (card) => {
-                                        console.log(card);
+                                       // console.log(card);
                                         return (
                                             <CreditCardHomePage
                                              key={card._id}
@@ -151,7 +151,7 @@ class MainPage extends React.Component {
 
                                this.state.savingList.map(
                                    (saving) => {
-                                       console.log(saving);
+                                      // console.log(saving);
                                        return (
                                            <SavingHomePage
                                                key={saving._id}
@@ -167,7 +167,7 @@ class MainPage extends React.Component {
 
                                this.state.checkingList.map(
                                    (checking) => {
-                                       console.log(checking);
+                                      // console.log(checking);
                                        return (
                                            <CheckingHomePage
                                                key={checking._id}
