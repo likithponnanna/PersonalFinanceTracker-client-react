@@ -8,6 +8,8 @@ import EditUserByAdmin from "./EditUserByAdmin"
 import GuestProductService from "../service/GuestProductService"
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 import TransactionsForAdmin from "./TransactionsForAdmin";
+import ApproveCreditCardByAdmin from './ApproveCreditCardByAdmin'
+import PendingCreditCardByAdmin from "./PendingCreditCardByAdmin";
 
 class AdminUser extends React.Component{
     constructor(props) {
@@ -30,7 +32,9 @@ class AdminUser extends React.Component{
             makeAdmin:true,
             makeAdminNeeded:false,
             viewTrans:true,
-            viewTransNeeded:false
+            viewTransNeeded:false,
+            guestListStatusFixed:[],
+            guestListStatusPending:[]
 
 
         }
@@ -67,6 +71,57 @@ class AdminUser extends React.Component{
                       })
     }
 
+    getGuestUsersForCreditCardStatusFixed = () => {
+        this.guestProductService.getGuestUsers().then(
+            (guests) => {
+                console.log("guests",guests);
+                this.setState({
+                                  guestListStatusFixed:[]
+                              });
+
+                for(let i=0; i<guests.length;i++)
+                {
+                    if(guests[i].status === "APPROVED" || guests[i].status === "REJECTED" )
+                    {
+                        this.state.guestListStatusFixed.push(guests[i])
+                    }
+                }
+
+                this.setState({
+                                  guestListStatusFixed:this.state.guestListStatusFixed
+                              })
+
+                console.log("guestlist",this.state.guestListStatusFixed)
+
+            }
+        )
+    }
+
+    getGuestUsersForCreditCardStatusPending = () => {
+        this.guestProductService.getGuestUsers().then(
+            (guests) => {
+                console.log("guests",guests);
+                this.setState({
+                                  guestListStatusPending:[]
+                              });
+
+                for(let i=0; i<guests.length;i++)
+                {
+                    if(guests[i].status === "PENDING" )
+                    {
+                        this.state.guestListStatusPending.push(guests[i])
+                    }
+                }
+
+                this.setState({
+                                  guestListStatusPending:this.state.guestListStatusPending
+                              })
+
+                console.log("guestlist pending",this.state.guestListStatusPending)
+
+            }
+        )
+    }
 
 
     getAllUsers = () => {
@@ -100,27 +155,7 @@ class AdminUser extends React.Component{
     }
 
 
-    getGuestUsersForCreditCard = () => {
-        this.guestProductService.getGuestUsers().then(
-            (guests) => {
-                console.log("guests",guests);
-                this.setState({
-                    guestList:[]
-                              });
 
-                for(let i=0; i<guests.length;i++){
-                    this.state.guestList.push(guests[i])
-                }
-
-             this.setState({
-                 guestList:this.state.guestList
-                           })
-
-             console.log("guestlist",this.state.guestList)
-
-            }
-        )
-    }
 
     componentDidMount = () =>
              this.getAllUsers();
@@ -189,11 +224,12 @@ class AdminUser extends React.Component{
 
                  <li onClick={ () =>
                  {
-                    this.getGuestUsersForCreditCard();
-                    context.state.selectedTabForAdminUser = 'CREDITCARDS'
+                     this.getGuestUsersForCreditCardStatusFixed();
+                    context.setSelectedTabForAdminUser('CREDITCARDS')
+                     console.log(context.state.selectedTabForAdminUser)
                  }}
                  >
-                     <a className="nav-link" data-toggle="tab"  href="#">Credit Cards Application</a>
+                     <a className="nav-link" data-toggle="tab"  href="#">Credit Cards Applications</a>
                  </li>
 
                  <li onClick={ () => {
@@ -201,6 +237,13 @@ class AdminUser extends React.Component{
                      console.log("after click",context.state.selectedTabForAdminUser)
                  } }>
                      <a className="nav-link" data-toggle="tab"  href="#">Track Transactions</a>
+                 </li>
+
+                 <li onClick={() => {
+                     context.setSelectedTabForAdminUser('PENDINGCREDITCARDS')
+                     this.getGuestUsersForCreditCardStatusPending();
+                 }}>
+                     <a className="nav-link" data-toggle="tab"  href="#">Pending Credit Cards Applications</a>
                  </li>
 
 
@@ -340,46 +383,22 @@ class AdminUser extends React.Component{
 
                              {context.state.selectedTabForAdminUser === 'CREDITCARDS' &&
 
-                                 <div>
-
-                                     <table className="table table-dark">
-                                         <thead>
-                                         <tr>
-                                             <th scope="col"> Role</th>
-                                             <th scope="col"> FirstName</th>
-                                             <th scope="col"> LastName</th>
-                                             <th scope="col"> Date of Birth</th>
-                                             <th scope="col"> Address</th>
-                                             <th scope="col"> Email ID</th>
-                                             <th scope="col"> Phone Number</th>
-                                             <th scope="col"> Status</th>
-                                             <th scope="col">Product</th>
-                                         </tr>
-                                         </thead>
-                                         <tbody>
-                                             {this.state.guestList.map(
-                                                 (guest) =>
-                                                     <tr key={guest._id}>
-                                                         <th scope="row">Guest</th>
-                                                         <td>{guest.firstName}</td>
-                                                         <td>{guest.lastName}</td>
-                                                         <td>{guest.dob}</td>
-                                                         <td>{guest.address}</td>
-                                                         <td>{guest.email}</td>
-                                                         <td>{guest.phoneNumber}</td>
-                                                         <td>{guest.status}</td>
-                                                         <td>{guest.product ? guest.product.name: "No Product Exists" }</td>
-                                                        </tr>
-                                             )
-                                         }
-
-                                         </tbody>
-                                     </table>
-
-
-                                 </div>
-
+                              <div>
+                                  <ApproveCreditCardByAdmin
+                                      guestListStatusFixed={this.state.guestListStatusFixed}/>
+                              </div>
                              }
+
+
+                             {context.state.selectedTabForAdminUser === 'PENDINGCREDITCARDS' &&
+
+                              <div>
+                                  <PendingCreditCardByAdmin
+                                      getGuestUsersForCreditCardStatusPending = {this.getGuestUsersForCreditCardStatusPending}
+                                      guestListStatusPending={this.state.guestListStatusPending}/>
+                              </div>
+                             }
+
 
                                  </div>
 

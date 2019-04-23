@@ -51,6 +51,58 @@ class GuestProductService {
         })
     }
 
+    approveGuestUsers = (guest) => {
+
+        let newGuest = {
+
+            firstName: guest.firstName,
+            lastName: guest.lastName,
+            DOB:guest.dob,
+            phoneNumber: guest.phoneNumber,
+            email: guest.email,
+            address: guest.address,
+            status: guest.status,
+            product: guest.product
+        }
+
+        let id = guest._id;
+
+        return fetch(this.API_URL+"guest/" +id+"/approve",{
+            body: JSON.stringify(newGuest),
+            headers: {
+                'Content-Type': 'application/json' },
+            credentials: "include",
+            method: 'PUT'
+
+        }).then(response =>
+                    response.json())
+    }
+
+    rejectGuestUsers = (guest) => {
+        let newGuest = {
+
+            firstName: guest.firstName,
+            lastName: guest.lastName,
+            DOB:guest.dob,
+            phoneNumber: guest.phoneNumber,
+            email: guest.email,
+            address: guest.address,
+            status: guest.status,
+            product: guest.product
+        }
+
+        let id = guest._id;
+
+        return fetch(this.API_URL+"guest/" +id+"/reject",{
+            body: JSON.stringify(newGuest),
+            headers: {
+                'Content-Type': 'application/json' },
+            credentials: "include",
+            method: 'PUT'
+
+        }).then(response =>
+                    response.json())
+    }
 
 }
 
