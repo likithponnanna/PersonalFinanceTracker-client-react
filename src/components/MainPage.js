@@ -59,34 +59,15 @@ class MainPage extends React.Component {
 
                 }
 
-                // console.log(this.state.creditCardList);
-                // console.log(this.state.savingList);
-                // console.log(this.state.checkingList);
-
 
                 this.setState({
                                   creditCardList :this.state.creditCardList,
                                   savingList: this.state.savingList,
                                   checkingList: this.state.checkingList
                               })
-                //
-                // console.log("after set state");
-                // console.log(this.state.creditCardList);
-                // console.log(this.state.savingList);
-                // console.log(this.state.checkingList);
-
-
-
             }
         )
     }
-
-
-    // getGuestUserForm = () => {
-    //     this.state.guestUserForm=true;
-    //
-    // }
-
 
 
 
@@ -109,24 +90,23 @@ class MainPage extends React.Component {
 
 
 
-
-
                   <ul className="nav nav-tabs">
 
                   <li  onClick = {() => {
                   this.getProducts('CREDIT_CARD');
-                  context.state.selectedTabForGuest = 'CREDIT_CARD'
+                  context.setSelectedTabForGuest('CREDIT_CARD')
                   }}><a className="nav-link"  data-toggle="tab" href="#">CREDIT CARD</a></li>
 
                   <li onClick = {() =>{
                       this.getProducts('SAVING');
-                      context.state.selectedTabForGuest = 'SAVING'
+                      context.setSelectedTabForGuest('SAVING')
                   }}><a className="nav-link" data-toggle="tab" href="#">SAVING</a></li>
 
                   <li onClick = {() => {
                       this.getProducts('CHECKING');
-                      context.state.selectedTabForGuest = 'CHECKING'
+                      context.setSelectedTabForGuest('CHECKING')
                   }}><a className="nav-link" data-toggle="tab" href="#">CHECKING</a></li>
+
 
               </ul>
 
@@ -178,6 +158,8 @@ class MainPage extends React.Component {
                                )
 
                               }
+
+
                       </div>
 
 

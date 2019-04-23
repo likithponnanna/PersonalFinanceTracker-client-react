@@ -25,6 +25,16 @@ class AdminUserService {
         })
     }
 
+    findUserGivenId = (userid) => {
+        return fetch(this.API_URL+"user/" + userid, {
+            method: "GET",
+            headers: { "content-type": "application/json" },
+            credentials: "include"
+        }).then(function (response) {
+            return response.json();
+        })
+    }
+
     createUser = (user) => {
         let newUser = {
             username:user.username,
