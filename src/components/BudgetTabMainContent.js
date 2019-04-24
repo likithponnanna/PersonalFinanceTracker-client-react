@@ -12,7 +12,7 @@ class BudgetTabMainContent  extends Component{
         super(props);
         this.budgetService = new BudgetService();
         this.state = {
-            budget: null,
+            budget: [],
             budgetFlag: false,
             newBudget: "",
 
@@ -22,8 +22,9 @@ class BudgetTabMainContent  extends Component{
 
     componentDidMount() {
         this.budgetService.findBudget()
-            .then(budget => {this.setState({
-                budget: budget
+            .then(budget => {
+                this.setState({
+                budget: budget.length>0? budget[0] : budget
             })})
 
     }
@@ -35,27 +36,36 @@ class BudgetTabMainContent  extends Component{
             newBudget ={
                 amount: this.state.newBudget
             };
-            console.log("New Budget", newBudget);
+
             this.budgetService.createBudget(newBudget)
                 .then(budget => this.setState({
                     budget: budget
                 }))
         }else {
-            alert("No budget entered");
+
         }
     };
 
-    updateBudget =(amount) =>
+    updateBudget =() =>
     {
          let newBudget;
         newBudget ={
+            _id: this.state.budget._id,
             amount: this.state.newBudget
         };
 
+
+
         this.budgetService.updateBudget(newBudget)
-            .then(budget => this.setState({
-                budget: budget
-            }))
+            .then(budget => {
+                this.setState({
+                    budget: newBudget
+                })
+
+            }
+            )
+
+
     };
 
     toggleBudgetUpdate =() =>

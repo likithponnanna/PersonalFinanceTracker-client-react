@@ -8,7 +8,7 @@ const BudgetTabContent = ({budget, createBudget, updateBudget, newBudget, budget
         <MyContext.Consumer>
             {(context) => (
                 <React.Fragment>
-        {budget===null  && budgetFlag ===false && <div className="input-group mb-3">
+        { budget.length===0 && budgetFlag ===false && <div className="input-group mb-3">
             <div className="input-group-prepend">
                 <span className="input-group-text">$</span>
             </div>
@@ -21,7 +21,6 @@ const BudgetTabContent = ({budget, createBudget, updateBudget, newBudget, budget
                 </div>
             <button className="btn btn-secondary ml-2" onClick={()=>createBudget()}>Create Budget</button>
         </div>}
-                    {console.log(budget)}
         {budget!==null && budget.amount!==undefined && budgetFlag ===false && <div className="input-group row">
             <div className="col-12 web-dev-text-center">Your Monthly budget is</div>
             <div className="input-group-prepend">

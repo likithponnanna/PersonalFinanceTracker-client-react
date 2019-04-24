@@ -6,12 +6,44 @@ import UserNavBar from "./UserNavBar";
 import UserOptionTabsNav from "./UserOptionTabsNav";
 import UserOverViewTabContent from "./UserOverViewTabContent";
 import CreditCardModal from "./CreditCardModal";
+import PropertyService from "../service/properties.service.client";
+
+const placesn = [
+    {
+        "id": 1,
+        "name": "Park Slope",
+        "latitude": "40.6710729",
+        "longitude": "-73.9988001"
+    },
+    {
+        "id": 2,
+        "name": "Bushwick",
+        "latitude": "40.6942861",
+        "longitude": "-73.9389312"
+    },
+    {
+        "id": 3,
+        "name": "East New York",
+        "latitude": "40.6577799",
+        "longitude": "-73.9147716"
+    }
+]
 
 class UserHome extends Component{
     constructor(props){
+
         super(props);
-        this.state = {}
+        this.propertyService = new PropertyService();
+        this.state = {
+
+            places: []
+        }
     }
+
+
+
+
+
     render() {
         return(
 
@@ -31,7 +63,9 @@ class UserHome extends Component{
                                     <div className="container">
 
                                         <br/><br/> <br/>
-                                        <UserOverViewTabContent/>
+                                        <UserOverViewTabContent
+
+                                        />
                                     </div>
                                 </div>
                             </div>
