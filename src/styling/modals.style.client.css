@@ -98,3 +98,7 @@ web-dev-text-align-center{
 .web-dev-text-center{
     text-align: center;
 }
+
+.web-dev-white-text{
+    color: white;
+}

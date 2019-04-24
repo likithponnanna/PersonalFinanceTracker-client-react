@@ -111,54 +111,90 @@ class UserOverViewTabContent extends Component {
 
     render(){
         return(
-
+            <MyContext.Consumer>
+                {(context) => (
+                    <React.Fragment>
             <div className="container">
-                <h2 className="web-dev-text-center">Properties you own</h2>
+                {console.log("Context", context.state)}
+                <h2 className="web-dev-text-center mb-2"> Hi {context.state.user} Here is your financial overview  </h2>
+
+
                <MapComponentMultiCluster/>
 
+                <h2 className="web-dev-text-center mt-2">Properties you own</h2>
 
 
 
-                <h2 className="web-dev-text-center">Collapsible Sidebar Using Bootstrap 4</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <div className="card text-center">
+                    <div className="card-header">
+                        Featured
+                    </div>
+                    <div className="card-body">
+                        <h5 className="card-title">Special title treatment</h5>
+                        <p className="card-text">With supporting text below as a natural lead-in to additional
+                            content.</p>
+
+                    </div>
+
+                </div>
+
+                <div className="line mt-2 mb-2"/>
+
+                <div className="card text-center">
+                    <div className="card-header">
+                        Featured
+                    </div>
+                    <div className="card-body">
+                        <h5 className="card-title">Special title treatment</h5>
+                        <p className="card-text">With supporting text below as a natural lead-in to additional
+                            content.</p>
+
+                    </div>
+
+                </div>
+
+                <div className="line mt-2 mb-2"/>
+
+                <div className="card text-center">
+                    <div className="card-header">
+                        Featured
+                    </div>
+                    <div className="card-body">
+                        <h5 className="card-title">Special title treatment</h5>
+                        <p className="card-text">With supporting text below as a natural lead-in to additional
+                            content.</p>
+
+                    </div>
+
+                </div>
+
+                <div className="line mt-2 mb-2"/>
+
+                <div className="card text-center">
+                    <div className="card-header">
+                        Featured
+                    </div>
+                    <div className="card-body">
+                        <h5 className="card-title">Special title treatment</h5>
+                        <p className="card-text">With supporting text below as a natural lead-in to additional
+                            content.</p>
+
+                    </div>
+
+                </div>
+
+
 
                 <div className="line"/>
 
-                <h2>Lorem Ipsum Dolor</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-                <div className="line"/>
-
-                <h2>Lorem Ipsum Dolor</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-                <div className="line"/>
-
-                <h3>Lorem Ipsum Dolor</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
+
+
+                    </React.Fragment>
+                )}
+            </MyContext.Consumer>
         )
     }
 
