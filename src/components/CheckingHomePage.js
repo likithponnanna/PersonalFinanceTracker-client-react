@@ -3,74 +3,56 @@ import Card from 'react-bootstrap/Card'
 import CardDeck from 'react-bootstrap/CardDeck'
 import { Button } from 'react-bootstrap'
 import GuestProductService from "../service/GuestProductService"
+import MainPageService from "../service/MainPageService";
+import {Link} from "react-router-dom";
 
 
 class CheckingHomePage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.guestProductService = GuestProductService.getInstance();
+        this.guestproductService = GuestProductService.getInstance();
+        this.mainPageService = MainPageService.getInstance();
         this.state = {
-            guestUserForm: true,
-            guestUserFormNeeded: false,
-            firstName:" ",
-            lastName:" ",
-            dob:" ",
-            address:" ",
-            phoneNumber:" ",
-            email:" ",
-            product:this.props.checking[0]._id
+            checkingList:[]
         }
 
     }
 
-    setGuestUserForm = () => {
-        this.setState({
-                          guestUserFormNeeded:this.state.guestUserForm
-                      })
+    componentWillMount () {
+        console.log("i am executed inside mount")
+        this.getProducts();
+
     }
 
 
-    firstNameChanged = event => {
-        this.setState({
-                          firstName: event.target.value
-                      })
-    };
 
-    lastNameChanged = event => {
-        this.setState({
-                          lastName: event.target.value
-                      });
-    };
+    getProducts = () => {
+        this.mainPageService.findProducts().then(
+            products => {
+                // console.log(products);
+                // this.setState({
+                //                   creditCardList :[]
+                //               });
 
-    dobChanged = event => {
-        this.setState({
-                          dob: event.target.value
-                      });
-    };
+                console.log("inside get prod");
 
-    addressChanged = event => {
-        this.setState({
-                          address: event.target.value
-                      });
-    };
+                for(let i=0; i<products.length;i++) {
+                    // console.log(products[prod].type);
+                    if(products[i].type==="CHECKING") {
+                        this.state.checkingList.push(products[i]);
 
-    phoneNumberChanged = event => {
-        this.setState({
-                          phoneNumber: event.target.value
-                      });
-    };
+                    }
 
-    emailChanged = event => {
-        this.setState({
-                          email: event.target.value
-                      });
-    };
+                }
 
-    createGuest = () => {
-        console.log(this.state.product)
-        this.guestProductService.createGuestProduct(this.state);
+                this.setState({
+                                  savingList :this.state.checkingList
 
+                              })
+                console.log(this.state.checkingList)
+            }
+        )
     }
 
 
@@ -78,145 +60,52 @@ class CheckingHomePage extends React.Component {
     render () {
 
         return (
-            <div key={this.props.key}>
 
-                <CardDeck>
+            <div>
 
-                    <div id="card1">
-                        <Card style={{ width: '25rem', height:'23rem' }} bg="secondary" >
+                {
+                    this.state.checkingList.map(
+                        (card) =>
 
-                            <Card.Body>
-                                <Card.Title>
+                            <div key={card._id}>
 
-                                    <h2>{this.props.checking[0].name}</h2>
+                                <CardDeck>
 
-                                </Card.Title>
-                                <Card.Img variant="top" src="https://selflender.s3.amazonaws.com/blog/credit-card.png" id="cardImage"/>
-                                <Card.Text>
+                                    <div id="card1">
+                                        <Card style={{ width: '25rem', height:'26rem' }} bg="secondary" >
 
-                                    {this.props.checking[0].bank}
-                                    {this.props.checking[0].details}
-                                </Card.Text>
-                                <Button variant="primary"
-                                        onClick = {() =>
-                                            this.setGuestUserForm()
-                                        }>APPLY</Button>
+                                            <Card.Body>
+                                                <Card.Title>
 
-                            </Card.Body>
-                        </Card>
-                    </div>
-                </CardDeck>
+                                                    <h2>{card.name}</h2>
 
+                                                </Card.Title>
+                                                <Card.Img variant="top" src="https://selflender.s3.amazonaws.com/blog/credit-card.png" id="cardImage"/>
+                                                <Card.Text>
 
-                <div>
-                    {this.state.guestUserFormNeeded === true &&
+                                                    {card.bank}
+                                                    {card.details}
+                                                </Card.Text>
 
-
-                     <div>
-
-                         <div className="form-group row">
-                             <label htmlFor="firstName" className="col-sm-2">
-                                 First Name
-                             </label>
-                             <div className="col-sm-10">
-                                 <input
-                                     className="form-control"
-                                     placeholder="firstName"
-                                     id="firstName"
-                                     onChange={this.firstNameChanged}
-                                 />
-                             </div>
-                         </div>
+                                                <Link to={`/home/apply/${card._id}/${card.name}`}>
+                                                    <Button variant="primary"
+                                                    >APPLY</Button>
+                                                </Link>
 
 
-                         <div className="form-group row">
-                             <label htmlFor="lastName" className="col-sm-2">
-                                 Last Name
-                             </label>
-                             <div className="col-sm-10">
-                                 <input
-                                     className="form-control"
-                                     placeholder="lastName"
-                                     id="lastName"
-                                     onChange={this.lastNameChanged}
-                                 />
-                             </div>
-                         </div>
-
-                         <div className="form-group row">
-                             <label htmlFor="dob" className="col-sm-2">
-                                 Date of Birth
-                             </label>
-                             <div className="col-sm-10">
-                                 <input
-                                     className="form-control"
-                                     placeholder="dob"
-                                     id="dob"
-                                     onChange={this.dobChanged}
-                                 />
-                             </div>
-                         </div>
-
-                         <div className="form-group row">
-                             <label htmlFor="address" className="col-sm-2">
-                                 Address
-                             </label>
-                             <div className="col-sm-10">
-                                 <input
-                                     className="form-control"
-                                     placeholder="address"
-                                     id="address"
-                                     onChange={this.addressChanged}
-                                 />
-                             </div>
-                         </div>
-
-                         <div className="form-group row">
-                             <label htmlFor="phoneNumber" className="col-sm-2">
-                                 Phone Number
-                             </label>
-                             <div className="col-sm-10">
-                                 <input
-                                     className="form-control"
-                                     placeholder="phoneNumber"
-                                     id="phoneNumber"
-                                     onChange={this.phoneNumberChanged}
-                                 />
-                             </div>
-                         </div>
-
-
-                         <div className="form-group row">
-                             <label htmlFor="email" className="col-sm-2">
-                                 Email
-                             </label>
-                             <div className="col-sm-10">
-                                 <input
-                                     className="form-control"
-                                     placeholder="email"
-                                     id="email"
-                                     onChange={this.emailChanged}
-                                 />
-                             </div>
-                         </div>
-
-                         <button
-                             className="btn-primary"
-                             onClick={() => {this.createGuest()
-
-                             }}
-                         >
-                             REGISTER
-                         </button>
+                                            </Card.Body>
+                                        </Card>
+                                    </div>
+                                </CardDeck>
 
 
 
+                            </div>
 
-                     </div>
 
-                    }
+                    )
 
-                </div>
+                }
 
             </div>
 

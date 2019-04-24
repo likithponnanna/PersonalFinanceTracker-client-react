@@ -13,46 +13,75 @@ body {
 
 }
 
-h1 {
-    text-align: center;
-    color: #61dafb;
-    font-family: "Times New Roman";
-}
+/*h1 {*/
+    /*text-align: center;*/
+    /*color: #61dafb;*/
+    /*font-family: "Times New Roman";*/
+/*}*/
 
 #card1{
     margin-top: 100px;
     margin-left: 30px;
 }
 
-#cardImage {
-    height: 170px;
-
+#alert{
+    margin-top: 50px;
 }
 
-#editButton {
-    margin-left: 15px;
-}
-
-.btn-circle.btn-xl {
-    width: 70px;
-    height: 70px;
-    padding: 10px 16px;
-    border-radius: 35px;
-    font-size: 24px;
-    line-height: 1.33;
-}
-
-/*#pills {*/
-    /*align: center;*/
-    /*background-color: aquamarine;*/
+/*#cardImage {*/
+    /*height: 170px;*/
 
 /*}*/
 
-
-/*!*.mainPage {*!*/
-    /*background-image: url("https://images.pexels.com/photos/1022923/pexels-photo-1022923.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500");*/
-    /*height: 100%;*/
-    /*background-position: center;*/
-    /*background-repeat: no-repeat;*/
-    /*background-size: cover;*/
+/*#editButton {*/
+    /*margin-left: 15px;*/
 /*}*/
+
+/*.btn-circle.btn-xl {*/
+    /*width: 70px;*/
+    /*height: 70px;*/
+    /*padding: 10px 16px;*/
+    /*border-radius: 35px;*/
+    /*font-size: 24px;*/
+    /*line-height: 1.33;*/
+/*}*/
+
+/*body{*/
+    /*margin:20px;*/
+    /*background-color: black;*/
+/*}*/
+
+/*li{*/
+    /*margin: 10px;*/
+/*}*/
+
+/*.navbar{*/
+    /*border-top-left-radius: 10px;*/
+    /*border-bottom-left-radius: 10px;*/
+    /*border-top-right-radius: 10px;*/
+    /*border-bottom-right-radius: 10px;*/
+/*}*/
+
+/*.navbar{*/
+    /*background-color:grey;*/
+    /*border-color:grey;*/
+/*}*/
+/*.navbar .nav-pills >li >a {*/
+    /*color: black;*/
+/*}*/
+/*.navbar .nav-pills > li > a:hover {*/
+    /*background-color: gold;*/
+    /*color: black;*/
+/*}*/
+
+/*.navbar .nav-pills .active {*/
+    /*background-color: gold;*/
+    /*color:Black ;*/
+    /*font-weight:bold;*/
+/*}*/
+
+
+/*h2{*/
+    /*color:goldenrod;*/
+/*}*/
+

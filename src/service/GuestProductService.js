@@ -18,6 +18,7 @@ class GuestProductService {
 
 
     createGuestProduct = (user) => {
+
         let newUser = {
             firstName: user.firstName,
             lastName: user.lastName,
@@ -28,6 +29,7 @@ class GuestProductService {
             product: user.product
 
         }
+        console.log(newUser.product);
         return fetch(this.API_URL + "guest", {
             body: JSON.stringify(newUser),
             headers: {

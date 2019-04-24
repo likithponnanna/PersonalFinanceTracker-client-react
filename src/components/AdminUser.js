@@ -147,8 +147,7 @@ class AdminUser extends React.Component{
                                   userList :this.state.userList,
                                   adminList: this.state.adminList
                               })
-                // console.log(this.state.userList);
-                // console.log(this.state.adminList);
+
 
             }
         )
@@ -157,8 +156,9 @@ class AdminUser extends React.Component{
 
 
 
-    componentDidMount = () =>
-             this.getAllUsers();
+    componentDidMount () {
+        this.getAllUsers();
+    }
 
     deleteUser = (userid) =>{
         this.adminUserService.deleteUser(userid).then(
@@ -175,20 +175,6 @@ class AdminUser extends React.Component{
 
 
 
-
-
-
-
-
-    // pushUserToList = (user) => {
-    //     console.log("before set inside push",this.state.userList)
-    //     this.setState({
-    //                       userList: this.state.userList.push(user)
-    //                   })
-    //     console.log("inside push")
-    //     console.log(this.state.userList)
-    // }
-
     render () {
 
         return (
@@ -203,7 +189,7 @@ class AdminUser extends React.Component{
                  <li onClick = {() =>
                  {
                      this.getAllUsers();
-                     context.state.selectedTabForAdminUser = 'USERS'
+                     context.setSelectedTabForAdminUser('USERS')
                  }}>
                      <a className="nav-link" data-toggle="tab"  href="#">
                          Users
@@ -214,7 +200,7 @@ class AdminUser extends React.Component{
                  <li onClick = {() =>
                  {
                      this.getAllUsers();
-                     context.state.selectedTabForAdminUser = 'ADMINS'
+                     context.setSelectedTabForAdminUser('ADMINS')
                  }}>
                      <a className="nav-link" data-toggle="tab"  href="#">
                          Admins
@@ -309,10 +295,6 @@ class AdminUser extends React.Component{
                                                           EDIT
                                                       </button>
 
-                                                      {/*<button type="button"*/}
-                                                      {/*className="btn btn-success btn-circle btn-xl">*/}
-                                                      {/*Make Admin*/}
-                                                      {/*</button>*/}
 
                                                       <button type="button"
                                                               className="btn btn-outline-success"
@@ -436,8 +418,8 @@ class AdminUser extends React.Component{
                                                                 className="btn btn-outline-success" id="editButton"
                                                         onClick={() =>
                                                         {
-                                                            context.setUserForViewingTrans(user);
-                                                            this.setViewTransNeeded()
+                                                            //context.setUserForViewingTrans(user);
+                                                            //this.setViewTransNeeded()
                                                         }}> View Transactions </button>
                                                         </Link>
                                                     </td>
@@ -457,7 +439,7 @@ class AdminUser extends React.Component{
 
 
 
-                         <div>
+
                          {this.state.addUserFormNeeded === true &&
                              <div>
                                <AddUserByAdmin
@@ -467,7 +449,7 @@ class AdminUser extends React.Component{
                                addForm={this.state.addForm}/>
                              </div>
                          }
-                         </div>
+
 
                          <div>
                              {this.state.updateUserFormNeeded === true &&

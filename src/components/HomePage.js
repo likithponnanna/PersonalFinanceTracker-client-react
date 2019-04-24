@@ -9,6 +9,10 @@ import MainPage from "./MainPage";
 import AdminUser from "./AdminUser";
 import TransactionsForAdmin from "./TransactionsForAdmin";
 import ProfileOfOtherUser from "./ProfileOfOtherUser";
+import CreditCardHomePage from "./CreditCardHomePage";
+import ApplyForProduct from "./ApplyForProduct";
+import SavingHomePage from "./SavingHomePage";
+import CheckingHomePage from "./CheckingHomePage"
 
 class HomePage extends Component{
 
@@ -57,6 +61,21 @@ class HomePage extends Component{
                         <Route path ='/profile/:userid' exact
                                render = {(props) =>
                                <ProfileOfOtherUser{...props}/>}/>
+
+                        <Route path = '/home/creditCard' exact
+                        render = {() => <CreditCardHomePage/>}/>
+
+                        <Route path = '/home/saving' exact
+                               render = {() => <SavingHomePage/>}/>
+
+                        <Route path = '/home/checking' exact
+                               render = {() => <CheckingHomePage/>}/>
+
+                        <Route path = '/home/apply/:id/:name' exact
+                        render = {(props) =>
+                            <ApplyForProduct{...props}/>}/>
+
+
 
 
 

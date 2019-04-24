@@ -92,8 +92,8 @@ class AddUserByAdmin extends React.Component{
 
 
 
-    componentDidMount = () =>
-        this.props.getAllUsers();
+    // componentDidMount = () =>
+    //     this.props.getAllUsers();
 
 
     render() {
