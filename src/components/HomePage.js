@@ -19,6 +19,7 @@ import UserOnboardModal from "./UserOnboardModal";
 import 'react-router-modal/css/react-router-modal.css';
 import { ModalContainer, ModalRoute } from 'react-router-modal';
 import CustomerOnBoardLogin from "./CustomerOnBoardLogin";
+import AdminMainPage from "./AdminMainPage";
 
 class HomePage extends Component{
 
@@ -41,14 +42,15 @@ class HomePage extends Component{
                 <Router>
                     <div>
 
-                       {/* <Route path='/' exact
-                               render={() =>
-                                   <CustomerOnBoardPage
-                                        />}/>*/}
-
                         <Route path='/' exact
                                render={(props) =>{
                                    return( <CustomerOnBoardPage {...props}
+
+                                   />) } }/>
+
+                        <Route path='/admin' exact
+                               render={(props) =>{
+                                   return( <AdminMainPage {...props}
 
                                    />) } }/>
                         <Route path='/login' exact

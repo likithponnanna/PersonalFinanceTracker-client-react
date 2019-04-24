@@ -94,3 +94,7 @@ web-dev-text-align-center{
 .web-dev-cred-score-color{
     color: darkblue;
 }
+
+.web-dev-text-center{
+    text-align: center;
+}
