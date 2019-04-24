@@ -4,6 +4,7 @@ import Map from "./Map";
 import PropertyService from "../service/properties.service.client";
 import MyContext from "./MyContext";
 import mapStyle from '../styling/mapStyle'
+import UniversalService from "../service/universal.service.client";
 
 
 
@@ -92,21 +93,26 @@ class UserOverViewTabContent extends Component {
     constructor(props){
 
         super(props);
-        this.propertyService = new PropertyService();
+        this.universalService = new UniversalService();
         this.state = {
-
-            places: [
-                {
-                    "id": 1,
-                    "name": "Park Slope",
-                    "latitude": "40.6710729",
-                    "longitude": "-73.9988001"
-                }
-
-            ]
+            CreditScore: 0,
+            TotalAsset: 0,
+            TotalDebt: 0,
+            NetAsset: 0
         }
     }
 
+    componentDidMount() {
+       this.universalService.findAssetTotal()
+           .then(total =>{ console.log(total);
+           this.setState({
+               CreditScore: total.CreditScore,
+               TotalAsset: total.TotalAsset,
+               TotalDebt: total.TotalDebt,
+               NetAsset: total.TotalAsset - total.TotalDebt
+           })
+    })
+    }
 
 
     render(){
@@ -114,71 +120,69 @@ class UserOverViewTabContent extends Component {
             <MyContext.Consumer>
                 {(context) => (
                     <React.Fragment>
-            <div className="container">
-                {console.log("Context", context.state)}
-                <h2 className="web-dev-text-center mb-2"> Hi {context.state.user} Here is your financial overview  </h2>
+            <div className="container bg-light">
 
+                <h2 className="web-dev-text-center mb-2"> Welcome, Here is your financial overview  </h2>
+
+                <h2 className="web-dev-text-center mt-4 mb-2">Properties you own</h2>
 
                <MapComponentMultiCluster/>
 
-                <h2 className="web-dev-text-center mt-2">Properties you own</h2>
 
 
 
+                <div className=" mt-2 mb-2"/>
 
                 <div className="card text-center">
-                    <div className="card-header">
-                        Featured
+                    <div className="card-header bg-secondary">
+                        <h5 className="card-title">Credit Score</h5>
                     </div>
                     <div className="card-body">
-                        <h5 className="card-title">Special title treatment</h5>
-                        <p className="card-text">With supporting text below as a natural lead-in to additional
-                            content.</p>
+
+                        <p className="card-text"><b> {this.state.CreditScore} </b>   </p>
 
                     </div>
 
                 </div>
 
-                <div className="line mt-2 mb-2"/>
+
+                <div className=" mt-2 mb-2"/>
 
                 <div className="card text-center">
-                    <div className="card-header">
-                        Featured
+                    <div className="card-header bg-secondary">
+                        <h5 className="card-title">Total Asset Value</h5>
                     </div>
                     <div className="card-body">
-                        <h5 className="card-title">Special title treatment</h5>
-                        <p className="card-text">With supporting text below as a natural lead-in to additional
-                            content.</p>
+
+                        <p className="card-text"><b>${this.state.TotalAsset}</b></p>
 
                     </div>
 
                 </div>
 
-                <div className="line mt-2 mb-2"/>
+                <div className=" mt-2 mb-2"/>
 
                 <div className="card text-center">
-                    <div className="card-header">
-                        Featured
+                    <div className="card-header bg-secondary">
+                        <h5 className="card-title">Total Debt</h5>
                     </div>
                     <div className="card-body">
-                        <h5 className="card-title">Special title treatment</h5>
-                        <p className="card-text">With supporting text below as a natural lead-in to additional
-                            content.</p>
+
+                        <p className="card-text">${this.state.TotalDebt}</p>
 
                     </div>
 
                 </div>
 
-                <div className="line mt-2 mb-2"/>
+                <div className=" mt-2 mb-2"/>
 
                 <div className="card text-center">
-                    <div className="card-header">
-                        Featured
+                    <div className="card-header bg-secondary">
+                        <h5 className="card-title">Net Assets</h5>
                     </div>
                     <div className="card-body">
-                        <h5 className="card-title">Special title treatment</h5>
-                        <p className="card-text">With supporting text below as a natural lead-in to additional
-                            content.</p>
+
+                        <p className="card-text"><b>${this.state.NetAsset} </b></p>
 
                     </div>
 

@@ -15,6 +15,7 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import "../node_modules/jquery/dist/jquery.min.js";
 import 'react-router-modal/css/react-router-modal.css';
 
+
 import HomePage from "./components/HomePage";
 
 ReactDOM.render(

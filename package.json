@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
     "@progress/kendo-drawing": "^1.5.11",
     "@progress/kendo-react-gauges": "^2.10.0",
     "@progress/kendo-react-intl": "^2.10.0",
@@ -10,6 +11,7 @@
     "alphavantage": "^1.2.4",
     "apexcharts": "^3.6.8",
     "bootstrap": "^4.3.1",
+    "bootstrap-horizon": "^1.0.1",
     "chart.js": "^2.8.0",
     "decouple": "^1.0.1",
     "emitter": "0.0.5",
