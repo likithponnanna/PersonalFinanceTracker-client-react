@@ -20,7 +20,9 @@ class Register extends Component{
     }*/
 
     render(){
-        if(this.context.state.user !==undefined) {
+        if(this.context.state.user !==undefined && this.context.state.user.isAdmin === false) {
+            return (<Redirect to="/user"/>)
+        }else if(this.context.state.user !==undefined && this.context.state.user.isAdmin === true){
             return (<Redirect to="/user"/>)
         }
     return (

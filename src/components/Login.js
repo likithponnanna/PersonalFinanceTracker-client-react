@@ -6,9 +6,11 @@ import {Redirect} from "react-router";
 class Login extends Component{
 
  render(){
-     if(this.context.state.user !==undefined) {
-        // this.props.history.push('/user')
+     if(this.context.state.user !==undefined && this.context.state.user[0]!==undefined && this.context.state.user[0].isAdmin === false) {
+         // this.props.history.push('/user')
          return (<Redirect to="/user"/>)
+     }else if(this.context.state.user !==undefined && this.context.state.user[0]!==undefined && this.context.state.user[0].isAdmin === true){
+         return (<Redirect to="/admin"/>)
      }
  return(
      <div>
