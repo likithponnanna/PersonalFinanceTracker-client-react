@@ -32,6 +32,7 @@ class AdminUserService {
             credentials: "include"
         }).then(function (response) {
             return response.json();
+
         })
     }
 
