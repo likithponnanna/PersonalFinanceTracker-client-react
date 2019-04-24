@@ -13,6 +13,7 @@ import CreditCardHomePage from "./CreditCardHomePage";
 import ApplyForProduct from "./ApplyForProduct";
 import SavingHomePage from "./SavingHomePage";
 import CheckingHomePage from "./CheckingHomePage"
+import AddBillForUserByAdmin from './AddBillForUserByAdmin'
 
 class HomePage extends Component{
 
@@ -75,6 +76,11 @@ class HomePage extends Component{
                         render = {(props) =>
                             <ApplyForProduct{...props}/>}/>
 
+
+
+                        <Route path = '/admin/addBill/:userid/:username' exact
+                        render = {(props) =>
+                        <AddBillForUserByAdmin{...props}/>}/>
 
 
 

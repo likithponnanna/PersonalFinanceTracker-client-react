@@ -34,10 +34,18 @@ class AdminUser extends React.Component{
             viewTrans:true,
             viewTransNeeded:false,
             guestListStatusFixed:[],
-            guestListStatusPending:[]
+            guestListStatusPending:[],
+            addBillNeeded:false,
+            addBill:true
 
 
         }
+    }
+
+    setAddBill = () => {
+        this.setState({
+                          addBillNeeded:this.state.addBill
+                      })
     }
 
     setAdduserForm = () => {
@@ -174,6 +182,12 @@ class AdminUser extends React.Component{
     };
 
 
+    addBill = () =>
+    {
+
+    }
+
+
 
     render () {
 
@@ -306,6 +320,21 @@ class AdminUser extends React.Component{
                                                       >
                                                           MAKE ADMIN
                                                       </button>
+
+                                                      <Link to = {`/admin/addBill/${user[0]._id}/${user[0].username}`}>
+                                                      <button type="button"
+                                                              className="btn btn-outline-warning"
+                                                              id="editButton"
+                                                              // onClick={() => {
+                                                              //     this.addBill(user[0]._id)
+                                                              //     this.setAddBill()
+                                                              //
+                                                              // }}
+                                                      >
+                                                          ADD BILLS
+                                                      </button>
+                                                      </Link>
+
 
                                                   </td>
 

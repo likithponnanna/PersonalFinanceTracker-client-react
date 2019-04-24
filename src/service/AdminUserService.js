@@ -132,6 +132,33 @@ class AdminUserService {
 
     }
 
+    addBillForUser = (bill) => {
+
+        let newBill = {
+
+            user: bill.userid,
+            billType: bill.billType,
+            billName: bill.billName,
+            bill_due_date: bill.bill_due_date,
+            bill_posted_date: bill.bill_posted_date,
+            bill_pending: bill.bill_pending,
+            bill_amount: bill.bill_amount
+
+        }
+
+        return fetch(this.API_URL + "admin/bill", {
+                         body: JSON.stringify(newBill),
+                         headers: {
+                             'Content-Type': 'application/json'
+                         },
+                         credentials: "include",
+                         method: 'POST'
+                     }
+        ).then(response => response.json())
+
+
+    }
+
 
 
 }
