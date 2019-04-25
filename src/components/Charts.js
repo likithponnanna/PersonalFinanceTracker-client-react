@@ -54,8 +54,8 @@ class Charts extends Component{
                 x_axis.push(key);
 
             }
-            //console.log("X_Axis",x_axis);
-           // console.log("Y axis", y_axis);
+            console.log("X_Axis",x_axis);
+            console.log("Y axis", y_axis);
             //console.log(data["Time Series (Daily)"])
 
             this.setState({

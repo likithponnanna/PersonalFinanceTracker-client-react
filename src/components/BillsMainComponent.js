@@ -19,9 +19,13 @@ class BillsMainComponent  extends Component{
 
     componentDidMount() {
         this.billService.findPendingBills()
-            .then(bills => this.setState({
-                paidBills: bills
-            }) )
+            .then(bills => {this.setState({
+                unpaidBills: bills
+            })
+            console.log("Unpaid", bills);
+                console.log("State Unpaid", this.state.unpaidBills)
+            })
+
 
 
     }
@@ -29,26 +33,32 @@ class BillsMainComponent  extends Component{
     getUnpaidBills = () =>
         this.billService.findPendingBills()
             .then(bills => this.setState({
-                paidBills: bills
+                unpaidBills: bills
             }) )
 
     getPaidBills = () =>
         this.billService.findPaidBills()
-            .then(bills => this.setState({
-                unpaidBills: bills
-            }))
+            .then(bills =>{ this.setState({
+                paidBills: bills
+            })
+            console.log("Paid Bills", bills)
+            })
 
     payBill =(Bill) =>
     {
-        let newbill = Bill;
-        newbill.bill_pending = true;
+        let newbill ={};
+         newbill = Bill;
+        newbill["bill_pending"] = false;
+
+        console.log("Inside Pay bill", newbill, "Sent Bill", Bill);
 
         this.billService.payBill(Bill)
-            .then(response =>
-            this.setState({
-                    unPaidBills: this.state.unPaidBills.filter(bill => bill._id !== Bill._id)
-                }
-                )
+            .then(response =>{
+
+                this.billService.findPendingBills()
+                    .then(bills => this.setState({
+                        unpaidBills: bills
+                    }) )}
             )
     }
 

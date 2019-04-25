@@ -8,6 +8,7 @@ import StockSearchContent from "./StockSearchContent";
 import queryString from 'query-string'
 import AlphaVantageService from '../service/AlphaVantage';
 import StockService from '../service/stocks.service.client'
+import StockDetailsModal from "./StockDetailsModal";
 
 class StockSearchMainComponent  extends Component{
 
@@ -18,8 +19,18 @@ class StockSearchMainComponent  extends Component{
         this.alpha = require('alphavantage')({ key: 'QZTS8QOG36E6LQEI' });
         this.state = {
             stockSymbol: values.stockSymbol,
+            showStockDetailModal: false,
             searchStockData: [],
-            stateSearchData: []
+            stateSearchData: [],
+            x_axis: [],
+            y_axis: [],
+            stock_symbol: '',
+            purchase_price: 0,
+            stock_name: '',
+            category: '',
+            purchase_date: null
+
+
         }
     }
 
@@ -35,6 +46,9 @@ class StockSearchMainComponent  extends Component{
             this.searchStock(values.stockSymbol)
         }
     }
+
+    handleStockDetailModalOpen = () =>
+        this.setState({ showStockDetailModal: true });
 
     searchStock = (stockSymbol) => {
         this.alpha.data.search(stockSymbol)
@@ -65,61 +79,58 @@ class StockSearchMainComponent  extends Component{
             });
 
 
-    buyStock =(StockSymbol, stock) => {
-        console.log("Stock Buy", StockSymbol);
+    buyStock =(StockSymbol, stock, stockName) => {
+       /* console.log("Stock Buy", StockSymbol);*/
         let newStock = ""+StockSymbol+"";
         if (StockSymbol !== [] || StockSymbol !== undefined) {
 
-            this.alpha.data.daily_adjusted(newStock, `compact`, `json`, 60).then(data => {
 
+
+            this.alpha.data.daily_adjusted(newStock, `compact`, `json`, 60).then(data => {
+                //console.log("Orginal data", data["Meta Data"]["2. Symbol"]);
+               // console.log("Orginal data", data);
                 let openPrice;
                 let dateN;
                 for(let i in data["Time Series (Daily)"]){
                     let key = i;
                     dateN =i;
                     openPrice = data["Time Series (Daily)"][key]["1. open"];
-                    if(openPrice!==undefined && openPrice>0){
+                    if(openPrice!==undefined && openPrice==1){
                         break;
                     }
                 }
+                let x_axis = [];
+                let y_axis = [];
+                for(let i in data["Time Series (Daily)"]){
+                    let key = i;
+                   /* y_axis[key].push(data["Time Series (Daily)"][key]["1. open"]);
+                    x_axis[key].push(key);*/
 
-                let stockToAdd = {
-                    stock_name: stock[0].stockName,
+                    y_axis.push(data["Time Series (Daily)"][key]["1. open"]);
+                    x_axis.push(key);
+                }
+
+                console.log("X axis before", x_axis);
+                console.log("Y axis before", y_axis);
+
+
+                this.setState({
+                    x_axis:x_axis,
+                    y_axis: y_axis,
+                    stock_name: stockName,
                     stock_symbol: StockSymbol,
                     purchase_price: openPrice,
                     category: stock[0].stockEquity,
                     purchase_date: dateN,
                     no_of_shares: 1
+                }
 
-                };
-
-                console.log("Data", data);
-                console.log("Date",dateN );
-                console.log("openPrice", openPrice);
-
-
-
-                this.stockService.createStock(stockToAdd)
-                    .then(Stock => {
-                        console.log("Stock inside then add", Stock);
-                        this.context.pushStockOwned(Stock)
-                    })
-
+            );
 
 
 
 
             })
-
-            /*            this.alpha.data.daily_adjusted(this.state.stockSymbolForSearch, `compact`, `json`, 60)
-                            .then(stock => console.log("Stock Buy after", stock))
-                            .catch(reason => console.log(reason))*/
-
-            /*
-                        this.stockService.createStock(Stock)
-                            .then(Stock => {
-                                this.context.pushStockOwned(Stock)
-                            })*/
 
         }
     }
@@ -132,7 +143,20 @@ class StockSearchMainComponent  extends Component{
                 <MyContext.Consumer>
                     {(context) => (
                         <React.Fragment>
+
+
                             <div className="wrapper">
+                                {this.state.x_axis!==undefined &&  <StockDetailsModal
+                                    stock_symbol={this.state.stock_symbol}
+                                    x_axis ={this.state.x_axis}
+                                    y_axis={this.state.y_axis}
+                                    purchase_price ={this.state.purchase_price}
+                                    stock_name ={this.state.stock_name}
+                                    category ={this.state.category}
+                                    purchase_date ={this.state.purchase_date}
+                                    no_of_shares ={this.state.no_of_shares}
+                                    data = {this.state.data}
+                                /> }
                                 <SideBarUser/>
                                 <div id="content" className={` ${context.state.sidebarAct  ? 'active' : ''} `}>
                                     <UserNavBar
@@ -142,6 +166,7 @@ class StockSearchMainComponent  extends Component{
                                     <div className="container ">
                                         <br/><br/> <br/>
                                         <StockSearchContent
+                                            handleStockDetailModalOpen ={this.handleStockDetailModalOpen}
                                         urlStockSymbol = {this.state.stockSymbol}
                                         stockSymbolForSearch ={this.state.stockSymbolForSearch}
                                         searchStock ={this.searchStock}

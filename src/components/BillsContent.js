@@ -59,16 +59,19 @@ class BillsContent extends React.Component {
                             centered
 
                         >
-                        >
-                                <Tab label="Unpaid Bills" />
-                                <Tab label="Paid Bills" />
+
+                                <Tab value={0} label="Unpaid Bills" onClick={()=>this.props.getUnpaidBills()} />
+                                <Tab value={1}  label="Paid Bills" onClick={()=>this.props.getPaidBills()} />
 
 
                         </Tabs>
                 </AppBar>
                 {value === 0 &&
-                <TabContainer>
-                        <div className="card-columns" onClick={()=> this.props.getUnpaidBills()}>
+
+
+                        <div  onClick={()=> {this.props.getUnpaidBills();this.setState({ value: 0 });}}>
+                <TabContainer >
+                        <div className="card-columns" >
                         {
 
                                         this.props.unpaidBills.map((bill,index)  =>
@@ -80,21 +83,23 @@ class BillsContent extends React.Component {
                                                 <p className="card-text">Bill Name: {bill.bill_due_date}</p>
                                                 <p className="card-text">Bill Name:{bill.bill_posted_date}</p>
                                                 <p className="card-text">Bill Amount: <b>{bill.bill_amount}</b></p>
-                                                <button className="btn bg-secondary card-footer">
-                                                        <b className=" web-dev-white-text" onClick={()=> this.props.payBill(bill)}>Mark as paid</b>
+                                                <button className="btn bg-secondary card-footer" onClick={()=> this.props.payBill(bill)}>
+                                                        <b className=" web-dev-white-text" >Mark as paid</b>
                                                 </button>
                                         </div>
                                 </div>
                                         )
 
                         }
-                </div>
-                </TabContainer>}
+                        </div>
+                </TabContainer>
+                        </div>}
                 {value === 1 &&
-                <TabContainer><div className="card-columns" onClick={()=> this.props.getPaidBills()}>
+                    <div onClick={()=> {this.props.getPaidBills();this.setState({ value: 1 });}}>
+                <TabContainer><div className="card-columns" >
                         {
 
-                                this.props.unpaidBills.map((bill,index)  =>
+                                this.props.paidBills.map((bill,index)  =>
 
                                     <div className="card text-center" key={index}>
                                             <div className="card-body">
@@ -106,7 +111,8 @@ class BillsContent extends React.Component {
                                 )
 
                         }
-                </div></TabContainer>}
+                </div></TabContainer>
+                    </div>}
 
 
         </div>

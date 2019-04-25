@@ -16,6 +16,34 @@ class BudgetService {
                 response.json());
     };
 
+
+    findAllTransactionHalfYear =() => {
+        return fetch(this.API_URL+'transaction/halfYear/spends', {
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'GET',
+        })
+            .then(response =>
+                response.json());
+    };
+
+
+
+
+    findBudgetByMonth = (month) =>
+        fetch(this.API_URL+'budget/month/'+month,{
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'GET',
+        })
+            .then(response =>
+                response.json());
+
+
     findBudgetById = (Budget) =>
         fetch(this.API_URL+'budget/'+Budget._id,{
             credentials: "include",

@@ -41,6 +41,7 @@
     "react-router-dom": "^5.0.0",
     "react-router-modal": "^1.5.2",
     "react-scripts": "2.1.8",
+    "react-select": "^2.4.3",
     "reactstrap": "^8.0.0",
     "recharts": "^1.5.0"
   },

@@ -71,7 +71,7 @@ class BillService {
 
 
     payBill = (Bill) => {
-        return fetch(this.API_URL+'/api/bill/'+Bill._id, {
+        return fetch(this.API_URL+'bill/'+Bill._id, {
             body: JSON.stringify(Bill),
             headers: {
                 'Content-Type': 'application/json'

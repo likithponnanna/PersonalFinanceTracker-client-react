@@ -20,6 +20,8 @@ import 'react-router-modal/css/react-router-modal.css';
 import { ModalContainer, ModalRoute } from 'react-router-modal';
 import CustomerOnBoardLogin from "./CustomerOnBoardLogin";
 import AdminMainPage from "./AdminMainPage";
+import CheckingAccountAddModal from "./CheckingAccountAddModal";
+import StockSearchDetailsMainComponent from "./StockSearchDetailsMainComponent";
 
 class HomePage extends Component{
 
@@ -44,50 +46,121 @@ class HomePage extends Component{
 
                         <Route path='/' exact
                                render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
                                    return( <CustomerOnBoardPage {...props}
 
                                    />) } }/>
 
                         <Route path='/admin' exact
                                render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
                                    return( <AdminMainPage {...props}
 
                                    />) } }/>
                         <Route path='/login' exact
                                render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
                                    return( <CustomerOnBoardLogin {...props}
 
                                    />) } }/>
-                        <Route path="/user/:id" exact
-                               component={Charts}
-                        />
-                        <Route path='/credit-score'
-                               render={() => <CreditScoreMainComponent/>}/>
-                        <Route path="/user"exact
-                               component={UserHome}
-                        />
-                        <Route path="/transactions" exact
-                               component={TransactionPage}/>
-                        <Route path="/bills" exact
-                               component={BillsMainComponent}
-                        />
 
-                        <Route path="/forex-conversion" exact
-                               component={ForexConversionMainComponent}
-                        />
-                        <Route path="/budget" exact
-                               component={BudgetTabMainContent}
-                        />
-                        <Route path="/stock-search" exact
-                               component={StockSearchMainComponent}
-                        />
-                        <Route path="/stock-search/search" exact
-                               component={StockSearchMainComponent}/>
-                        <Route path="/charts" exact
-                               component={Charts}/>
 
-                        <Route path="/login" exact
-                               component={UserOnboardModal}/>
+                        <Route path='/user/:id' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <CheckingAccountAddModal {...props}
+
+                                   />) } }/>
+
+                        <Route path='/credit-score' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <CreditScoreMainComponent {...props}
+
+                                   />) } }/>
+
+
+
+                        <Route path='/user' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <UserHome {...props}
+
+                                   />) } }/>
+
+
+                        <Route path='/transactions' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <TransactionPage {...props}
+
+                                   />) } }/>
+
+
+                        <Route path='/bills' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <BillsMainComponent {...props}
+
+                                   />) } }/>
+
+
+                        <Route path='/forex-conversion' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <ForexConversionMainComponent {...props}
+
+                                   />) } }/>
+
+
+                        <Route path='/budget' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <BudgetTabMainContent {...props}
+
+                                   />) } }/>
+
+                        <Route path='/stock-search' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <StockSearchMainComponent {...props}
+
+                                   />) } }/>
+
+
+
+                        <Route path='/search' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <StockSearchMainComponent {...props}
+
+                                   />) } }/>
+
+                        StockSearchDetailsMainComponent
+                        <Route path='/search/details' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <StockSearchDetailsMainComponent {...props}
+
+                                   />) } }/>
+
+
+                        <Route path='/charts' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <Charts {...props}
+
+                                   />) } }/>
+
+
+
+                        <Route path='/login' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <UserOnboardModal {...props}
+
+                                   />) } }/>
+
                         <ModalRoute path='/modal-test' parentPath='/'>
                             Hello
                         </ModalRoute>
