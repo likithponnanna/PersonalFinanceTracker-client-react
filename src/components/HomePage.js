@@ -19,6 +19,7 @@ import AdminListForAdmin from './AdminListForAdmin'
 import ApprovedCreditCardsForAdmin from './ApprovedCreditCardsForAdmin'
 import TrackTransactionsByAdmin from './TrackTransactionsByAdmin'
 import PendingCreditCardBYAdmin from './PendingCreditCardByAdmin'
+import Profile from './Profile'
 
 class HomePage extends Component{
 
@@ -93,6 +94,9 @@ class HomePage extends Component{
 
                         <Route path = '/admin/pendingCreditCards' exact
                                render = {() => <PendingCreditCardBYAdmin/>}/>
+
+                        <Route path = '/profile' exact
+                               render = {() => <Profile/>}/>
 
                         <Route path = '/home/apply/:id/:name' exact
                         render = {(props) =>

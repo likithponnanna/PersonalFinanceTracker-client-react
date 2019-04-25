@@ -12,8 +12,34 @@ class MainPage extends React.Component {
         super(props);
         this.mainPageService = MainPageService.getInstance();
         this.state ={
-
+            loginFlag:false,
+            username:'',
+            password:'',
+            submitFlag:false,
+            firstName:''
         }
+    }
+
+    userNameChanged = event => {
+        this.setState({
+                          username: event.target.value
+                      })
+    };
+
+    passwordChanged = event => {
+        this.setState({
+                          password: event.target.value
+                      })
+    };
+
+    loginUser = (user) => {
+        console.log(user)
+        this.mainPageService.loginUser(user).then(
+            (res) =>{
+                console.log(res)
+            }
+        )
+
     }
 
     render() {
@@ -28,7 +54,12 @@ class MainPage extends React.Component {
 
 
                           <div className="ButtonList" id="button">
-                              <Button variant="outline-primary" size="sm">Login</Button>
+                              <Button variant="outline-primary" size="sm" onClick={() => {
+                                  this.setState({
+                                      loginFlag:true
+                                                })
+                              }
+                              }>Login</Button>
                               <Button variant="outline-success" size="sm">Register</Button>
                           </div>
 
@@ -53,7 +84,61 @@ class MainPage extends React.Component {
                               </li>
 
 
+
+                              {this.state.loginFlag === true &&
+
+                               <div>
+                                   <div className="form-group row">
+                                       <label htmlFor="username" className="col-sm-2">
+                                           UserName
+                                       </label>
+                                       <div className="col-sm-10">
+                                           <input
+                                               className="form-control"
+                                               placeholder="username"
+                                               id="username"
+                                               onChange={this.userNameChanged}
+                                           />
+                                       </div>
+                                   </div>
+
+                                   <div className="form-group row">
+                                       <label htmlFor="password" className="col-sm-2">
+                                           Password
+                                       </label>
+                                       <div className="col-sm-10">
+                                           <input
+                                               className="form-control"
+                                               placeholder="password"
+                                               id="password"
+                                               onChange={this.passwordChanged}
+                                           />
+                                       </div>
+                                   </div>
+
+                                   <Link to={`/profile`}>
+                                   <button className="btn-success" onClick={() => {
+
+                                       this.loginUser(this.state)
+                                       console.log(this.state.username,this.state.password)
+
+                                   }
+                                   }>
+                                       SUBMIT
+                                   </button>
+                                   </Link>
+
+                               </div>
+
+                              }
+
+
+
                           </ul>
+
+
+
+
 
 
                       </React.Fragment>
