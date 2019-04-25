@@ -94,6 +94,8 @@ class AdminUserService {
         let id = user._id;
         console.log("id",id)
 
+
+
         return fetch(this.API_URL+"update/" +id,{
             body: JSON.stringify(newUser),
             headers: {

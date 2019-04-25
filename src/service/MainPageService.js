@@ -49,7 +49,7 @@ class MainPageService {
 
     getProfile = () =>
     {
-        return fetch(this.API_URL+"session", {
+        return fetch(this.API_URL+"profile", {
             method: "GET",
             headers: { "content-type": "application/json" },
             credentials: "include"
@@ -58,8 +58,20 @@ class MainPageService {
         })
     }
 
+    //
+    // getProfile = () =>
+    // {
+    //     return{
+    //
+    //             _id:237,
+    //
+    //
+    //
+    //     }
+    // }
 
-    //session only has what ever u pass in login, so get session error in parent component
+
+
 
 
 
