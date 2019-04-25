@@ -7,15 +7,15 @@ class EditUserByAdmin extends React.Component{
         super(props);
         this.adminUserService = AdminUserService.getInstance();
         this.state ={
-            firstName:this.props.userToBeEdited[0].firstName,
-            lastName:this.props.userToBeEdited[0].lastName,
-            dob:this.props.userToBeEdited[0].dob,
-            address:this.props.userToBeEdited[0].address,
-            phoneNumber:" ",
-            email:this.props.userToBeEdited[0].email,
-            username:this.props.userToBeEdited[0].username,
-            password:this.props.userToBeEdited[0].password,
-            _id:this.props.userToBeEdited[0]._id,
+            firstName:this.props.userToBeEdited.firstName,
+            lastName:this.props.userToBeEdited.lastName,
+            dob:this.props.userToBeEdited.dob,
+            address:this.props.userToBeEdited.address,
+            phoneNumber:this.props.userToBeEdited.phoneNumber,
+            email:this.props.userToBeEdited.email,
+            username:this.props.userToBeEdited.username,
+            password:this.props.userToBeEdited.password,
+            _id:this.props.userToBeEdited._id,
             editFormFlag:this.props.editForm,
             falseFlag:false
         }
@@ -69,28 +69,20 @@ class EditUserByAdmin extends React.Component{
                       });
     };
 
-    editUser = () =>{
-        this.adminUserService.updateUser(this.state).then(
-            () => this.getAllUsers()
-        );
-    };
 
 
-    getAllUsers = () => {
-        this.props.getAllUsers()
-    }
 
     setEditFormFlag = () => {
         this.setState({
                           editFormFlag:this.state.falseFlag
                       })
-       // console.log("addFormFlag",this.state.addFormFlag)
     }
 
     render () {
 
         return (
             <div>
+                {console.log("edit is entered",this.state.editFormFlag)}
 
                 {this.state.editFormFlag === true &&
 
@@ -103,7 +95,7 @@ class EditUserByAdmin extends React.Component{
                             <div className="col-sm-10">
                                 <input
                                     className="form-control"
-                                    placeholder={this.props.userToBeEdited[0].username}
+                                    placeholder={this.props.userToBeEdited.username}
                                     id="username"
                                     // value={this.props.userToBeEdited[0].username}
                                     onChange={this.userNameChanged}
@@ -118,7 +110,7 @@ class EditUserByAdmin extends React.Component{
                             <div className="col-sm-10">
                                 <input
                                     className="form-control"
-                                    placeholder={this.props.userToBeEdited[0].password}
+                                    placeholder={this.props.userToBeEdited.password}
                                     // value={this.props.userToBeEdited[0].password}
                                     id="password"
                                     onChange={this.passwordChanged}
@@ -134,7 +126,7 @@ class EditUserByAdmin extends React.Component{
                             <div className="col-sm-10">
                                 <input
                                     className="form-control"
-                                    placeholder={this.props.userToBeEdited[0].firstName}
+                                    placeholder={this.props.userToBeEdited.firstName}
                                     // value={this.props.userToBeEdited[0].firstName}
                                     id="firstName"
                                     onChange={this.firstNameChanged}
@@ -150,7 +142,7 @@ class EditUserByAdmin extends React.Component{
                             <div className="col-sm-10">
                                 <input
                                     className="form-control"
-                                    placeholder={this.props.userToBeEdited[0].lastName}
+                                    placeholder={this.props.userToBeEdited.lastName}
                                     // value={this.props.userToBeEdited[0].lastName}
                                     id="lastName"
                                     onChange={this.lastNameChanged}
@@ -165,7 +157,7 @@ class EditUserByAdmin extends React.Component{
                             <div className="col-sm-10">
                                 <input
                                     className="form-control"
-                                    placeholder={this.props.userToBeEdited[0].DOB}
+                                    placeholder={this.props.userToBeEdited.DOB}
                                     // value={this.props.userToBeEdited[0].DOB}
                                     id="dob"
                                     onChange={this.dobChanged}
@@ -180,7 +172,7 @@ class EditUserByAdmin extends React.Component{
                             <div className="col-sm-10">
                                 <input
                                     className="form-control"
-                                    placeholder={this.props.userToBeEdited[0].address}
+                                    placeholder={this.props.userToBeEdited.address}
                                     // value={this.props.userToBeEdited[0].address}
                                     id="address"
                                     onChange={this.addressChanged}
@@ -195,7 +187,7 @@ class EditUserByAdmin extends React.Component{
                             <div className="col-sm-10">
                                 <input
                                     className="form-control"
-                                    placeholder={this.props.userToBeEdited[0].phoneNumber}
+                                    placeholder={this.props.userToBeEdited.phoneNumber}
                                     // value={this.props.userToBeEdited[0].phoneNumber}
                                     id="phoneNumber"
                                     onChange={this.phoneNumberChanged}
@@ -211,7 +203,7 @@ class EditUserByAdmin extends React.Component{
                             <div className="col-sm-10">
                                 <input
                                     className="form-control"
-                                    placeholder={this.props.userToBeEdited[0].email}
+                                    placeholder={this.props.userToBeEdited.email}
                                     // value={this.props.userToBeEdited[0].email}
                                     id="email"
                                     onChange={this.emailChanged}
@@ -222,7 +214,7 @@ class EditUserByAdmin extends React.Component{
                         <button
                             className="btn-primary"
                             onClick={() => {
-                                this.editUser();
+                                this.props.editUser(this.state);
                                 this.setEditFormFlag();
                             }}
                         >

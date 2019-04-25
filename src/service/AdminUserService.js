@@ -107,7 +107,7 @@ class AdminUserService {
     }
 
     makeUserAdmin = (user) => {
-        let username = user[0].username
+        let username = user.username
         console.log(user)
         return fetch(this.API_URL+"user/" +username+"/admin",{
             body: JSON.stringify(user),

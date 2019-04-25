@@ -6,21 +6,58 @@ class PendingCreditCardByAdmin extends React.Component {
     constructor(props) {
         super(props);
         this.guestProductService = GuestProductService.getInstance();
-        this.state = {}
+        this.state = {
+            guestListStatusPending:[]
+        }
+    }
+
+
+    getGuestUsersForCreditCardStatusPending = () => {
+        let initList = [];
+        this.guestProductService.getGuestUsers().then(
+            (guests) => {
+                console.log("guests",guests);
+                // this.setState({
+                //                   guestListStatusPending:[]
+                //               });
+
+                for(let i=0; i<guests.length;i++)
+                {
+                    if(guests[i].status === "PENDING" )
+                    {
+                        initList.push(guests[i])
+                    }
+                }
+
+                this.setState({
+                                  guestListStatusPending:initList
+                              })
+
+                console.log("guestlist pending",this.state.guestListStatusPending)
+
+            }
+        )
     }
 
 
     approveGuestUsers = (guest) => {
         this.guestProductService.approveGuestUsers(guest).then(
-            () => this.props.getGuestUsersForCreditCardStatusPending()
+            () => this.getGuestUsersForCreditCardStatusPending()
         )
     }
 
     rejectGuestUsers = (guest) => {
         this.guestProductService.rejectGuestUsers(guest).then(
-            () => this.props.getGuestUsersForCreditCardStatusPending()
+            () => this.getGuestUsersForCreditCardStatusPending()
         )
     }
+
+    componentDidMount() {
+        this.getGuestUsersForCreditCardStatusPending()
+    }
+
+
+
 
     render() {
 
@@ -43,7 +80,7 @@ class PendingCreditCardByAdmin extends React.Component {
                    </thead>
 
                    <tbody>
-                   {this.props.guestListStatusPending.map(
+                   {this.state.guestListStatusPending.map(
                        (guest) =>
                            <tr key={guest._id}>
                                <th scope="row">Guest</th>

@@ -1,18 +1,8 @@
 import React from 'react';
 import { Button } from 'react-bootstrap'
 import './MainPageStyle.css'
-import Card from 'react-bootstrap/Card'
-import Navbar from 'react-bootstrap/Navbar'
-import CardDeck from 'react-bootstrap/CardDeck'
-// import Nav from 'react-bootstrap/Nav'
-import { Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
-import Tabs from 'react-bootstrap/Tabs'
-import Tab from 'react-bootstrap/Tab'
 import MyContext from './MyContext'
 import MainPageService from "../service/MainPageService";
-import CreditCardHomePage from "./CreditCardHomePage";
-import SavingHomePage from "./SavingHomePage"
-import CheckingHomePage from "./CheckingHomePage"
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 
 

@@ -5,13 +5,48 @@ import './MainPageStyle.css'
 import GuestProductService from "../service/GuestProductService"
 
 
-class ApproveCreditCardByAdmin extends React.Component {
+class ApprovedCreditCardsForAdmin extends React.Component {
     constructor(props) {
         super(props);
+        this.guestProductService = GuestProductService.getInstance()
         this.state = {
-
+            guestCreditCardList:[]
         }
     }
+
+
+    getGuestUsersForCreditCardStatusFixed = () => {
+        let initList = []
+        this.guestProductService.getGuestUsers().then(
+            (guests) => {
+                console.log("guests",guests);
+                // this.setState({
+                //                   guestListStatusFixed:[]
+                //               });
+
+                for(let i=0; i<guests.length;i++)
+                {
+                    if(guests[i].status === "APPROVED" || guests[i].status === "REJECTED" )
+                    {
+                        initList.push(guests[i])
+                    }
+                }
+
+                this.setState({
+                                  guestCreditCardList:initList
+                              })
+
+                console.log("guestlist",this.state.guestCreditCardList)
+
+            }
+        )
+    }
+
+    componentDidMount() {
+        this.getGuestUsersForCreditCardStatusFixed()
+    }
+
+
 
 
 
@@ -42,7 +77,8 @@ class ApproveCreditCardByAdmin extends React.Component {
 
                 <tbody>
 
-                {this.props.guestListStatusFixed.map(
+                {
+                    this.state.guestCreditCardList.map(
                     (guest) =>
                         <tr key={guest._id}>
                             <th scope="row">Guest</th>
@@ -75,4 +111,4 @@ class ApproveCreditCardByAdmin extends React.Component {
     }
 
 }
-export default ApproveCreditCardByAdmin
+export default ApprovedCreditCardsForAdmin

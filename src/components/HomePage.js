@@ -14,6 +14,11 @@ import ApplyForProduct from "./ApplyForProduct";
 import SavingHomePage from "./SavingHomePage";
 import CheckingHomePage from "./CheckingHomePage"
 import AddBillForUserByAdmin from './AddBillForUserByAdmin'
+import UserListForAdmin from "./UserListForAdmin";
+import AdminListForAdmin from './AdminListForAdmin'
+import ApprovedCreditCardsForAdmin from './ApprovedCreditCardsForAdmin'
+import TrackTransactionsByAdmin from './TrackTransactionsByAdmin'
+import PendingCreditCardBYAdmin from './PendingCreditCardByAdmin'
 
 class HomePage extends Component{
 
@@ -72,10 +77,26 @@ class HomePage extends Component{
                         <Route path = '/home/checking' exact
                                render = {() => <CheckingHomePage/>}/>
 
+                        <Route path = '/admin/users' exact
+                               render = {() => <UserListForAdmin/>}/>
+
+                        <Route path = '/admin/admins' exact
+                               render = {() => <AdminListForAdmin/>}/>
+
+
+                        <Route path = '/admin/creditCards' exact
+                               render = {() => <ApprovedCreditCardsForAdmin/>}/>
+
+
+                        <Route path = '/admin/transactions' exact
+                               render = {() => <TrackTransactionsByAdmin/>}/>
+
+                        <Route path = '/admin/pendingCreditCards' exact
+                               render = {() => <PendingCreditCardBYAdmin/>}/>
+
                         <Route path = '/home/apply/:id/:name' exact
                         render = {(props) =>
                             <ApplyForProduct{...props}/>}/>
-
 
 
                         <Route path = '/admin/addBill/:userid/:username' exact
