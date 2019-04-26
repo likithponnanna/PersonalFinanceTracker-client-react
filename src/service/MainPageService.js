@@ -58,17 +58,41 @@ class MainPageService {
         })
     }
 
-    //
-    // getProfile = () =>
-    // {
-    //     return{
-    //
-    //             _id:237,
-    //
-    //
-    //
-    //     }
-    // }
+    updateUserWithSession = (user) => {
+
+        console.log("inside update service the param user")
+        console.log(user)
+
+        let newUser = {
+
+            username:user.username,
+            password: user.password,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            DOB:user.dob,
+            phoneNumber: user.phoneNumber,
+            email: user.email,
+            address: user.address,
+
+        }
+        console.log("inside service update new user")
+        console.log(newUser)
+        let id = user._id;
+        console.log("id",id)
+
+
+
+        return fetch(this.API_URL+"update/session/" +id,{
+            body: JSON.stringify(newUser),
+            headers: {
+                'Content-Type': 'application/json' },
+            credentials: "include",
+            method: 'PUT'
+
+        }).then(response =>
+                    response.json())
+
+    }
 
 
 

@@ -197,7 +197,7 @@ class Profile extends React.Component {
         // this.setState({
         //
         //               })
-        this.adminUserService.updateUser(user)
+        this.mainPageService.updateUserWithSession(user)
             .then(() => this.getProfile())
 
     };
