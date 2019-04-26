@@ -162,6 +162,31 @@ class AdminUserService {
     }
 
 
+    addProduct = (prod) => {
+
+        let newProd = {
+
+            name:prod.name,
+            bank:prod.bank,
+            details:prod.details,
+            url:prod.url,
+            type:prod.type
+        }
+
+        return fetch(this.API_URL + "product", {
+                         body: JSON.stringify(newProd),
+                         headers: {
+                             'Content-Type': 'application/json'
+                         },
+                         credentials: "include",
+                         method: 'POST'
+                     }
+        ).then(response => response.json())
+
+
+    }
+
+
 
 }
 
