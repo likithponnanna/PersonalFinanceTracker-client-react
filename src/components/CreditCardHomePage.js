@@ -65,7 +65,7 @@ class CreditCardHomePage extends React.Component {
                                     <div className="row ">
                                         <div className="col-auto">
                                             <img src={card.url}
-                                                 className="img-fluid ml-lg-5 ml-md-5 ml-sm-1 mt-2" alt=""/>
+                                                 className="img-fluid ml-lg-5 ml-md-5 ml-sm-1 mt-2 p-5" alt="Credit"/>
                                         </div>
                                         <div className="col mt-4">
                                             <div className="card-block px-2">
