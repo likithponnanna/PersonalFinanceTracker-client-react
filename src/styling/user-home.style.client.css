@@ -55,6 +55,10 @@ a:focus {
     width: 100%;
 }
 
+.web-dev-overflowScrollN{
+    overflow-y: scroll !important;
+}
+
 #sidebar {
     width: 250px;
     position: fixed;
@@ -62,18 +66,30 @@ a:focus {
     left: 0;
     height: 100vh;
     z-index: 999;
-    background: #474747;
+    background: #1c2228;
     color: #fff;
     transition: all 0.3s;
+
 }
+
+#sidebar::-webkit-scrollbar
+{
+    display: none !important;
+}
+
+
+
 
 #sidebar.active {
     margin-left: -250px;
+
 }
+
+
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #344ac0;
+    background: #222d81;
 }
 
 #sidebar ul.components {
@@ -182,6 +198,13 @@ li.nav-item.nav-link.active.bg-dark{
 .web-dev-overflowScroll{
     overflow-y: scroll;
     overflow-x: scroll;
+}
+
+.web-dev-admin-side-bar-color{
+    background: #222d81 !important;
+
+
+
 }
 
 

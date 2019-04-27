@@ -13,7 +13,8 @@ class PropertyService {
             method: 'GET',
         })
             .then(response =>
-                response.json());
+                response.json())
+            .catch(reason => console.log(reason))
     };
 
     findPropertyById = (Property) =>

@@ -13,7 +13,8 @@ class StockService {
             method: 'GET',
         })
             .then(response =>
-                response.json());
+                response.json())
+            .catch(reason => console.log(reason))
     };
 
     findStockId = (Stock) =>
@@ -53,7 +54,7 @@ class StockService {
 
             return response.json()
 
-        })
+        }).catch(reason => console.log(reason))
     };
 
 

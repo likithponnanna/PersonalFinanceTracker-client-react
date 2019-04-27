@@ -4,8 +4,66 @@ import SideBarUser from "./SideBarUser";
 import UserNavBar from "./UserNavBar";
 import UserOptionTabsNav from "./UserOptionTabsNav";
 import BillsContent from "./BillsContent";
+import BillsService from '../service/bill.service.client'
 
 class BillsMainComponent  extends Component{
+
+    constructor(props){
+        super(props);
+        this.billService = new BillsService();
+        this.state ={
+            paidBills: [],
+            unpaidBills: []
+        }
+    }
+
+    componentDidMount() {
+        this.billService.findPendingBills()
+            .then(bills => {this.setState({
+                unpaidBills: bills
+            })
+            console.log("Unpaid", bills);
+                console.log("State Unpaid", this.state.unpaidBills)
+            })
+
+
+
+    }
+
+    getUnpaidBills = () =>
+        this.billService.findPendingBills()
+            .then(bills => this.setState({
+                unpaidBills: bills
+            }) )
+
+    getPaidBills = () =>
+        this.billService.findPaidBills()
+            .then(bills =>{ this.setState({
+                paidBills: bills
+            })
+            console.log("Paid Bills", bills)
+            })
+
+    payBill =(Bill) =>
+    {
+        let newbill ={};
+         newbill = Bill;
+        newbill["bill_pending"] = false;
+
+        console.log("Inside Pay bill", newbill, "Sent Bill", Bill);
+
+        this.billService.payBill(Bill)
+            .then(response =>{
+
+                this.billService.findPendingBills()
+                    .then(bills => this.setState({
+                        unpaidBills: bills
+                    }) )}
+            )
+    }
+
+
+
 
     render() {
 
@@ -24,7 +82,14 @@ class BillsMainComponent  extends Component{
                                         <UserOptionTabsNav/></div>
                                     <div className="container">
                                         <br/><br/> <br/>
-                                        <BillsContent/>
+                                        <BillsContent
+                                            paidBills ={this.state.paidBills}
+                                            unpaidBills = {this.state.unpaidBills}
+                                            payBill ={this.payBill}
+                                            getPaidBills = {this.getPaidBills}
+                                            getUnpaidBills ={this.getUnpaidBills}
+
+                                        />
                                     </div>
                                 </div>
                             </div>

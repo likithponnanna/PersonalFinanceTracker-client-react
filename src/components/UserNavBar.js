@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import MyContext from "./MyContext";
 import UserOptionTabsNav from "./UserOptionTabsNav";
+import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
 
 const UserNavBar = ({sidebarCollapse}) =>
     <MyContext.Consumer>
@@ -22,12 +23,10 @@ const UserNavBar = ({sidebarCollapse}) =>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="nav navbar-nav ml-auto">
-                    <li className="nav-item active">
-                        <a className="nav-link" href="#">About</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">Team</a>
-                    </li>
+                    <div className="btn-group">
+                        {context.state.user===undefined || context.state.user.isAdmin === false ?  <Link to='/profile'>    <i  className="fa fa-user ml-4 fa-2x web-dev-white-text"/> </Link> :<div/>}
+                        <Link to='/' onClick={()=>context.logoutUser()}>  <i  className="fa fa-sign-out ml-4 fa-2x web-dev-white-text"/></Link>
+                    </div>
                 </ul>
             </div>
         </div>
@@ -37,5 +36,12 @@ const UserNavBar = ({sidebarCollapse}) =>
             </React.Fragment>
         )}
     </MyContext.Consumer>;
-    export default UserNavBar
 
+
+
+
+export default (props) => (
+    <MyContext.Consumer>
+        {(context) => <UserNavBar {...props} context={context}/>}
+    </MyContext.Consumer>
+)

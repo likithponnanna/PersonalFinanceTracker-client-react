@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import MyContext from './MyContext'
+import AdminUserService from "../service/admin.service.client";
+import UserService from "../service/user.service.client";
+const userService = new UserService();
 
-// first we will make a new context
 
-
-// Then create a provider Component
 class MyProvider extends Component {
+
     state = {
         name: 'Alice',
         age: 21,
@@ -24,7 +25,8 @@ class MyProvider extends Component {
         properties: [],
         stocksOwned: [],
         transactions: [],
-        showCreditModal: false
+        showCreditModal: false,
+        userForViewingTrans:undefined
     };
     render() {
         return (
@@ -127,7 +129,7 @@ class MyProvider extends Component {
                 setStocksOwned: (Stocks) =>
                     this.setState(state => ({ stocksOwned: Stocks })),
                 pushStockOwned: (Stock) => {
-                    let newStocks = this.state.properties;
+                    let newStocks = this.state.stocksOwned;
                     newStocks.push(Stock);
                     this.setState(state => ({stocksOwned: newStocks}))
                 },
@@ -156,6 +158,25 @@ class MyProvider extends Component {
                             transaction._id === transactionN._id ? transactionN : transaction,
                         )})
                 },
+                logoutUser: () =>{
+                    userService.logoutUser(this.state.user)
+                        .then(status => {
+                            if(status!==undefined && status.status===200){
+                                console.log("Logged Out");
+                                this.setState({
+                                    user: undefined
+                                })
+                            }
+                        })
+
+
+                },
+                setUserForViewingTrans : (tab) => this.setState({
+                    userForViewingTrans:tab
+                }),
+
+
+
 
 
             }}>

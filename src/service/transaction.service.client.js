@@ -13,7 +13,8 @@ class TransactionClientServiceClient {
             method: 'GET',
         })
             .then(response =>
-                response.json());
+                response.json())
+            .catch(reason => console.log(reason))
     };
 
     findAllTransactionMonth = () => {
@@ -25,7 +26,8 @@ class TransactionClientServiceClient {
             method: 'GET',
         })
             .then(response =>
-                response.json());
+                response.json())
+            .catch(reason => console.log(reason))
     };
 
     findAllTransactionWeek = () => {
@@ -37,7 +39,8 @@ class TransactionClientServiceClient {
             method: 'GET',
         })
             .then(response =>
-                response.json());
+                response.json())
+            .catch(reason => console.log(reason))
     };
 
     findAllCategoryTransactions =(categoryName) => {

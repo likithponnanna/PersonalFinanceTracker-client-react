@@ -13,7 +13,8 @@ class CheckingAccountService {
             method: 'GET',
         })
             .then(response =>
-                response.json());
+                response.json())
+            .catch(reason => console.log(reason))
     };
 
     findCheckingAccountId = (checkingAcc) =>

@@ -105,6 +105,12 @@ class TransactionPage  extends Component{
             amount: event.target.value
         });
 
+    setSelectedBtn = (btn) =>{
+        this.setState({
+            selectedSort: btn
+        })
+    }
+
 
 
 
@@ -147,6 +153,8 @@ class TransactionPage  extends Component{
                                             category = {this.state.category}
                                             payment_type ={this.state.payment_type}
                                             date_of_transaction = {this.state.date_of_transaction}
+                                            selectedSort ={this.state.selectedSort}
+                                            setSelectedBtn ={this.setSelectedBtn}
                                         />
                                     </div>
                                 </div>

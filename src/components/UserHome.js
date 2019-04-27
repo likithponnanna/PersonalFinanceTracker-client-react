@@ -6,13 +6,42 @@ import UserNavBar from "./UserNavBar";
 import UserOptionTabsNav from "./UserOptionTabsNav";
 import UserOverViewTabContent from "./UserOverViewTabContent";
 import CreditCardModal from "./CreditCardModal";
+import PropertyService from "../service/properties.service.client";
+import {Redirect} from "react-router";
+import AdminUserService from "../service/admin.service.client";
+
+
 
 class UserHome extends Component{
     constructor(props){
+
         super(props);
-        this.state = {}
+        this.propertyService = new PropertyService();
+        this.adminService = new AdminUserService();
+        this.state = {
+
+            places: []
+        }
     }
+
+componentDidMount() {
+       this.adminService.findCurrentLoggedInUser()
+           .then(user => {
+               console.log("Home user", user)
+
+                   this.props.context.setUser(user);
+
+           })
+    console.log("Home context user", this.props.context.state.user);
+
+}
+
+
     render() {
+
+       /* if( this.props.context.state.user ===undefined || this.props.context.state.user.isAdmin ===undefined) {
+            return (<Redirect to="/"/>)
+        }*/
         return(
 
             <div>
@@ -31,7 +60,9 @@ class UserHome extends Component{
                                     <div className="container">
 
                                         <br/><br/> <br/>
-                                        <UserOverViewTabContent/>
+                                        <UserOverViewTabContent
+
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -44,4 +75,10 @@ class UserHome extends Component{
         )
     }
 }
-export default UserHome
+
+
+export default (props) => (
+    <MyContext.Consumer>
+        {(context) => <UserHome {...props} context={context}/>}
+    </MyContext.Consumer>
+)

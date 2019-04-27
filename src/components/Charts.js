@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {Line, Bar, Doughnut, Pie} from 'react-chartjs-2';
 import AlphaVantageService from '../service/AlphaVantage';
 import TransactionService from '../service/TransactionService';
-import '../styling/Charts.css'
 import BarChart from "./BarChart";
 import PieChart from "./PieChart";
 import DoughnutChart from "./DoughnutChart";
@@ -54,8 +53,8 @@ class Charts extends Component{
                 x_axis.push(key);
 
             }
-            //console.log("X_Axis",x_axis);
-           // console.log("Y axis", y_axis);
+            console.log("X_Axis",x_axis);
+            console.log("Y axis", y_axis);
             //console.log(data["Time Series (Daily)"])
 
             this.setState({
