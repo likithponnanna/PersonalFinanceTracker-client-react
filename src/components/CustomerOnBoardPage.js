@@ -39,6 +39,11 @@ class CustomerOnBoardPage extends Component{
         this.toggle = this.toggle.bind(this);
     }
 
+    componentDidMount() {
+        this.adminService.findCurrentLoggedInUser()
+            .then(reason => console.log("Logged PRofile User", reason))
+    }
+
     toggleCollapseHide =()=>
         this.setState({
             collapseHideBrand: !this.state.collapseHideBrand
@@ -57,6 +62,8 @@ class CustomerOnBoardPage extends Component{
         this.setState({
             phoneNumber: event.target.value
         });
+
+
 
 
     searchUser = () => {

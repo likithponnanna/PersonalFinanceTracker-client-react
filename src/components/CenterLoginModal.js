@@ -109,7 +109,7 @@ class CenterLoginModal extends React.Component {
 
 
         return (
-            <div className="container-fluid">
+            <div className="container-fluid p-0 m-0">
 
             <Modal
                 {...this.props}
@@ -121,7 +121,7 @@ class CenterLoginModal extends React.Component {
                     {
                         this.state.loginRegisterFlag ?
                             <div>
-                                <div className="modal-header bg-dark  ">
+                                <div className="modal-header bg-dark  pl-4 pr-4">
                                     <h5 className="modal-title " id="exampleModalLongTitle">Login</h5>
                                   <Link to="/">  <button type="button" className="close web-dev-close-color"
                                             data-dismiss="modal" aria-label="Close" >
@@ -129,25 +129,30 @@ class CenterLoginModal extends React.Component {
                                   </button> </Link>
                                 </div>
                                 {
-                                    <div className="modal-body">
+                                    <div className="container">
+                                    <div className="modal-body mt-2">
                                         <Login loginUserNameChanged={this.loginUserNameChanged}
                                                passwordLoginChanged={this.passwordLoginChanged}
                                                loginUser ={this.loginUser}
                                         />
                                     </div>
-                                }</div>: <div> <div className="modal-header bg-dark ">
+                                    </div>
+                                }</div>: <div>   <div className="modal-header bg-dark ">
                                 <h5 className="modal-title" id="exampleModalLongTitle">SignUp</h5>
                                 <Link to="/">  <button type="button" className="close web-dev-close-color" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button> </Link>
                             </div>
-                                <div className="modal-body">
+                                <div className="container">
+                                <div className="modal-body mt-2">
                                     <Register registerPasswordChanged={this.registerPasswordChanged}
                                               verifyPasswordChanged={this.verifyPasswordChanged}
                                               registerUserNameChanged ={this.registerUserNameChanged}
                                               signUpUser = {this.signUpUser}
                                     />
                                 </div>
+                                </div>
+
 
                             </div>
                     }

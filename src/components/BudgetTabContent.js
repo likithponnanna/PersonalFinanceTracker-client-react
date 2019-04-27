@@ -80,7 +80,7 @@ const plugins = [{
 }];
 
 
-const BudgetTabContent = ({budget, createBudget, updateBudget, newBudget, budgetFlag, categoryChanged, toggleBudgetUpdate, data, dataMix,dataNew, dataLine}) =>
+const BudgetTabContent = ({budget,spendThisMonth, createBudget, updateBudget, newBudget, budgetFlag, categoryChanged, toggleBudgetUpdate, data, dataMix,dataNew, dataLine}) =>
 
     <div className="container">
         <MyContext.Consumer>
@@ -119,9 +119,23 @@ const BudgetTabContent = ({budget, createBudget, updateBudget, newBudget, budget
                         <button className="btn btn-success ml-2" onClick={()=>{toggleBudgetUpdate(); updateBudget()}}>Update Now</button>
                     </div>}
                     {budget!==undefined && budget!==null  && <div className="card mr-4 mt-4">
-                    <h4 className="card-title text-center">Monthly Spend </h4>
-                     {/*<div > <HorizontalBar  data={data} options={optionsMix}  /></div>*/}
+
+
                     </div>}
+
+                    {budget!==undefined &&spendThisMonth!==undefined && <div className="card text-center">
+
+                        <div className="card-body web-dev-container-border">
+
+                            {budget.amount - spendThisMonth > 0 && <h1 className="card-text web-dev-container-border web-dev-within-budget">You are within the budget set keep up th good work!!</h1>}
+                            {budget.amount - spendThisMonth < 0 && <h1 className="card-text web-dev-container-border web-dev-over-budget">You are over the budget set, Please re-evaluate your spend decisions</h1>}
+
+                        </div>
+
+                    </div>}
+
+                    <h4 className="mt-4 card-title text-center">Monthly Spend </h4>
+
                     {dataNew!==undefined && dataLine===undefined && <Line  data={dataNew} />}
                     {dataLine!==undefined && budget.amount!==undefined && <Line data={dataLine} options={options}/>}
 

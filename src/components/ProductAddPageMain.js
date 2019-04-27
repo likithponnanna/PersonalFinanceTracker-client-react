@@ -6,7 +6,7 @@ import MyContext from "./MyContext";
 import mapStyle from '../styling/mapStyle'
 import UniversalService from "../service/universal.service.client";
 import AdminUserService from "../service/admin.service.client";
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Link, Route, withRouter} from 'react-router-dom'
 import AdminUserListContent from "./AdminUserListContent";
 import AdminSideBar from "./AdminSideBar";
 import UserNavBar from "./UserNavBar";
@@ -19,9 +19,19 @@ class ProductAddPageMain extends Component {
     constructor(props){
 
         super(props);
+        this.adminService = new AdminUserService();
         this.state = {
 
         }
+    }
+
+    componentDidMount() {
+        this.adminService.findCurrentLoggedInUser()
+            .then(user => {
+                if (user === undefined) {
+                    this.props.history.push('/login')
+                }
+            });
     }
 
 
@@ -71,4 +81,8 @@ class ProductAddPageMain extends Component {
 }
 
 ProductAddPageMain.contextType = MyContext;
-export default ProductAddPageMain
+export default withRouter((props) => (
+    <MyContext.Consumer>
+        {(context) => <ProductAddPageMain {...props} context={context}/>}
+    </MyContext.Consumer>
+))

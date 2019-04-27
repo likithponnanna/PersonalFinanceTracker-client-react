@@ -142,7 +142,7 @@ class StockSearchDetailsMainComponent  extends Component{
                                 label: this.state.stockSymbol,
                                 fill: true,
                                 lineTension: 0.1,
-                                backgroundColor: 'rgb(52,74,192, 0.8)',
+                                backgroundColor: 'rgb(52,74,192, 1)',
                                 borderColor: '#000000',
                                 borderCapStyle: 'butt',
                                 borderDash: [],

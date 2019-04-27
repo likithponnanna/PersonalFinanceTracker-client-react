@@ -53,13 +53,6 @@ class CustomerOnBoardLogin extends Component{
     render() {
         let modalClose = () => this.setState({ modalShow: false });
 
-       /* if(this.props.context.state.user !==undefined && this.props.context.state.user.isAdmin ===true) {
-            return (<Redirect to="/admin"/>)
-        }else if(this.props.context.state.user !==undefined && this.props.context.state.user.isAdmin ===false) {
-            return (<Redirect to="/user"/>)
-        }else if(this.props.context.state.user === undefined){
-            return (<Redirect to="/"/>)
-        }*/
         return(
 
             <div className="container p-0 m-0">

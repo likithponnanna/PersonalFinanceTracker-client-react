@@ -235,7 +235,7 @@ class ProductManagementContent extends React.Component{
 
     setActiveBtn = (btn) => {
 
-        if(btn==='CREDIT-CARD') {
+        if(btn==='CREDIT_CARD') {
             this.setState({
                 activeBtn: btn,
                 type: btn
@@ -276,13 +276,13 @@ class ProductManagementContent extends React.Component{
                                             <table
                                                 className="table  table-responsive-md table-striped text-center ">
                                                 <tr>
-                                                    <button onClick={()=>{ this.setActiveBtn('CREDIT_CARD');this.getCreditCards() }} className={` mr-2 ${this.state.activeBtn==='CREDIT-CARD' ? 'btn-secondary' : 'btn-outline-secondary'} `}>
+                                                    <button onClick={()=>{ this.setActiveBtn('CREDIT_CARD');this.getCreditCards() }} className={` mr-2 ${this.state.activeBtn==='CREDIT_CARD' ? 'btn-dark' : 'btn-outline-secondary'} `}>
                                                         Credit Cards
                                                     </button>
-                                                    <button onClick={()=>{ this.setActiveBtn('SAVING'); this.getSavingsAccounts()} } className={`ml-2 mr-1 ${this.state.activeBtn==='SAVINGS' ? 'btn-secondary' : 'btn-outline-secondary'} `} >
+                                                    <button onClick={()=>{ this.setActiveBtn('SAVING'); this.getSavingsAccounts()} } className={`ml-2 mr-1 ${this.state.activeBtn==='SAVING' ? 'btn-dark' : 'btn-outline-secondary'} `} >
                                                         Savings Accounts
                                                     </button>
-                                                    <button onClick={()=>{ this.setActiveBtn('CHECKING'); this.getCheckingAccounts()} } className={`ml-2 mr-1 ${this.state.activeBtn==='CHECKING' ? 'btn-secondary' : 'btn-outline-secondary'} `} >
+                                                    <button onClick={()=>{ this.setActiveBtn('CHECKING'); this.getCheckingAccounts()} } className={`ml-2 mr-1 ${this.state.activeBtn==='CHECKING' ? 'btn-dark' : 'btn-outline-secondary'} `} >
                                                         Checking Accounts
                                                     </button>
                                                 </tr>

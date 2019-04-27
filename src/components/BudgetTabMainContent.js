@@ -6,6 +6,8 @@ import UserOptionTabsNav from "./UserOptionTabsNav";
 import BudgetTabContent from "./BudgetTabContent";
 import BudgetService from '../service/budget.service.client'
 import TransactionService from "../service/TransactionService";
+import AdminUserService from "../service/admin.service.client";
+import {withRouter} from "react-router";
 
 class BudgetTabMainContent  extends Component{
 
@@ -13,6 +15,7 @@ class BudgetTabMainContent  extends Component{
         super(props);
         this.budgetService = new BudgetService();
         this.transactionService = new TransactionService();
+        this.adminService = new AdminUserService();
         this.state = {
             budget: [],
             budgetFlag: false,
@@ -43,7 +46,8 @@ class BudgetTabMainContent  extends Component{
                         pointRadius: 1,
                         pointHitRadius: 10,
                         data: [1,2,3,4,6],
-                        display: false
+                        display: false,
+                        spendThisMonth: undefined
                     }
                 ]
             },
@@ -56,6 +60,13 @@ class BudgetTabMainContent  extends Component{
     }
 
     componentDidMount() {
+        this.adminService.findCurrentLoggedInUser()
+            .then(user => {
+                if (user === undefined) {
+                    this.props.history.push('/login')
+                }
+            });
+
         this.budgetService.findBudget()
             .then(budget => {
                 this.setState({
@@ -63,7 +74,9 @@ class BudgetTabMainContent  extends Component{
             })});
 
         let labelsMix = [];
+
         for (let i = 0; i < 6; i++) {
+
             labelsMix.push(this.state.budget);
 
         }
@@ -74,25 +87,23 @@ class BudgetTabMainContent  extends Component{
             .then(budget => {console.log("Budget", budget);
             let labels =[];
             let spends =[];
+                    let spendThisMonth = 0;
 
-          /*  for(let i in budget["amount"]){
-                console.log("Inside budget for", budget[i], "I", i)
-
-            }*/
 
                     for (let i = 0; i < budget["amount"].length; i++) {
 
-                        //console.log("Inside second for", budget["amount"][i]);
+
                         spends.push(budget["amount"][i])
                         labels.push(budget["month"][i])
                     }
+
+                        spendThisMonth = budget["amount"][0];
+                    console.log("Spend this month" , spendThisMonth);
+
+
                     labels = labels.reverse();
                     spends =spends.reverse();
 
-               /* var object =   budget["amount"] ,
-                    result = Object.keys(object).reduce(function (r, k) {
-                        return k.concat(object[k]);
-                    }, []);*/
 
                     let spendsNew = JSON.stringify(budget["amount"]);
                     let labelsNew = JSON.stringify(budget["month"]);
@@ -100,6 +111,7 @@ class BudgetTabMainContent  extends Component{
                     this.setState({
                         spendsJson: spendsNew,
                         labelsJson: labelsNew,
+                        spendThisMonth: spendThisMonth,
                         data: {
                             labels: labels,
                             datasets: [{
@@ -130,7 +142,7 @@ class BudgetTabMainContent  extends Component{
                                     label: "Spend Trend",
                                     fill: true,
                                     lineTension: 0.1,
-                                    backgroundColor: 'rgb(52,74,192, 0.8)',
+                                    backgroundColor: 'rgb(52,74,192, 1)',
                                     borderColor: '#000000',
                                     borderCapStyle: 'butt',
                                     borderDash: [],
@@ -298,6 +310,7 @@ class BudgetTabMainContent  extends Component{
                                             dataMix ={this.state.dataMix}
                                             dataNew={ this.state.dataNew}
                                             dataLine = {this.state.dataLine}
+                                            spendThisMonth ={this.state.spendThisMonth}
                                         />
                                     </div>
                                 </div>
@@ -314,4 +327,9 @@ class BudgetTabMainContent  extends Component{
 
 }
 
-export default BudgetTabMainContent
+
+export default withRouter((props) => (
+    <MyContext.Consumer>
+        {(context) => <BudgetTabMainContent {...props} context={context}/>}
+    </MyContext.Consumer>
+))

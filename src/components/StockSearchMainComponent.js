@@ -109,6 +109,8 @@ class StockSearchMainComponent  extends Component{
                     y_axis.push(data["Time Series (Daily)"][key]["1. open"]);
                     x_axis.push(key);
                 }
+                x_axis = x_axis.reverse();
+                y_axis = y_axis.reverse();
 
                 console.log("X axis before", x_axis);
                 console.log("Y axis before", y_axis);

@@ -7,7 +7,7 @@ import UserOptionTabsNav from "./UserOptionTabsNav";
 import UserOverViewTabContent from "./UserOverViewTabContent";
 import CreditCardModal from "./CreditCardModal";
 import PropertyService from "../service/properties.service.client";
-import {Redirect} from "react-router";
+import {Redirect, withRouter} from "react-router";
 import AdminUserService from "../service/admin.service.client";
 
 
@@ -25,13 +25,16 @@ class UserHome extends Component{
     }
 
 componentDidMount() {
-       this.adminService.findCurrentLoggedInUser()
-           .then(user => {
-               console.log("Home user", user)
+    this.adminService.findCurrentLoggedInUser()
+        .then(user => {
+            if (user === undefined) {
+                this.props.history.push('/login')
+            }else {
+                this.props.context.setUser(user);
+            }
+        });
 
-                   this.props.context.setUser(user);
 
-           })
     console.log("Home context user", this.props.context.state.user);
 
 }
@@ -39,9 +42,6 @@ componentDidMount() {
 
     render() {
 
-       /* if( this.props.context.state.user ===undefined || this.props.context.state.user.isAdmin ===undefined) {
-            return (<Redirect to="/"/>)
-        }*/
         return(
 
             <div>
@@ -77,8 +77,10 @@ componentDidMount() {
 }
 
 
-export default (props) => (
+
+export default withRouter((props) => (
     <MyContext.Consumer>
         {(context) => <UserHome {...props} context={context}/>}
     </MyContext.Consumer>
-)
+))
+

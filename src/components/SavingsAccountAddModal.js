@@ -30,7 +30,7 @@ class SavingsAccountAddModal extends Component{
 
     balanceChanged = (event) =>
         this.setState({
-            rewardAmount: event.target.value
+            balance: event.target.value
         });
 
 
@@ -55,14 +55,14 @@ class SavingsAccountAddModal extends Component{
                      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
-                            <div className="modal-header bg-secondary web-dev-login-margin-adjust ">
+                            <div className="modal-header bg-dark web-dev-login-margin-adjust ">
                                 <h5 className="modal-title " id="exampleModalLongTitle">Savings Account Creation Form</h5>
                                 <button type="button" className="close web-dev-close-color" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <form id="savings-form">
+                                <form id="savings-form" className="p-2">
                                     <div className="form-group">
                                         <label htmlFor="cardNumFld">Account Number</label>
                                         <input type="number" className="form-control" id="cardNumFld"
@@ -89,7 +89,7 @@ class SavingsAccountAddModal extends Component{
                             </div>
 
                             <div className="modal-footer row btn-group m-2">
-                                <button type="reset" className="btn btn-block btn-outline-info border-0 "  onClick={() =>{ this.addSavingsAcc(); this.clearForm()} }>Add</button>
+                                <button type="reset" className="btn btn-block btn-dark border-0 "  onClick={() =>{ this.addSavingsAcc(); this.clearForm()} }>Add</button>
                             </div>
                         </div>
                     </div>

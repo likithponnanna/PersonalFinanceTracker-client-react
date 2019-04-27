@@ -9,6 +9,8 @@ import Chart from "react-apexcharts";
 import '../styling/modals.style.client.css'
 
 import {RadialBarChart, RadialBar, Legend} from 'recharts';
+import AdminUserService from "../service/admin.service.client";
+import {withRouter} from "react-router";
 
 
 
@@ -32,6 +34,7 @@ class CreditScoreMainComponent  extends Component{
 
         super(props);
         this.universalService = new UniversalService();
+        this.adminService = new AdminUserService();
         this.state ={
                 creditScore: 0,
                 totalAsset: 0,
@@ -60,7 +63,12 @@ class CreditScoreMainComponent  extends Component{
 
 
     componentDidMount() {
-        console.log("data", this.state.data)
+        this.adminService.findCurrentLoggedInUser()
+            .then(user => {
+                if (user === undefined) {
+                    this.props.history.push('/login')
+                }
+            });
 
         this.universalService.findAssetTotal()
             .then(response => {console.log("Response Credit Score",response);
@@ -139,4 +147,13 @@ class CreditScoreMainComponent  extends Component{
 
 }
 
-export default CreditScoreMainComponent
+export default withRouter((props) => (
+    <MyContext.Consumer>
+        {(context) => <CreditScoreMainComponent {...props} context={context}/>}
+    </MyContext.Consumer>
+))
+
+
+
+
+

@@ -120,13 +120,13 @@ class ProductApplicationContent extends React.Component {
                                 <table
                                     className="table  table-responsive-md table-striped text-center ">
                                     <tr>
-                                        <button onClick={()=>{ this.setActiveBtn('PENDING');this.getGuestUsersForCreditCardStatusPending() }} className={` mr-2 ${this.state.activeBtn==='PENDING' ? 'btn-secondary' : 'btn-outline-secondary'} `}>
+                                        <button onClick={()=>{ this.setActiveBtn('PENDING');this.getGuestUsersForCreditCardStatusPending() }} className={` mr-2 ${this.state.activeBtn==='PENDING' ? 'btn-dark' : 'btn-outline-secondary'} `}>
                                             Pending Applications
                                         </button>
-                                        <button onClick={()=>{ this.setActiveBtn('APPROVED'); this.getGuestUsersForCreditCardStatusApproved()} } className={`ml-2 mr-1 ${this.state.activeBtn==='APPROVED' ? 'btn-secondary' : 'btn-outline-secondary'} `} >
+                                        <button onClick={()=>{ this.setActiveBtn('APPROVED'); this.getGuestUsersForCreditCardStatusApproved()} } className={`ml-2 mr-1 ${this.state.activeBtn==='APPROVED' ? 'btn-dark' : 'btn-outline-secondary'} `} >
                                             Approved Applications
                                         </button>
-                                        <button onClick={()=>{ this.setActiveBtn('REJECTED'); this.getGuestUsersForCreditCardStatusRejected()} } className={`ml-2 mr-1 ${this.state.activeBtn==='REJECTED' ? 'btn-secondary' : 'btn-outline-secondary'} `} >
+                                        <button onClick={()=>{ this.setActiveBtn('REJECTED'); this.getGuestUsersForCreditCardStatusRejected()} } className={`ml-2 mr-1 ${this.state.activeBtn==='REJECTED' ? 'btn-dark' : 'btn-outline-secondary'} `} >
                                             Rejected Applications
                                         </button>
                                     </tr>

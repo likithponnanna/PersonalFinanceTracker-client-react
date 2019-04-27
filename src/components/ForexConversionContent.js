@@ -707,7 +707,7 @@ class ForexConversionContent extends React.Component {
             if(this.state.selectedOption===undefined  && this.state.selectedOptionDest===undefined ){
                 alpha.forex.rate("USD", "EUR")
                     .then(conversion => {
-                        console.log("Forex Response", conversion["Realtime Currency Exchange Rate"]["5. Exchange Rate"])
+                        console.log("Forex Response", conversion)
                         this.setState({
                             convertedFinalAns: this.state.currencyAmount * conversion["Realtime Currency Exchange Rate"]["5. Exchange Rate"]
                         })
@@ -715,17 +715,23 @@ class ForexConversionContent extends React.Component {
             }
             else if(this.state.selectedOption===undefined )
             {
-                alpha.forex.rate("USD", this.state.selectedOptionDest.value)
+
+                let dest = "EUR";
+                if(this.state.selectedOptionDest !==undefined && this.state.selectedOptionDest.value!==undefined){
+                    dest = this.state.selectedOptionDest.value;
+                }
+
+                alpha.forex.rate("USD", dest )
                     .then(conversion => {
-                        console.log("Forex Response", conversion["Realtime Currency Exchange Rate"]["5. Exchange Rate"])
+                        console.log("Forex Response", conversion);
                         this.setState({
                             convertedFinalAns: this.state.currencyAmount * conversion["Realtime Currency Exchange Rate"]["5. Exchange Rate"]
                         })
                     })
             }else if(this.state.selectedOptionDest===undefined ){
-                alpha.forex.rate("EUR", this.state.selectedOptionDest.value)
+                alpha.forex.rate("EUR", this.state.selectedOptionDest!==undefined ? this.state.selectedOptionDest.value : "USD")
                     .then(conversion => {
-                        console.log("Forex Response", conversion["Realtime Currency Exchange Rate"]["5. Exchange Rate"])
+                        console.log("Forex Response", conversion);
                         this.setState({
                             convertedFinalAns: this.state.currencyAmount * conversion["Realtime Currency Exchange Rate"]["5. Exchange Rate"]
                         })
@@ -748,14 +754,15 @@ class ForexConversionContent extends React.Component {
         } = this.state;
 
         return (
+
             <div className="container">
-                {this.state.convertedTog &&  <div className="card row  web-dev-margin-left-right-twenty-five mb-4" >
-                    <h4>Converted Value:{this.state.selectedOptionDest!==undefined ? " "+ this.state.selectedOptionDest.value+ " " : " USD "}
+                {this.state.convertedTog &&  <div className="card row  web-dev-margin-left-right-twenty-five mb-4 text-center" >
+                    <h4 className="text-center">Converted Value:{this.state.selectedOptionDest!==undefined ? " "+ this.state.selectedOptionDest.value+ " " : " USD "}
                     {" "+this.state.convertedFinalAns+ " "} </h4>
                 </div> }
                     <br/>
-                <div className="card row bg-secondary " >
-                    <label htmlFor="forCur" className="text-center web-dev-white-text"> Select Source Currency</label>
+                <div className="card row web-dev-card-header-bg p-1" >
+                    <label htmlFor="forCur" className="text-center web-dev-card-header-bg web-dev-white-text text-center"> Select Source Currency</label>
                                 <Select id="forCur"   options={options}
                                         isClearable={isClearable}
                                         isSearchable={isSearchable}
@@ -765,7 +772,7 @@ class ForexConversionContent extends React.Component {
                                         />
                             </div>
 
-                <div className="card row web-dev-black-text" >
+                <div className="card row  web-dev-black-text" >
                 <TextField
                     id="outlined-with-placeholder"
                     label="Enter the amount"
@@ -779,8 +786,8 @@ class ForexConversionContent extends React.Component {
                 </div>
 
 
-                <div className="card row bg-secondary " >
-                    <label htmlFor="forCur" className="text-center web-dev-white-text"> Select Source Currency</label>
+                <div className="card row web-dev-card-header-bg p-1" >
+                    <label htmlFor="forCur" className="text-center web-dev-card-header-bg web-dev-white-text"> Select Source Currency</label>
                     <Select id="forCur"  options={options}
                             isClearable={isClearable}
                             isSearchable={isSearchable}
@@ -792,7 +799,7 @@ class ForexConversionContent extends React.Component {
                 <br/>
                 <br/>
                 <div className="card row bg-secondary web-dev-margin-left-right-twenty-five" >
-                <button className="btn btn-info" onClick={()=>{this.convertCurrency(); }}>Convert</button>
+                <button className="btn btn-dark" onClick={()=>{this.convertCurrency(); }}>Convert</button>
                 </div>
             </div>
 
