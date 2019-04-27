@@ -6,7 +6,7 @@ import MyContext from "./MyContext";
 import mapStyle from '../styling/mapStyle'
 import UniversalService from "../service/universal.service.client";
 import AdminUserService from "../service/admin.service.client";
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Link, Route, withRouter} from 'react-router-dom'
 import AdminUserListContent from "./AdminUserListContent";
 import AdminSideBar from "./AdminSideBar";
 import UserNavBar from "./UserNavBar";
@@ -18,7 +18,7 @@ class AdminUsersListMainContent extends Component {
 
         super(props);
         this.universalService = new UniversalService();
-        this.adminUserService = new AdminUserService()
+        this.adminUserService = new AdminUserService();
         this.state = {
             isActive:false,
             userList: [],
@@ -44,7 +44,12 @@ class AdminUsersListMainContent extends Component {
     }
 
     componentDidMount() {
-
+        this.adminUserService.findCurrentLoggedInUser()
+            .then(user => {
+                if (user === undefined) {
+                    this.props.history.push('/login')
+                }
+            });
 
 
     }
@@ -98,4 +103,9 @@ class AdminUsersListMainContent extends Component {
 }
 
 AdminUsersListMainContent.contextType = MyContext;
-export default AdminUsersListMainContent
+export default withRouter((props) => (
+    <MyContext.Consumer>
+        {(context) => <AdminUsersListMainContent {...props} context={context}/>}
+    </MyContext.Consumer>
+))
+

@@ -260,10 +260,10 @@ class AdminUserListContent extends React.Component{
                                 <table
                                     className="table  table-responsive-md table-striped text-center ">
                                     <tr>
-                                        <button onClick={()=>{ this.setActiveBtn();this.getAllUsers() }} className={` mr-2 ${this.state.activeBtn===false ? 'btn-secondary' : 'btn-outline-secondary '} `}>
+                                        <button onClick={()=>{ this.setActiveBtn();this.getAllUsers() }} className={` mr-2 ${this.state.activeBtn===false ? 'btn-dark' : 'btn-outline-secondary '} `}>
                                              Users
                                         </button>
-                                        <button onClick={()=>{ this.setActiveBtn(); this.getAllAdmins()} } className={`ml-2 mr-1 ${this.state.activeBtn===true ? 'btn-secondary' : 'btn-outline-secondary '} `} >
+                                        <button onClick={()=>{ this.setActiveBtn(); this.getAllAdmins()} } className={`ml-2 mr-1 ${this.state.activeBtn===true ? 'btn-dark' : 'btn-outline-secondary '} `} >
                                             Admins
                                         </button>
                                     </tr>

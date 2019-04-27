@@ -8,6 +8,8 @@ import UserOverViewTabContent from "./UserOverViewTabContent";
 import CreditCardModal from "./CreditCardModal";
 import PropertyService from "../service/properties.service.client";
 import ProfilePage from "./ProfilePage";
+import AdminUserService from "../service/admin.service.client";
+import {withRouter} from "react-router";
 
 
 
@@ -16,13 +18,20 @@ class ProfileMainContent extends Component{
 
         super(props);
         this.propertyService = new PropertyService();
+        this.adminService = new AdminUserService();
         this.state = {
 
         }
     }
 
-
-
+    componentDidMount() {
+        this.adminService.findCurrentLoggedInUser()
+            .then(user => {
+                if (user === undefined) {
+                    this.props.history.push('/login')
+                }
+            });
+    }
 
 
     render() {
@@ -58,4 +67,9 @@ class ProfileMainContent extends Component{
         )
     }
 }
-export default ProfileMainContent
+
+export default withRouter((props) => (
+    <MyContext.Consumer>
+        {(context) => <ProfileMainContent {...props} context={context}/>}
+    </MyContext.Consumer>
+))

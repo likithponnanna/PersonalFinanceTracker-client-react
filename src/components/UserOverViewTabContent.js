@@ -131,9 +131,15 @@ class UserOverViewTabContent extends Component {
 
                 <h2 className="web-dev-text-center mb-2"> Welcome, Here is your financial overview  </h2>
 
-                <h2 className="web-dev-text-center mt-4 mb-2">Properties you own</h2>
-
-               <MapComponentMultiCluster/>
+                <div className="card text-center ">
+                    <div className="card-header web-dev-card-header">
+                      <h4 className="web-dev-text-center mt-4 mb-2">Properties you own</h4>
+                        <small>Adding multiple properties in the same area clusters them</small>
+                    </div>
+                    <div className="card-body web-dev-container-border">
+                       <MapComponentMultiCluster/>
+                    </div>
+                </div>
 
 
 
@@ -141,7 +147,7 @@ class UserOverViewTabContent extends Component {
                 <div className=" mt-2 mb-2 "/>
 
                 <div className="card text-center ">
-                    <div className="card-header web-dev-theme-color">
+                    <div className="card-header web-dev-card-header">
                         <h5 className="card-title">Credit Score</h5>
                     </div>
                     <div className="card-body web-dev-container-border">
@@ -156,7 +162,7 @@ class UserOverViewTabContent extends Component {
                 <div className=" mt-2 mb-2"/>
 
                 <div className="card text-center">
-                    <div className="card-header web-dev-theme-color">
+                    <div className="card-header web-dev-card-header">
                         <h5 className="card-title">Total Asset Value</h5>
                     </div>
                     <div className="card-body web-dev-container-border">
@@ -170,7 +176,7 @@ class UserOverViewTabContent extends Component {
                 <div className=" mt-2 mb-2"/>
 
                 <div className="card text-center">
-                    <div className="card-header web-dev-theme-color">
+                    <div className="card-header web-dev-card-header">
                         <h5 className="card-title">Total Debt</h5>
                     </div>
                     <div className="card-body web-dev-container-border">
@@ -184,7 +190,7 @@ class UserOverViewTabContent extends Component {
                 <div className=" mt-2 mb-2"/>
 
                 <div className="card text-center">
-                    <div className="card-header web-dev-theme-color">
+                    <div className="card-header web-dev-card-header">
                         <h5 className="card-title">Net Assets</h5>
                     </div>
                     <div className="card-body web-dev-container-border">

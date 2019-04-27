@@ -11,9 +11,9 @@ const StockSearchContent = ({stateSearchData,stockSymbolSearchChange, searchStoc
         <div className="input-group mb-3">
             <input onChange={(event) => stockSymbolSearchChange(event)} type="text" className="form-control" placeholder="Type your Search Query here"
                    aria-label="Type your Search Query here" aria-describedby="basic-addon2" />
-            <div className="input-group-append">
-                <Link to={`/search?stockSymbol=${stockSymbolForSearch}`}>   <button className="btn btn-outline-secondary" type="button" onClick={() =>{ searchStock(stockSymbolForSearch)}}>Search Stock</button></Link>
-            </div>
+
+                <Link to={`/search?stockSymbol=${stockSymbolForSearch}`}>   <button className="btn btn-outline-secondary mb-3 ml-2" type="button" onClick={() =>{ searchStock(stockSymbolForSearch)}}>Search Stock</button></Link>
+
         </div>
 
         <table className="table">

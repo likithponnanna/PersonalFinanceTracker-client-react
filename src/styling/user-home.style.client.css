@@ -92,6 +92,22 @@ a:focus {
     background: #222d81;
 }
 
+.web-dev-card-header{
+    background:  #222d81;
+    color: white;
+}
+
+.web-dev-card-header-bg{
+    background:  #222d81;
+}
+
+.gm-style-mtc {
+    display: none;
+}
+.gm-style-svc{
+    display: none;
+}
+
 #sidebar ul.components {
     padding: 20px 0;
     border-bottom: 1px solid #47748b;

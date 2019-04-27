@@ -6,7 +6,7 @@ import MyContext from "./MyContext";
 import mapStyle from '../styling/mapStyle'
 import UniversalService from "../service/universal.service.client";
 import AdminUserService from "../service/admin.service.client";
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Link, Route, withRouter} from 'react-router-dom'
 import AdminUserListContent from "./AdminUserListContent";
 import AdminSideBar from "./AdminSideBar";
 import UserNavBar from "./UserNavBar";
@@ -20,13 +20,20 @@ class AdminBillsEditorMain extends Component {
     constructor(props){
 
         super(props);
+        this.adminService = new AdminUserService();
         this.state = {
                 userId: props.match.params.id
         }
     }
 
     componentDidMount() {
-        console.log("Params parent", this.props.match.params.id)
+        console.log("Params parent", this.props.match.params.id);
+        this.adminService.findCurrentLoggedInUser()
+            .then(user => {
+                if (user === undefined) {
+                    this.props.history.push('/login')
+                }
+            });
 
     }
 
@@ -79,4 +86,8 @@ class AdminBillsEditorMain extends Component {
 }
 
 AdminBillsEditorMain.contextType = MyContext;
-export default AdminBillsEditorMain
+export default withRouter((props) => (
+    <MyContext.Consumer>
+        {(context) => <AdminBillsEditorMain {...props} context={context}/>}
+    </MyContext.Consumer>
+))

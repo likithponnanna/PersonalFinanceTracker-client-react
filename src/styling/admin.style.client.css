@@ -19,10 +19,40 @@
 
 .web-dev-font-small{
     font-size: 0.8em;
+    word-wrap: break-word
 }
+
+.web-dev-font-large{
+    font-size: 1.4em;
+    word-wrap: break-word;
+    font-weight: bold;
+    overflow-x: hidden;
+
+}
+
+.web-dev-overflow-x-hidden{
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
+
+.web-dev-word-wrap{
+    word-wrap: break-word !important;
+    text-overflow: ellipsis;
+
+}
+
+div.modal-body{
+    padding-right: 0;
+    padding-left: 0;
+    padding-top: 0;
+    padding-bottom: 5px;
+}
+
+
 
 .wed-dev-font-medium{
     font-size: 1em ;
+    word-wrap: break-word
 }
 
 .card-counter:hover{

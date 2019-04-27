@@ -5,12 +5,15 @@ import UserNavBar from "./UserNavBar";
 import UserOptionTabsNav from "./UserOptionTabsNav";
 import BillsContent from "./BillsContent";
 import BillsService from '../service/bill.service.client'
+import AdminUserService from "../service/admin.service.client";
+import {withRouter} from "react-router";
 
 class BillsMainComponent  extends Component{
 
     constructor(props){
         super(props);
         this.billService = new BillsService();
+        this.adminService = new AdminUserService();
         this.state ={
             paidBills: [],
             unpaidBills: []
@@ -18,6 +21,13 @@ class BillsMainComponent  extends Component{
     }
 
     componentDidMount() {
+        this.adminService.findCurrentLoggedInUser()
+            .then(user => {
+                if (user === undefined) {
+                    this.props.history.push('/login')
+                }
+            });
+
         this.billService.findPendingBills()
             .then(bills => {this.setState({
                 unpaidBills: bills
@@ -105,4 +115,9 @@ class BillsMainComponent  extends Component{
 
 }
 
-export default BillsMainComponent
+
+export default withRouter((props) => (
+    <MyContext.Consumer>
+        {(context) => <BillsMainComponent {...props} context={context}/>}
+    </MyContext.Consumer>
+))

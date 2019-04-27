@@ -11,3 +11,15 @@
     font-size: small;
     font-style: normal;
 }
+
+.web-dev-within-budget{
+    color: white;
+    background-color: darkgreen;
+    border-radius: 25px;
+}
+
+.web-dev-over-budget{
+    color: white;
+    background-color: darkred;
+    border-radius: 25px;
+}

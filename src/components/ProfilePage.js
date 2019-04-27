@@ -341,7 +341,7 @@ class ProfilePage extends React.Component {
                 </div>
 
                 <button type="button"
-                        className="btn btn-outline-success" onClick={() => {
+                        className="btn btn-dark ml-2 mr-2 mb-4 mt-1" onClick={() => {
                     this.setUpdateuserForm()
                     console.log("clicking edit",this.state.profile)
                     console.log(this.state.phoneNumber)

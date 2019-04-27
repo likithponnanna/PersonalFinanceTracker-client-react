@@ -6,12 +6,15 @@ import UserOptionTabsNav from "./UserOptionTabsNav";
 import TransactionTabContent from "./TransactionTabContent";
 import TransactionClientServiceClient from '../service/transaction.service.client'
 import Register from "./Register";
+import AdminUserService from "../service/admin.service.client";
+import {withRouter} from "react-router";
 
 class TransactionPage  extends Component{
 
     constructor(props) {
         super(props);
         this.transactionService = new TransactionClientServiceClient();
+        this.adminService = new AdminUserService();
         this.state ={
             selectedSort: 'ALL',
             updateFlag: false,
@@ -21,25 +24,54 @@ class TransactionPage  extends Component{
             date_of_transaction: undefined,
             payment_source: undefined,
             amount: undefined,
-            updateId: undefined
+            updateId: undefined,
+            transactions: []
         }
     }
 
     componentDidMount() {
+        this.adminService.findCurrentLoggedInUser()
+            .then(user => {
+                if (user === undefined) {
+                    this.props.history.push('/login')
+                }
+            });
+
             this.transactionService.findAllTransactions()
                 .then(transactions => {console.log("Transactions did mount", transactions);
+                this.setState({
+                    transactions: transactions
+                })
+
+
                 this.context.setTransactions(transactions)})
     }
 
     addTransaction = ()=>
         this.transactionService.createTransaction(this.state)
             .then(transaction => {console.log(transaction);
-            this.context.pushTransaction(transaction);
+                let newTransactions = this.state.transactions;
+                newTransactions.push(transaction);
+            this.setState({
+                transactions: newTransactions
+            })
+
+            //this.context.pushTransaction(transaction);
             });
 
     deleteTransaction =(transactionId) =>
         this.transactionService.deleteTransaction(transactionId)
-            .then(response => this.context.deleteTransaction(transactionId));
+            .then(response =>{
+                let stateTransactions = this.state.transactions;
+                let delTransactions = stateTransactions.filter(transaction => transaction._id !== transactionId)
+
+                this.setState({
+                    transactions: delTransactions
+                })
+
+
+                //this.context.deleteTransaction(transactionId)
+                });
 
     updateTransaction = () => {
         let updatetransaction = {
@@ -53,7 +85,19 @@ class TransactionPage  extends Component{
         }
 
         this.transactionService.updateTransaction(updatetransaction)
-            .then(transaction => this.context.updateTransaction(updatetransaction))
+            .then(transaction =>{
+                let stateTransactions = this.state.transactions;
+                let updatedTransactions = stateTransactions.map(transaction =>
+                    transaction._id === updatetransaction._id ? updatetransaction : transaction)
+
+                this.setState({
+                    transactions: updatedTransactions
+                })
+
+               // this.context.updateTransaction(updatetransaction)
+            }
+
+                )
     }
 
     getAllTransactions = () =>
@@ -155,6 +199,8 @@ class TransactionPage  extends Component{
                                             date_of_transaction = {this.state.date_of_transaction}
                                             selectedSort ={this.state.selectedSort}
                                             setSelectedBtn ={this.setSelectedBtn}
+                                            transactionsContext = {this.props.context.transactions}
+                                            transactions = {this.state.transactions}
                                         />
                                     </div>
                                 </div>
@@ -172,4 +218,29 @@ class TransactionPage  extends Component{
 }
 
 TransactionPage.contextType = MyContext;
-export default TransactionPage
+export default withRouter((props) => (
+    <MyContext.Consumer>
+        {(context) => <TransactionPage {...props} context={context}/>}
+    </MyContext.Consumer>
+))
+
+
+
+
+/*
+setTransactions: (transactions) =>
+    this.setState(state => ({ transactions: transactions })),
+    pushTransaction: (transaction) => {
+    let newTransactions = this.state.transactions;
+    newTransactions.push(transaction);
+    this.setState(state => ({transactions: newTransactions}))
+},
+    deleteTransaction: (transactionId) => {
+    this.setState(state => ({ transactions:  this.state.transactions.filter(transaction => transaction._id !== transactionId) }))
+},
+    updateTransaction: (transactionN) =>{
+    this.setState({
+        transactions: this.state.transactions.map(transaction =>
+            transaction._id === transactionN._id ? transactionN : transaction,
+        )})
+}*/
