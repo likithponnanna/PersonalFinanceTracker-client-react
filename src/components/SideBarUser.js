@@ -625,17 +625,14 @@ class SideBarUser extends Component {
                                                                         <div
                                                                             className="list-group-item list-group-item-action flex-column align-items-start web-dev-savings"
                                                                         >
-                                                                            <div
-                                                                                className="d-flex w-100 justify-content-between">
-                                                                                <h6 className="mb-1"> Bank: {SavingsAccount.bankName} </h6>
+                                                                            <div className="d-flex w-100 justify-content-between ">
+                                                                                <h6 className="mb-1  web-dev-font-medium"> Bank: {SavingsAccount.bankName} </h6>
 
                                                                             </div>
-                                                                            <h6> Balance:
+                                                                            <h6 className=""> Balance:
                                                                                 ${SavingsAccount.balance} </h6>
-                                                                            <p className="mb-1 ">Acc
-                                                                                No: {SavingsAccount.accountNo}   </p>
-                                                                            <small className="mb-1">Acc
-                                                                                Name: {SavingsAccount.accountName}   </small>
+                                                                            <div className="mb-0 mt-2 web-dev-font-small ">Acc No: {SavingsAccount.accountNo}   </div>
+                                                                            <div className=" web-dev-font-small ">Acc Name: {SavingsAccount.accountName}   </div>
                                                                         </div>
                                                                     </div>}
                                                                     {SavingsAccount._id === this.state.selectedSavingsAcc &&
@@ -722,17 +719,16 @@ class SideBarUser extends Component {
                                                                         <div
                                                                             className="list-group-item list-group-item-action flex-column align-items-start web-dev-checking"
                                                                         >
-                                                                            <div
-                                                                                className="d-flex w-100 justify-content-between">
+                                                                            <div className="d-flex w-100 justify-content-between">
                                                                                 <h6 className="mb-1"> Bank: {CheckingAccount.bankName} </h6>
 
                                                                             </div>
                                                                             <h6> Balance:
                                                                                 ${CheckingAccount.balance} </h6>
-                                                                            <p className="mb-1 ">Acc
-                                                                                No: {CheckingAccount.accountNo}   </p>
-                                                                            <small className="mb-1">Acc
-                                                                                Name: {CheckingAccount.accountName}   </small>
+                                                                            <div className="mb-0 mt-2 web-dev-font-small">Acc
+                                                                                No: {CheckingAccount.accountNo}   </div>
+                                                                            <div className="mb-1 web-dev-font-small">Acc
+                                                                                Name: {CheckingAccount.accountName}   </div>
                                                                         </div>
                                                                     </div>}
                                                                     {CheckingAccount._id === this.state.selectedChecking &&
@@ -809,12 +805,9 @@ class SideBarUser extends Component {
                                                         <div className="list-group border border-white m-2" key={index} onMouseEnter={()=>{ this.flipStockOpen(); this.selectedStock(Stock._id)}}>
                                                             <div className="list-group-item list-group-item-action flex-column align-items-start web-dev-stock"
                                                             >
-                                                                <div className="d-flex w-100 justify-content-between"  >
-                                                                    <h6 className="mb-1"> Stock Name: {Stock.stock_name}  </h6>
 
-                                                                </div>
                                                                 <h6>Stock Symbol: {Stock.stock_symbol} </h6>
-                                                                <p className="mb-1">Category:  {Stock.category}   </p>
+                                                                <div className="mb-1 mt-2 web-dev-font-medium">Category:  {Stock.category}   </div>
                                                             </div>
                                                         </div> }
                                                         {Stock._id === this.state.selectedStock &&
@@ -826,7 +819,7 @@ class SideBarUser extends Component {
                                                                         <button className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2" onClick={()=> this.deleteStock(Stock._id)}>  Delete Stock </button>
                                                                     </div>
                                                                 </div>
-                                                                    <small className="mb-1 web-dev-credit-card-black overflow-auto"> Purchase Date: {Stock.purchase_date}   </small>
+                                                                    <small className="mb-1 web-dev-credit-card-black overflow-auto"> Purchase Date: {Stock.purchase_date.length > 11 ? Stock.purchase_date.slice(0,10) :Stock.purchase_date }   </small>
 
                                                             </div>
                                                         </div>
@@ -905,7 +898,7 @@ class SideBarUser extends Component {
                                                                         {this.state.togglePropertyUpdate === false && <div>
                                                                             <small
                                                                                 className="mb-1 web-dev-credit-card-black overflow-auto"> Address: {Property.address}   </small>
-                                                                            <h6 className="mb-1 web-dev-credit-card-black"> Value: {Property.value}   </h6>
+                                                                            <h6 className="mb-1 mt-2 web-dev-credit-card-black"> Value: ${Property.value}   </h6>
                                                                         </div>}
                                                                         {this.state.togglePropertyUpdate === true && Property._id === this.state.selectedProperty
                                                                         && <div><input type="number"

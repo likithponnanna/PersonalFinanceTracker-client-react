@@ -28,7 +28,9 @@ componentDidMount() {
        this.adminService.findCurrentLoggedInUser()
            .then(user => {
                console.log("Home user", user)
-               this.props.context.setUser(user);
+
+                   this.props.context.setUser(user);
+
            })
     console.log("Home context user", this.props.context.state.user);
 
@@ -37,9 +39,9 @@ componentDidMount() {
 
     render() {
 
-        if( this.props.context.state.user ===undefined || this.props.context.state.user.isAdmin ===undefined) {
+       /* if( this.props.context.state.user ===undefined || this.props.context.state.user.isAdmin ===undefined) {
             return (<Redirect to="/"/>)
-        }
+        }*/
         return(
 
             <div>

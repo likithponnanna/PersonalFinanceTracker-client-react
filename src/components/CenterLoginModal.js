@@ -4,7 +4,7 @@ import {ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 import UserService from "../service/user.service.client";
 import Login from "./Login";
 import Register from "./Register";
-import {Link, Redirect} from "react-router-dom";
+import {Link, Redirect, withRouter} from "react-router-dom";
 import MyContext from "./MyContext";
 import AdminUserService from "../service/admin.service.client";
 
@@ -65,7 +65,13 @@ class CenterLoginModal extends React.Component {
                 console.log("Logged User", user[0], "Context", this.props.context.state.user);
                 if(user[0]!==undefined && user[0].username!==null  && user[0].status===undefined && user[0]._id !== null &&
                     user[0].username!=='INVALID') {
+
                     this.props.context.setUser(user[0]);
+                    if(user[0] !==undefined && user[0].isAdmin!==undefined && user[0].isAdmin===false) {
+                        this.props.history.push('/user')
+                    }else if(user[0] !==undefined && user[0].isAdmin!==undefined && user[0].isAdmin===true){
+                        this.props.history.push('/admin')
+                    }
                 }else {
                     alert("User does not exist");
                 }})
@@ -83,6 +89,12 @@ class CenterLoginModal extends React.Component {
                     console.log("Reg User", user);
                     if(user.username !=="duplicate_777" &&  user.username!==null) {
                         this.props.context.setUser(user);
+                        if(user.isAdmin!==undefined && user.isAdmin===false) {
+                            this.props.history.push('/user')
+                        }else if(user.isAdmin!==undefined && user.isAdmin===true){
+                            this.props.history.push('/admin')
+                        }
+
                     }else {
                         alert("Issue registering orDuplicate User");
                     }
@@ -94,13 +106,10 @@ class CenterLoginModal extends React.Component {
     };
 
     render() {
-        if(this.props.context.state.user !==undefined && this.props.context.state.user.isAdmin ===true) {
-            return (<Redirect to="/admin"/>)
-        }else if(this.props.context.state.user !==undefined && this.props.context.state.user.isAdmin ===false) {
-            return (<Redirect to="/user"/>)
-        }
+
 
         return (
+            <div className="container-fluid">
 
             <Modal
                 {...this.props}
@@ -112,7 +121,7 @@ class CenterLoginModal extends React.Component {
                     {
                         this.state.loginRegisterFlag ?
                             <div>
-                                <div className="modal-header bg-secondary web-dev-login-margin-adjust ">
+                                <div className="modal-header bg-dark  ">
                                     <h5 className="modal-title " id="exampleModalLongTitle">Login</h5>
                                   <Link to="/">  <button type="button" className="close web-dev-close-color"
                                             data-dismiss="modal" aria-label="Close" >
@@ -126,7 +135,7 @@ class CenterLoginModal extends React.Component {
                                                loginUser ={this.loginUser}
                                         />
                                     </div>
-                                }</div>: <div> <div className="modal-header bg-secondary web-dev-login-margin-adjust">
+                                }</div>: <div> <div className="modal-header bg-dark ">
                                 <h5 className="modal-title" id="exampleModalLongTitle">SignUp</h5>
                                 <Link to="/">  <button type="button" className="close web-dev-close-color" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -149,13 +158,14 @@ class CenterLoginModal extends React.Component {
                     {this.state.loginRegisterFlag ===true &&  <button type="button" className="btn btn-block btn-outline-info border-0 " onClick={() => this.loginRegisterFlagToggle()}>Sign Up ?</button> }
                 </Modal.Footer>
             </Modal>
+            </div>
         );
     }
 }
-export default (props) => (
+export default withRouter((props) => (
     <MyContext.Consumer>
         {(context) => <CenterLoginModal {...props} context={context}/>}
     </MyContext.Consumer>
-)
+))
 
 

@@ -3,6 +3,18 @@ div.container-fluid.h-100{
     margin: 0;
 }
 
+.web-dev-theme-color{
+    background-color: rgba(52,74,192,1);
+    color: white;
+}
+
+.web-dev-container-border{
+    color: #0d0409;
+    border-color: #0d0409;
+    background-color: white;
+    border-width: 2px;
+}
+
 .web-dev-logo{
     color: white;
 }

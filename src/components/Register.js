@@ -59,7 +59,7 @@ class Register extends Component{
                                onChange={(event) => this.props.verifyPasswordChanged(event)}/>
                     </div>
                 </div>
-                <button className="btn btn-block btn-info" data-dismiss="modal" onClick={() => this.props.signUpUser()}>SignUp</button>
+                <button className="btn btn-block btn-dark" data-dismiss="modal" onClick={() => this.props.signUpUser()}>SignUp</button>
 
             </div>
         </div>

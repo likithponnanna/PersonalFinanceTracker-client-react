@@ -24,7 +24,7 @@ const UserNavBar = ({sidebarCollapse}) =>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="nav navbar-nav ml-auto">
                     <div className="btn-group">
-                        <Link to='/profile'>    <i  className="fa fa-user ml-4 fa-2x web-dev-white-text"/> </Link>
+                        {context.state.user===undefined || context.state.user.isAdmin === false ?  <Link to='/profile'>    <i  className="fa fa-user ml-4 fa-2x web-dev-white-text"/> </Link> :<div/>}
                         <Link to='/' onClick={()=>context.logoutUser()}>  <i  className="fa fa-sign-out ml-4 fa-2x web-dev-white-text"/></Link>
                     </div>
                 </ul>
@@ -38,5 +38,10 @@ const UserNavBar = ({sidebarCollapse}) =>
     </MyContext.Consumer>;
 
 
-    export default UserNavBar
 
+
+export default (props) => (
+    <MyContext.Consumer>
+        {(context) => <UserNavBar {...props} context={context}/>}
+    </MyContext.Consumer>
+)

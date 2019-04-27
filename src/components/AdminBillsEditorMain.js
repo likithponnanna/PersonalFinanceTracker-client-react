@@ -21,8 +21,13 @@ class AdminBillsEditorMain extends Component {
 
         super(props);
         this.state = {
-
+                userId: props.match.params.id
         }
+    }
+
+    componentDidMount() {
+        console.log("Params parent", this.props.match.params.id)
+
     }
 
 
@@ -50,7 +55,9 @@ class AdminBillsEditorMain extends Component {
                                         <div className="row card mt-4">
 
 
-                                            <AdminBillsContent/>
+                                            <AdminBillsContent
+                                                userId={this.state.userId}
+                                            />
 
                                         </div>
 

@@ -195,6 +195,90 @@ class AdminUserService {
     }
 
 
+    findBillsByUserID = (userId) =>{
+      console.log("User Id inside service", userId);
+
+        return fetch(this.API_URL+'bill/user/'+userId, {
+            method: "GET",
+            headers: { "content-type": "application/json" },
+            credentials: "include"
+        }).then(function (response) {
+            return response.json();
+        }).catch(reason => console.log(reason))
+    }
+
+
+    createBill = (Bill, userId) =>{
+
+        return fetch(this.API_URL + 'admin/bill/'+userId, {
+                body: JSON.stringify(Bill),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: "include",
+                method: 'POST'
+            }
+        ).then(response => response.json())
+
+    }
+
+    deleteBill = (BillId) =>{
+        return fetch(this.API_URL + 'bill/' + BillId , {
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json'   },
+            credentials: "include"
+        })
+    }
+
+
+    findAllBillsByAdmin =()=>{
+        return fetch(this.API_URL+'admin/bill', {
+            method: "GET",
+            headers: { "content-type": "application/json" },
+            credentials: "include"
+        }).then(function (response) {
+            return response.json();
+        }).catch(reason => console.log(reason))
+    }
+
+
+    updateBill = (Bill) =>{
+
+        return fetch(this.API_URL+'bill/'+Bill._id,{
+            body: JSON.stringify(Bill),
+            headers: {
+                'Content-Type': 'application/json' },
+            credentials: "include",
+            method: 'PUT'
+        }).then(response =>
+            response.json())
+    }
+
+    findNumberOfTransactions = () => {
+        return fetch(this.API_URL+'number/transaction', {
+            method: "GET",
+            headers: { "content-type": "application/json" },
+            credentials: "include"
+        }).then(function (response) {
+            return response.json();
+        }).catch(reason => console.log(reason))
+    }
+
+    findNumberTotalUsersBudget = () => {
+        return fetch(this.API_URL+'total/budget', {
+            method: "GET",
+            headers: { "content-type": "application/json" },
+            credentials: "include"
+        }).then(function (response) {
+            return response.json();
+        }).catch(reason => console.log(reason))
+    }
+
+
+
+
+
 
 
 

@@ -83,7 +83,7 @@ class SavingHomePage extends React.Component {
                                         </div>
                                     </div>
                                     <Link to={`/home/apply/${card._id}/${card.name}`}>  <div className="card-footer w-100 text-muted mb-4">
-                                        <button className="btn btn-block btn-info">Apply</button>
+                                        <button className="btn btn-block btn-dark">Apply</button>
                                     </div> </Link>
                                 </div>
                             </div>

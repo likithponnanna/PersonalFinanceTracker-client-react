@@ -63,7 +63,7 @@ const TransactionTabContent =({categoryChanged, paymentTypeChanged, dateChanged,
                                                                 <td className="pt-3-half">{transaction.amount}</td>
                                                                 <td className="pt-3-half">{transaction.category}</td>
                                                                 <td className="pt-3-half">{transaction.payment_type}</td>
-                                                                <td className="pt-3-half">{transaction.date_of_transaction}</td>
+                                                                <td className="pt-3-half">{transaction.date_of_transaction.length >11 ? transaction.date_of_transaction.slice(0,10) : transaction.date_of_transaction}</td>
                                                                 <td className="pt-3-half">
                                                                     <span className="table-remove"><i onClick={() => {
                                                                         toggleUpdate();

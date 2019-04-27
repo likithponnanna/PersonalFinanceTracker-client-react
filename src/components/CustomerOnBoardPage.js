@@ -165,12 +165,11 @@ class CustomerOnBoardPage extends Component{
     render() {
         let modalClose = () => this.setState({ modalShow: false });
 
-        if(this.props.context.state.user !==undefined && this.props.context.state.user.isAdmin ===true) {
-            // this.props.history.push('/user')
+      /*  if(this.props.context.state.user !==undefined && this.props.context.state.user.isAdmin ===true) {
             return (<Redirect to="/admin"/>)
         }else if(this.props.context.state.user !==undefined && this.props.context.state.user.isAdmin ===false) {
             return (<Redirect to="/user"/>)
-        }
+        }*/
 
 
         return(
@@ -246,7 +245,7 @@ class CustomerOnBoardPage extends Component{
                                 <h1>Hello Financial Freedom</h1></div>
                       </div>
 
-                            <div className="container mt-5 bg-secondary mb-4  web-dev-overflow-scroll-none ">
+                            <div className="container mt-5 bg-dark mb-4  pb-2 pt-1">
                                 <div className="web-dev-particle-text-center-child web-dev-overflow-scroll">
                                     <ul className="nav nav-tabs justify-content-center" id="myTab" role="tablist">
 

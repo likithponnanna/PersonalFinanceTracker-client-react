@@ -40,6 +40,7 @@ import AnotherUserProfileLookupMain from "./AnotherUserProfileLookupMain";
 import ProfileLookup from "./ProfileLookup";
 import ProfileMainContent from "./ProfileMainContent";
 import AdminBillsEditorMain from "./AdminBillsEditorMain";
+import ApplyNewProductGuestUser from './ApplyNewProductGuestUser'
 
 class HomePage extends Component{
 
@@ -66,7 +67,7 @@ class HomePage extends Component{
 
                         <Route path='/' exact
                                render={(props) =>{
-                                   document.body.style.backgroundColor="#FFFFFF";
+
                                    return( <CustomerOnBoardPage {...props}
 
                                    />) } }/>
@@ -207,12 +208,19 @@ class HomePage extends Component{
                                    />) } }/>
 
 
-                        <Route path='/home/apply/:id/:name' exact
+                       {/* <Route path='/home/apply/:id/:name' exact
                                render={(props) =>{
                                    document.body.style.backgroundColor="#FFFFFF";
-                                   return( <ApplyProductMainPage {...props}
+                                   return( <ApplyNewProduct {...props}
 
-                                   />) } }/>
+                                   />) } }/>*/}
+
+                      <Route path='/home/apply/:id/:name' exact
+                             render={(props) =>{
+                                 document.body.style.backgroundColor="#FFFFFF";
+                                 return( <ApplyProductMainPage {...props}
+
+                                 />) } }/>
 
                         <Route path='/transactions-admins/:userid' exact
                                render={(props) =>{

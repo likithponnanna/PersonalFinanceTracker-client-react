@@ -2,6 +2,7 @@ import React from 'react'
 import AdminUserService from '../service/admin.service.client'
 import MyContext from './MyContext'
 import {Link} from "react-router-dom";
+import AdminInfoPills from './AdminInfoPills'
 
 class TransactionsForAdmin extends React.Component{
     constructor(props) {
@@ -47,46 +48,9 @@ class TransactionsForAdmin extends React.Component{
                 <MyContext.Consumer>
                     {(context) => (
                         <React.Fragment>
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                        <div className="card-counter primary">
-                                            <i className="fa fa-user"/>
-                                            <span className="count-numbers">12</span>
-                                            <span className="count-name">Admins</span>
-                                        </div>
-                                    </div>
 
-                                    <div className="col-md-3">
-                                        <div className="card-counter danger">
-                                            <i className="fa fa-usd"/>
-                                            <span className="count-numbers">599</span>
-                                            <span className="count-name">Transactions</span>
-                                        </div>
-                                    </div>
 
-                                    <div className="col-md-3">
-                                        <div className="card-counter success">
-                                            <i className="fa fa-money"/>
-                                            <span className="count-numbers">6875</span>
-                                            <span className="count-name">Budget</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-md-3">
-                                        <div className="card-counter info">
-                                            <i className="fa fa-users"/>
-                                            <span className="count-numbers">35</span>
-                                            <span className="count-name">Users</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="row card">
-
-                                </div>
-
-                            </div>
+                                <AdminInfoPills/>
 
                             <div className="wrapper container web-dev-overflow p-0">
 
@@ -124,7 +88,7 @@ class TransactionsForAdmin extends React.Component{
                                                         <tr key={index}>
                                                             <td className="pt-3-half" >{trans.category}</td>
                                                             <td className="pt-3-half" >{trans.payment_type}</td>
-                                                            <td className="pt-3-half" >{trans.date_of_transaction}</td>
+                                                            <td className="pt-3-half" >{trans.date_of_transaction.length > 11 ? trans.date_of_transaction.slice(0,10) : trans.date_of_transaction}</td>
                                                             <td className="pt-3-half" >{trans.payment_source}</td>
                                                             <td className="pt-3-half" >{trans.amount}</td>
                                                         </tr>

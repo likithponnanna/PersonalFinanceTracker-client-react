@@ -9,12 +9,15 @@ import {Bar} from 'react-chartjs-2';
 
 const options = [{
     title: {
-        display: true,
-        text: 'Custom Chart Title'
+        display: false,
+        text: ''
     },
     chartArea: {
         backgroundColor: 'rgba(251, 85, 85, 0.4)'
+    },gridLines: {
+        display: false
     }
+
 },
 ]
 
@@ -120,7 +123,7 @@ const BudgetTabContent = ({budget, createBudget, updateBudget, newBudget, budget
                      {/*<div > <HorizontalBar  data={data} options={optionsMix}  /></div>*/}
                     </div>}
                     {dataNew!==undefined && dataLine===undefined && <Line  data={dataNew} />}
-                    {dataLine!==undefined && budget.amount!==undefined && <Line data={dataLine}/>}
+                    {dataLine!==undefined && budget.amount!==undefined && <Line data={dataLine} options={options}/>}
 
                   {/* {budget!==null && dataMix!==undefined && <Bar
                         data={data}

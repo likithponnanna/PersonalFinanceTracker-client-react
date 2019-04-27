@@ -78,7 +78,7 @@ class SavingsAccountApplyMain extends Component{
                                 <div className="web-dev-particle-text-center-child"><h1>Hello Financial Freedom</h1></div>
                             </div>
 
-                            <div className="container mt-5 bg-secondary mb-4">
+                            <div className="container mt-5 bg-dark mb-4 pb-2 pt-1">
                                 <div className="web-dev-particle-text-center-child">
                                     <ul className="nav nav-tabs justify-content-center" id="myTab" role="tablist">
                                         <Link to="/">     <li className="nav-item ">

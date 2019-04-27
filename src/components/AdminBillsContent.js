@@ -8,96 +8,111 @@ class AdminBillsContent extends React.Component{
         super(props);
         this.adminUserService = AdminUserService.getInstance();
         this.state = {
-            name:'',
-            bank:'',
-            details:'',
-            url:'',
-            type:'CREDIT_CARD',
+            billName: '',
+            billType: '',
+            bill_due_date: '',
+            bill_pending:'',
+            bill_amount: '',
+            type:'PENDING',
             productList:[],
             productToBeEdited: undefined,
-            activeBtn: 'CREDIT_CARD',
+            activeBtn: 'PENDING',
             addUserFormNeeded: false,
             addUserForm: true,
             updateUserFormNeeded: false,
             editForm:true,
+            userId: props.userId,
+            bills : [],
+            billToBeEdited: undefined
+
 
         }
     }
 
 
     componentDidMount() {
-        this.adminUserService.findAllProducts()
-            .then(products => {
-                let newFilteredProd = [];
-                for(let i=0; i<products.length;i++)
-                {
-                    if(products[i].type === "CREDIT_CARD" ) {
-                        newFilteredProd.push(products[i])
+        console.log("Params in bill", this.props.userId);
+
+        this.adminUserService.findBillsByUserID(this.props.userId)
+            .then(bills => {
+
+                console.log("Bills returned", bills);
+
+                let BillsList = [];
+                for (let i = 0; i < bills.length; i++) {
+
+                    if (bills.length !== 0) {
+                        if (bills[i].bill_pending === true) {
+                            BillsList.push(bills[i]);
+                        }
                     }
                 }
+
+
                 this.setState({
-                    productList:newFilteredProd
+                    bills: BillsList
                 })
-            })
-        console.log("Products", this.state.productList);
+
+
+            }
+            )
+
+
+
+        //console.log("Bills for user", this.state.bills);
+
+
 
     }
 
 
-    getCreditCards =() => {
+    getPendingBills =() => {
 
-        this.adminUserService.findAllProducts()
-            .then(products => {console.log("Products", products);
-                let newFilteredProd = [];
-                for(let i=0; i<products.length;i++)
-                {
-                    if(products[i].type === "CREDIT_CARD" ) {
-                        newFilteredProd.push(products[i])
+        this.adminUserService.findBillsByUserID(this.props.userId)
+            .then(bills => {
+
+                let BillsList =[];
+                for (let i = 0; i <bills.length ; i++) {
+
+                    if(bills.length!==0) {
+                        if (bills[i].bill_pending === true) {
+                            BillsList.push(bills[i]);
+                        }
                     }
                 }
+
+
                 this.setState({
-                    productList:newFilteredProd
+                    bills: BillsList
                 })
+
+
             })
 
     }
 
+    getPaidBills =() => {
 
-    getSavingsAccounts =() => {
+        this.adminUserService.findBillsByUserID(this.props.userId)
+            .then(bills => {
 
-        this.adminUserService.findAllProducts()
-            .then(products => {
-                let newFilteredProd = [];
-                for(let i=0; i<products.length;i++)
-                {
-                    if(products[i].type === "SAVING" ) {
-                        newFilteredProd.push(products[i])
+                let BillsList =[];
+                for (let i = 0; i <bills.length ; i++) {
+
+                    if(bills.length!==0) {
+                        if (bills[i].bill_pending === false) {
+                            BillsList.push(bills[i]);
+                        }
                     }
                 }
+
                 this.setState({
-                    productList:newFilteredProd
-                })
-            })
+                    bills: BillsList
+                })})
 
     }
 
-    getCheckingAccounts =() => {
 
-        this.adminUserService.findAllProducts()
-            .then(products => {
-                let newFilteredProd = [];
-                for(let i=0; i<products.length;i++)
-                {
-                    if(products[i].type === "CHECKING" ) {
-                        newFilteredProd.push(products[i])
-                    }
-                }
-                this.setState({
-                    productList:newFilteredProd
-                })
-            })
-
-    }
 
 
 
@@ -109,33 +124,28 @@ class AdminBillsContent extends React.Component{
 
 
 
-    createProduct = () => {
-        if(this.state.name!==""|| this.state.bank !=="" || this.state.details !=="" || this.state.url !=="" || this.state.type !=="") {
+    createBill = () => {
+        if(this.state.billName!==""|| this.state.billType !=="" || this.state.bill_due_date !=="" || this.state.bill_amount !=="") {
 
-            let newProduct = {
-                name: this.state.name,
-                bank: this.state.bank,
-                details: this.state.details,
-                url: this.state.url,
-                type: this.state.type
+            let newBill = {
+                billName: this.state.billName,
+                billType: this.state.billType,
+                bill_due_date: this.state.bill_due_date,
+                bill_pending: true,
+                bill_amount: this.state.bill_amount
             };
 
-            console.log("Create Product", newProduct);
-
-            this.adminUserService.createProduct(newProduct)
-                .then(product =>{
-                        if(this.state.type==="CREDIT_CARD"){
-                            this.getCreditCards()
-                        }else if(this.state.type==="SAVING"){
-                            this.getSavingsAccounts()
-                        }else {
-                            this.getCheckingAccounts()
-                        }
+            console.log("Create User bill", newBill);
 
 
-                        console.log("Create Product", this.state.type);
-                        /* this.setState({
-                             productList : this.state.productList.push(product)
+            this.adminUserService.createBill(newBill, this.state.userId)
+                .then(bill =>{
+                    this.getPendingBills()
+
+
+                   /* console.log("Create User response", bill);
+                         this.setState({
+                             bills : this.state.bills.push(bill)
                      })*/
                     }
                 )
@@ -146,34 +156,34 @@ class AdminBillsContent extends React.Component{
 
     };
 
-    updateProduct = () =>{
+    updateBill = () =>{
 
 
-        let newProduct = {
-            _id: this.state.productToBeEdited._id,
-            name: this.state.name,
-            bank: this.state.bank,
-            details: this.state.details,
-            url: this.state.url,
-            type: this.state.type
+        let newBill = {
+            _id: this.state.billToBeEdited._id,
+            billName: this.state.billName,
+            billType: this.state.billType,
+            bill_due_date: this.state.bill_due_date,
+            bill_pending: true,
+            bill_amount: this.state.bill_amount
         }
 
 
-        this.adminUserService.updateProduct(newProduct).then(
-            response =>{  this.setState({
-                productList: this.state.productList.map(product =>
-                    product._id === newProduct._id ? newProduct : product,
+        this.adminUserService.updateBill(newBill)
+            .then(response =>{  this.setState({
+                bills: this.state.bills.map(bill =>
+                    bill._id === newBill._id ? newBill : bill,
                 )
             })  }
         );
     };
 
 
-    deleteProduct = (productId) =>{
-        this.adminUserService.deleteProduct(productId)
+    deleteBill = (billId) =>{
+        this.adminUserService.deleteBill(billId)
             .then(response =>{
                 this.setState({
-                    productList :  this.state.productList.filter(product => product._id !== productId) })
+                    bills :  this.state.bills.filter(bill => bill._id !== billId) })
             })
 
     };
@@ -185,48 +195,44 @@ class AdminBillsContent extends React.Component{
         })
     };
 
-    setProductToBeEdited=  (product) => {
+    setBillToBeEdited=  (bill) => {
 
         this.setState({
-            productToBeEdited:product,
-            name: product.name,
-            bank: product.bank,
-            details: product.details,
-            url: product.url,
-            type: product.type
+            billToBeEdited:bill,
+            billName: bill.billName,
+            billType: bill.billType,
+            bill_due_date: bill.bill_due_date,
+            bill_pending: bill.bill_pending,
+            bill_amount: bill.bill_amount,
 
         })
     };
 
 
 
-    productNameChanged = event => {
+    billNameChanged = event => {
         this.setState({
-            name: event.target.value
+            billName: event.target.value
         })
     };
 
-    bankChanged = event => {
+    billTypeChanged = event => {
         this.setState({
-            bank: event.target.value
+            billType: event.target.value
         })
     };
 
-    detailsChanged = event => {
+    bill_due_dateChanged = event => {
         this.setState({
-            details: event.target.value
+            bill_due_date: event.target.value
         })
     };
 
-    urlChanged = event => {
-        this.setState({
-            url: event.target.value
-        });
-    };
 
-    typeChanged = event => {
+
+    bill_amountChanged = event => {
         this.setState({
-            type: event.target.value
+            bill_amount: event.target.value
         });
     };
 
@@ -235,17 +241,12 @@ class AdminBillsContent extends React.Component{
 
     setActiveBtn = (btn) => {
 
-        if(btn==='CREDIT-CARD') {
+        if(btn==='PENDING') {
             this.setState({
                 activeBtn: btn,
                 type: btn
             })
-        }else if(btn==='SAVING'){
-            this.setState({
-                activeBtn: btn,
-                type: btn
-            })
-        }else {
+        }else if(btn==='PAID') {
             this.setState({
                 activeBtn: btn,
                 type: btn
@@ -276,14 +277,11 @@ class AdminBillsContent extends React.Component{
                                             <table
                                                 className="table  table-responsive-md table-striped text-center ">
                                                 <tr>
-                                                    <button onClick={()=>{ this.setActiveBtn('CREDIT_CARD');this.getCreditCards() }} className={` mr-2 ${this.state.activeBtn==='CREDIT-CARD' ? 'btn-secondary' : 'btn-outline-secondary'} `}>
-                                                        Credit Cards
+                                                    <button onClick={()=>{ this.setActiveBtn('PENDING');this.getPendingBills() }} className={` mr-2 ${this.state.activeBtn==='PENDING' ? 'btn-secondary' : 'btn-outline-secondary'} `}>
+                                                        Pending Bills
                                                     </button>
-                                                    <button onClick={()=>{ this.setActiveBtn('SAVING'); this.getSavingsAccounts()} } className={`ml-2 mr-1 ${this.state.activeBtn==='SAVINGS' ? 'btn-secondary' : 'btn-outline-secondary'} `} >
-                                                        Savings Accounts
-                                                    </button>
-                                                    <button onClick={()=>{ this.setActiveBtn('CHECKING'); this.getCheckingAccounts()} } className={`ml-2 mr-1 ${this.state.activeBtn==='CHECKING' ? 'btn-secondary' : 'btn-outline-secondary'} `} >
-                                                        Checking Accounts
+                                                    <button onClick={()=>{ this.setActiveBtn('PAID'); this.getPaidBills()} } className={`ml-2 mr-1 ${this.state.activeBtn==='PAID' ? 'btn-secondary' : 'btn-outline-secondary'} `} >
+                                                        Paid Bills
                                                     </button>
                                                 </tr>
                                             </table>
@@ -297,45 +295,39 @@ class AdminBillsContent extends React.Component{
                                                 className="table table-bordered table-responsive-md table-striped text-center ">
 
                                                 <tr>
-                                                    <th className="text-center">Product Name</th>
-                                                    <th className="text-center">Bank Name</th>
-                                                    <th className="text-center">Details</th>
-                                                    <th className="text-center">Product Image Link</th>
-                                                    <th className="text-center">Product Type</th>
+                                                    <th className="text-center">Bill Type</th>
+                                                    <th className="text-center">Bill Name</th>
+                                                    <th className="text-center">Bill Due Date</th>
+                                                    <th className="text-center">Bill Amount</th>
                                                     <th className="text-center"> </th>
                                                     <th className="text-center"> </th>
                                                 </tr>
 
                                                 {this.state.updateUserFormNeeded &&    <tr>
-                                                    <td className="pt-3-half"  ><input value={this.state.name} type="text" onChange={(event)=>this.productNameChanged(event)}/> </td>
-                                                    <td className="pt-3-half" ><input value={this.state.bank} type="text" onChange={(event)=>this.bankChanged(event)}/></td>
-                                                    <td className="pt-3-half" ><input value={this.state.details} type="text"  onChange={(event)=>this.detailsChanged(event)}/></td>
-                                                    <td className="pt-3-half" ><input value={this.state.url} type="text" onChange={(event)=>this.urlChanged(event)}/></td>
-                                                    <td className="pt-3-half" ><input disabled='disabled' value={this.state.type} type="text"  onChange={(event)=>this.typeChanged(event)}/></td>
-
-
+                                                    <td className="pt-3-half"  ><input value={this.state.billType} type="text" onChange={(event)=>this.billTypeChanged(event)}/> </td>
+                                                    <td className="pt-3-half" ><input value={this.state.billName} type="text" onChange={(event)=>this.billNameChanged(event)}/></td>
+                                                    <td className="pt-3-half" ><input value={this.state.bill_due_date.slice(0,10)} type="date"  onChange={(event)=>this.bill_due_dateChanged(event)}/></td>
+                                                    <td className="pt-3-half" ><input value={this.state.bill_amount} type="number" onChange={(event)=>this.bill_amountChanged(event)}/></td>
                                                     <td className="pt-3-half">
                                                       <span className="table-remove"><button type="button"
                                                                                              className="btn  btn-rounded btn-sm my-0"> </button></span>
                                                     </td>
                                                     <td>
                                                         <span className="table-remove"><button type="button"
-                                                                                               className="btn btn-danger btn-rounded btn-sm my-0" onClick={()=>{ this.toggleUpdateForm(); this.updateProduct() }}>Update</button></span>
+                                                                                               className="btn btn-danger btn-rounded btn-sm my-0" onClick={()=>{ this.toggleUpdateForm(); this.updateBill() }}>Update</button></span>
                                                     </td>
 
                                                 </tr>}
 
 
                                                 {this.state.addUserFormNeeded && <tr>
-                                                    <td className="pt-3-half"  ><input type="text"  onChange={(event)=>this.productNameChanged(event)}/> </td>
-                                                    <td className="pt-3-half"  ><input type="text" onChange={(event)=>this.bankChanged(event)}/> </td>
-                                                    <td className="pt-3-half" ><input type="text" onChange={(event)=>this.detailsChanged(event)}/></td>
-                                                    <td className="pt-3-half" ><input type="text" onChange={(event)=>this.urlChanged(event)}/></td>
-                                                    <td className="pt-3-half" ><input disabled='disabled' type="text" value={this.state.type}/></td>
-
+                                                    <td className="pt-3-half"  ><input type="text"  onChange={(event)=>this.billTypeChanged(event)}/> </td>
+                                                    <td className="pt-3-half"  ><input type="text" onChange={(event)=>this.billNameChanged(event)}/> </td>
+                                                    <td className="pt-3-half" ><input type="date" onChange={(event)=>this.bill_due_dateChanged(event)}/></td>
+                                                    <td className="pt-3-half" ><input type="number" onChange={(event)=>this.bill_amountChanged(event)}/></td>
                                                     <td className="pt-3-half">
                                                       <span className="table-remove"><button type="button"
-                                                                                             className="btn btn-success btn-rounded btn-sm my-0" onClick={()=>{ this.toggleAddUSer(); this.createProduct()}}>Add</button></span>
+                                                                                             className="btn btn-success btn-rounded btn-sm my-0" onClick={()=>{ this.toggleAddUSer(); this.createBill()}}>Add</button></span>
                                                     </td>
                                                     <td>
                                                         <span className="table-remove"><button type="button"
@@ -347,28 +339,36 @@ class AdminBillsContent extends React.Component{
 
                                                 {
 
-                                                    this.state.productList.map((product,index)  =>
-                                                            <tr key={index}>
-                                                                <td className="pt-3-half" >{product.name}</td>
-                                                                <td className="pt-3-half" >{product.bank}</td>
-                                                                <td className="pt-3-half" >{product.details}</td>
-                                                                <td className="pt-3-half" ><img src={product.url} className="web-dev-image-responsive"  alt="Product Image"/></td>
-                                                                <td className="pt-3-half" >{product.type}</td>
-                                                                <td className="pt-3-half">
-                                                                    { this.state.addUserFormNeeded===true || this.state.updateUserFormNeeded===true ? <div/>:
-                                                                        <span className="table-remove" ><i onClick={()=>{ this.toggleUpdateForm(); this.setProductToBeEdited(product)}}  className="fa fa-edit fa-2x" aria-hidden="true"/></span>
-                                                                    }
+                                                        this.state.bills.map((bill, index) =>
+                                                                <tr key={index}>
+                                                                    <td className="pt-3-half">{bill.billType}</td>
+                                                                    <td className="pt-3-half">{bill.billName}</td>
+                                                                    <td className="pt-3-half">{bill.bill_due_date.slice(0,10)}</td>
+                                                                    <td className="pt-3-half">{bill.bill_amount}</td>
+                                                                    <td className="pt-3-half">
+                                                                        {this.state.addUserFormNeeded === true || this.state.updateUserFormNeeded === true ?
+                                                                            <div/> :
+                                                                            <span className="table-remove"><i
+                                                                                onClick={() => {
+                                                                                    this.toggleUpdateForm();
+                                                                                    this.setBillToBeEdited(bill)
+                                                                                }} className="fa fa-edit fa-2x"
+                                                                                aria-hidden="true"/></span>
+                                                                        }
 
-                                                                </td>
-                                                                <td>
-                                                                    { this.state.addUserFormNeeded===true || this.state.updateUserFormNeeded===true ? <div/>:
-                                                                        <span className="table-trash">
-                                                        <i onClick={()=> this.deleteProduct(product._id)} className="fa fa-trash fa-2x " aria-hidden="true"/>
+                                                                    </td>
+                                                                    <td>
+                                                                        {this.state.addUserFormNeeded === true || this.state.updateUserFormNeeded === true ?
+                                                                            <div/> :
+                                                                            <span className="table-trash">
+                                                        <i onClick={() => this.deleteBill(bill._id)}
+                                                           className="fa fa-trash fa-2x " aria-hidden="true"/>
                                                     </span>}
-                                                                </td>
+                                                                    </td>
 
-                                                            </tr>
-                                                    )
+                                                                </tr>
+                                                        )
+
 
                                                 }
 

@@ -11,13 +11,25 @@ import AdminOverView from "./AdminOverView";
 import '../styling/admin.style.client.css'
 import AdminInfoPills from "./AdminInfoPills";
 import AdminUserListContent from "./AdminUserListContent";
+import {Redirect} from "react-router";
 
 class AdminMainPage extends Component{
     constructor(props){
         super(props);
         this.state = {}
     }
+
+
+
+
     render() {
+
+        if(this.props.context.state.user===undefined || this.props.context.state.user.isAdmin===undefined || this.props.context.state.user.isAdmin===false) {
+           return( <Redirect to="/login"/>);
+        }
+
+
+
         return(
 
             <div>
@@ -65,4 +77,9 @@ class AdminMainPage extends Component{
         )
     }
 }
-export default AdminMainPage
+
+export default (props) => (
+    <MyContext.Consumer>
+        {(context) => <AdminMainPage {...props} context={context}/>}
+    </MyContext.Consumer>
+)

@@ -138,15 +138,15 @@ class UserOverViewTabContent extends Component {
 
 
 
-                <div className=" mt-2 mb-2"/>
+                <div className=" mt-2 mb-2 "/>
 
-                <div className="card text-center">
-                    <div className="card-header bg-secondary">
+                <div className="card text-center ">
+                    <div className="card-header web-dev-theme-color">
                         <h5 className="card-title">Credit Score</h5>
                     </div>
-                    <div className="card-body">
+                    <div className="card-body web-dev-container-border">
 
-                        <p className="card-text"><b> {this.state.CreditScore} </b>   </p>
+                        <p className="card-text web-dev-container-border"><b> {this.state.CreditScore} </b>   </p>
 
                     </div>
 
@@ -156,12 +156,12 @@ class UserOverViewTabContent extends Component {
                 <div className=" mt-2 mb-2"/>
 
                 <div className="card text-center">
-                    <div className="card-header bg-secondary">
+                    <div className="card-header web-dev-theme-color">
                         <h5 className="card-title">Total Asset Value</h5>
                     </div>
-                    <div className="card-body">
+                    <div className="card-body web-dev-container-border">
 
-                        <p className="card-text"><b>${this.state.TotalAsset}</b></p>
+                        <p className="card-text web-dev-container-border"><b>${this.state.TotalAsset}</b></p>
 
                     </div>
 
@@ -170,12 +170,12 @@ class UserOverViewTabContent extends Component {
                 <div className=" mt-2 mb-2"/>
 
                 <div className="card text-center">
-                    <div className="card-header bg-secondary">
+                    <div className="card-header web-dev-theme-color">
                         <h5 className="card-title">Total Debt</h5>
                     </div>
-                    <div className="card-body">
+                    <div className="card-body web-dev-container-border">
 
-                        <p className="card-text">${this.state.TotalDebt}</p>
+                        <p className="card-text web-dev-container-border">${this.state.TotalDebt}</p>
 
                     </div>
 
@@ -184,16 +184,18 @@ class UserOverViewTabContent extends Component {
                 <div className=" mt-2 mb-2"/>
 
                 <div className="card text-center">
-                    <div className="card-header bg-secondary">
+                    <div className="card-header web-dev-theme-color">
                         <h5 className="card-title">Net Assets</h5>
                     </div>
-                    <div className="card-body">
+                    <div className="card-body web-dev-container-border">
 
-                        <p className="card-text"><b>${this.state.NetAsset} </b></p>
+                        <p className="card-text web-dev-container-border"><b>${this.state.NetAsset} </b></p>
 
                     </div>
 
                 </div>
+
+
 
 
 

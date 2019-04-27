@@ -36,7 +36,7 @@ class Login extends Component{
                             onChange={(event) => this.props.passwordLoginChanged(event)}/>
                  </div>
              </div>
-             <button className="btn btn-block btn-info" data-dismiss="modal" onClick={() => this.props.loginUser()}> Login</button>
+             <button className="btn btn-block bg-dark web-dev-text-white" data-dismiss="modal" onClick={() => this.props.loginUser()}> Login</button>
          </div>
      </div>
 

@@ -128,9 +128,9 @@ class BudgetTabMainContent  extends Component{
                             datasets: [
                                 {
                                     label: "Spend Trend",
-                                    fill: false,
+                                    fill: true,
                                     lineTension: 0.1,
-                                    backgroundColor: '#000000',
+                                    backgroundColor: 'rgb(52,74,192, 0.8)',
                                     borderColor: '#000000',
                                     borderCapStyle: 'butt',
                                     borderDash: [],
@@ -168,9 +168,9 @@ class BudgetTabMainContent  extends Component{
                                 label: 'Other',
                                 type:'line',
                                 data: [12, 32, 32, 32, 23, 32, 32],
-                                fill: false,
+                                fill: true,
+                                backgroundColor: "rgba(244, 144, 128, 0.8)",
                                 borderColor: '#EC932F',
-                                backgroundColor: '#EC932F',
                                 pointBorderColor: '#EC932F',
                                 pointBackgroundColor: '#EC932F',
                                 pointHoverBackgroundColor: '#EC932F',
