@@ -65,10 +65,12 @@ class CreditScoreMainComponent  extends Component{
         this.universalService.findAssetTotal()
             .then(response => {console.log("Response Credit Score",response);
 
+            let CreditScore = response!==undefined && response["CreditScore"]!==undefined ? response["CreditScore"] : 0;
+
                     let dataN = [
                         {name: 'Minimum Score', uv: 300, pv: 250, fill: '#383fe1'},
                         {name: 'National Avg', uv: 710, pv: 1398, fill: '#8dd1e1'},
-                        {name: 'Your Score', uv: response["CreditScore"], pv: 4567, fill: '#2cad51'},
+                        {name: 'Your Score', uv: CreditScore, pv: 4567, fill: '#2cad51'},
                         {name: 'Max Score', uv: 800, pv: 2400, fill: '#c15a37'},
 
                     ]
@@ -76,9 +78,9 @@ class CreditScoreMainComponent  extends Component{
 
 
             this.setState({
-                creditScore: response["CreditScore"],
-                totalAsset: response["TotalAsset"],
-                totalDebt: response["TotalDebt"],
+                creditScore: response!==undefined && response["CreditScore"]!==undefined ?  response["CreditScore"]: 0,
+                totalAsset:  response!==undefined && response["TotalAsset"]!==undefined ?  response["TotalAsset"]: 0,
+                totalDebt:   response!==undefined && response["TotalDebt"]!==undefined ?  response["TotalDebt"] : 0,
                 data: dataN
 
             })}

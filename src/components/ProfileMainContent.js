@@ -7,44 +7,30 @@ import UserOptionTabsNav from "./UserOptionTabsNav";
 import UserOverViewTabContent from "./UserOverViewTabContent";
 import CreditCardModal from "./CreditCardModal";
 import PropertyService from "../service/properties.service.client";
-import {Redirect} from "react-router";
-import AdminUserService from "../service/admin.service.client";
+import ProfilePage from "./ProfilePage";
 
 
 
-class UserHome extends Component{
+class ProfileMainContent extends Component{
     constructor(props){
 
         super(props);
         this.propertyService = new PropertyService();
-        this.adminService = new AdminUserService();
         this.state = {
 
-            places: []
         }
     }
 
-componentDidMount() {
-       this.adminService.findCurrentLoggedInUser()
-           .then(user => {
-               console.log("Home user", user)
-               this.props.context.setUser(user);
-           })
-    console.log("Home context user", this.props.context.state.user);
 
-}
+
 
 
     render() {
-
-        if( this.props.context.state.user ===undefined || this.props.context.state.user.isAdmin ===undefined) {
-            return (<Redirect to="/"/>)
-        }
         return(
 
             <div>
 
-              <MyContext.Consumer>
+                <MyContext.Consumer>
                     {(context) => (
                         <React.Fragment>
 
@@ -53,12 +39,11 @@ componentDidMount() {
                                 <div id="content" className={` ${context.state.sidebarAct  ? 'active' : ''} `}>
                                     <UserNavBar
                                         sidebarCollapse={context.sidebarCollapse}/>
-                                        <div className="ml-5">
-                                            <UserOptionTabsNav/></div>
+
                                     <div className="container">
 
                                         <br/><br/> <br/>
-                                        <UserOverViewTabContent
+                                        <ProfilePage
 
                                         />
                                     </div>
@@ -73,10 +58,4 @@ componentDidMount() {
         )
     }
 }
-
-
-export default (props) => (
-    <MyContext.Consumer>
-        {(context) => <UserHome {...props} context={context}/>}
-    </MyContext.Consumer>
-)
+export default ProfileMainContent

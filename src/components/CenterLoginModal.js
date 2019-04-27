@@ -6,13 +6,14 @@ import Login from "./Login";
 import Register from "./Register";
 import {Link, Redirect} from "react-router-dom";
 import MyContext from "./MyContext";
+import AdminUserService from "../service/admin.service.client";
 
 class CenterLoginModal extends React.Component {
 
     constructor(props){
         super(props);
         this.userService = new UserService();
-
+        this.adminService = new AdminUserService();
         this.state ={
             loginRegisterFlag: true,
             loginUserName: '',
@@ -61,12 +62,13 @@ class CenterLoginModal extends React.Component {
         console.log("Login cred" , credentials);
         this.userService.loginUser(credentials)
             .then(user =>{
-                console.log("Reg User", user);
-                if(user.username!==null && user.status===undefined && user._id !== null) {
-                    this.context.setUser(user);
+                console.log("Logged User", user[0], "Context", this.props.context.state.user);
+                if(user[0]!==undefined && user[0].username!==null  && user[0].status===undefined && user[0]._id !== null &&
+                    user[0].username!=='INVALID') {
+                    this.props.context.setUser(user[0]);
                 }else {
                     alert("User does not exist");
-                }}).catch(reason => alert("Server Error"));
+                }})
 
     };
 
@@ -79,13 +81,12 @@ class CenterLoginModal extends React.Component {
             this.userService.registerUser(user)
                 .then(user => {
                     console.log("Reg User", user);
-                    if(user.username!==null && user.status===undefined && user._id !== null) {
-                        this.context.setUser(user);
-                        this.props.history.push('/users')
+                    if(user.username !=="duplicate_777" &&  user.username!==null) {
+                        this.props.context.setUser(user);
                     }else {
-                        alert("Issue registering");
+                        alert("Issue registering orDuplicate User");
                     }
-                }).catch(reason => alert("Server Error"))
+                }).catch(reason => console.log(reason))
 
         }else {
             alert("Password's don't match");
@@ -93,10 +94,12 @@ class CenterLoginModal extends React.Component {
     };
 
     render() {
-        if(this.context.state.user !==undefined) {
-            // this.props.history.push('/user')
+        if(this.props.context.state.user !==undefined && this.props.context.state.user.isAdmin ===true) {
+            return (<Redirect to="/admin"/>)
+        }else if(this.props.context.state.user !==undefined && this.props.context.state.user.isAdmin ===false) {
             return (<Redirect to="/user"/>)
         }
+
         return (
 
             <Modal
@@ -149,6 +152,10 @@ class CenterLoginModal extends React.Component {
         );
     }
 }
-CenterLoginModal.contextType = MyContext;
-export default CenterLoginModal
+export default (props) => (
+    <MyContext.Consumer>
+        {(context) => <CenterLoginModal {...props} context={context}/>}
+    </MyContext.Consumer>
+)
+
 

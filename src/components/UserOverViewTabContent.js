@@ -45,13 +45,20 @@ const MapWithAMarkerClusterer = compose(
             averageCenter
             enableRetinaIcons
             gridSize={60}
-        >
-            {props.markers.map(marker => (
-                <Marker
-                    key={marker._id}
-                    position={{ lat: marker.latitude, lng: marker.longitude }}
-                />
-            ))}
+        >{
+            props.markers!==undefined ?
+
+            <div>{
+                props.markers.map(marker => (
+                    <Marker
+                        key={marker._id}
+                        position={{lat: marker.latitude, lng: marker.longitude}}
+                    />
+                ))
+            }</div>:<div></div>
+
+
+        }
         </MarkerClusterer>
     </GoogleMap>
 );
@@ -104,12 +111,12 @@ class UserOverViewTabContent extends Component {
 
     componentDidMount() {
        this.universalService.findAssetTotal()
-           .then(total =>{ console.log(total);
+           .then(total =>{ console.log("Total", total);
            this.setState({
-               CreditScore: total.CreditScore,
-               TotalAsset: total.TotalAsset,
-               TotalDebt: total.TotalDebt,
-               NetAsset: total.TotalAsset - total.TotalDebt
+               CreditScore: total!==undefined ?  total.CreditScore : 0,
+               TotalAsset:total!==undefined ? total.TotalAsset: 0,
+               TotalDebt:total!==undefined ? total.TotalDebt: 0,
+               NetAsset:total!==undefined ? total.TotalAsset - total.TotalDebt: 0
            })
     })
     }

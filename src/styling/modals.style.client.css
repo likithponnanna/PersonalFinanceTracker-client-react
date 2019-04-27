@@ -1,6 +1,13 @@
 /*#exampleModalCenter{
     z-index: 10;
 }*/
+
+#hideOverflowFld::-webkit-scrollbar {
+    display: none;
+}
+
+
+
 .web-dev-z-index{
     z-index: initial;
 }
@@ -12,8 +19,16 @@
 }
 
 .web-dev-property{
-    background: ActiveBorder;
+    background: purple;
     text-overflow: ellipsis;
+    color: white;
+    overflow-x: hidden;
+}
+.web-dev-stock{
+    background: midnightblue;
+    text-overflow: ellipsis;
+    color: white;
+    overflow-x: hidden;
 }
 
 .web-dev-savings{
@@ -31,6 +46,21 @@
     color: white;
     text-overflow: ellipsis;
 }
+
+.web-dev-collapse-border{
+    border: 2px solid #282c34;
+}
+
+.web-dev-scroll-hide  ::-webkit-scrollbar {
+    -ms-overflow-style: none;
+    display: none;
+}
+
+.container-fluid::-webkit-scrollbar{
+    display: none;
+}
+
+
 
 
 .web-dev-credit-card-black{

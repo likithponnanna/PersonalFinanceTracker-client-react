@@ -10,15 +10,15 @@ import TransactionPage from "./TransactionPage";
 
 const TransactionTabContent =({categoryChanged, paymentTypeChanged, dateChanged, amountChanged, toggleUpdate, toggleAdd, updateFlag, addFlag,
                                   addTransaction,deleteTransaction, updateTransaction, setUpdateId, getLastWeekTransaction, getLastMonthTransaction, getAllTransactions,
-                                  amount, payment_type, category, date_of_transaction }) =>
+                                  amount, payment_type, category, date_of_transaction,selectedSort, setSelectedBtn }) =>
             <div>
                 <MyContext.Consumer>
                     {(context) => (
                         <React.Fragment>
-                            <div className="wrapper">
+                            <div className="wrapper p=0">
 
 
-                                <div className="card col-12">
+                                <div className="card col-12 p-0">
 
                                     <h5 className="card-header text-center font-weight-bold text-uppercase py-4">Transactions</h5>
                                     <div className="input-group row">
@@ -29,10 +29,12 @@ const TransactionTabContent =({categoryChanged, paymentTypeChanged, dateChanged,
                                             <table
                                                 className="table  table-responsive-md table-striped text-center ">
                                             <tr>
-                                                <th className="mr-1 btn btn-secondary text-center web-dev-text-size-transaction" onClick={()=> getAllTransactions()}>All Transactions</th>
-                                                <th className="ml-1 mr-1 btn btn-secondary text-center web-dev-text-size-transaction" onClick={()=> getLastMonthTransaction()}>One Month Transactions</th>
-                                                <th className="ml-1 btn btn-secondary text-center web-dev-text-size-transaction" onClick={()=> getLastWeekTransaction()}>Past Week Transaction</th>
+                                                <th className={` mr-1 btn  text-center  ${selectedSort==='ALL' ? 'btn-secondary' : 'btn-outline-secondary border-dark'} `}onClick={()=>{ getAllTransactions(); setSelectedBtn('ALL')}}>All Transactions</th>
+                                                <th className={` mr-1 btn  text-center  ${selectedSort==='ONE' ? 'btn-secondary' : 'btn-outline-secondary border-dark'} `} onClick={()=> {getLastMonthTransaction(); setSelectedBtn('ONE');}}>One Month Transactions</th>
+                                                <th className={` mr-1 btn  text-center  ${selectedSort==='WEEK' ? 'btn-secondary' : 'btn-outline-secondary border-dark'} `} onClick={()=>{ getLastWeekTransaction(); setSelectedBtn('WEEK')}}>Past Week Transaction</th>
                                             </tr>
+
+
                                             </table>
 
                                           <span className="table-add float-right mb-3 mr-2 " onClick={()=> toggleAdd()}><a href="#!" className="text-success">
@@ -41,32 +43,43 @@ const TransactionTabContent =({categoryChanged, paymentTypeChanged, dateChanged,
                                             <table
                                                 className="table table-bordered table-responsive-md table-striped text-center ">
 
+
                                                 <tr>
+
                                                     <th className="text-center">Amount</th>
                                                     <th className="text-center">Category</th>
                                                     <th className="text-center">Payment Type</th>
                                                     <th className="text-center">Date</th>
 
-                                                    <th className="text-center"/>
-                                                    <th className="text-center"/>
-                                                </tr>
+                                                    <th className="text-center"></th>
+                                                    <th className="text-center"></th>
 
+                                                </tr>
                                                 {
 
-                                                    context.state.transactions.map((transaction,index)  =>
-                                                <tr key={index}>
-                                                    <td className="pt-3-half" >{transaction.amount}</td>
-                                                    <td className="pt-3-half" >{transaction.category}</td>
-                                                    <td className="pt-3-half" >{transaction.payment_type}</td>
-                                                    <td className="pt-3-half" >{transaction.date_of_transaction }</td>
-                                                    <td className="pt-3-half">
-                                                        <span className="table-remove" ><i onClick={()=>{ toggleUpdate(); setUpdateId(transaction._id)}}  className="fa fa-edit fa-2x" aria-hidden="true"/></span>
-                                                    </td>
-                                                    <td>
-                                                        <span className="table-trash"><i onClick={()=> deleteTransaction(transaction._id)} className="fa fa-trash fa-2x " aria-hidden="true"/></span>
-                                                    </td>
-                                                </tr>
-                                                    )
+
+                                                        context.state.transactions.map((transaction, index) =>
+                                                            <tr key={index}>
+                                                                <td className="pt-3-half">{transaction.amount}</td>
+                                                                <td className="pt-3-half">{transaction.category}</td>
+                                                                <td className="pt-3-half">{transaction.payment_type}</td>
+                                                                <td className="pt-3-half">{transaction.date_of_transaction}</td>
+                                                                <td className="pt-3-half">
+                                                                    <span className="table-remove"><i onClick={() => {
+                                                                        toggleUpdate();
+                                                                        setUpdateId(transaction._id)
+                                                                    }} className="fa fa-edit fa-2x" aria-hidden="true"/></span>
+                                                                </td>
+                                                                <td>
+                                                                    <span className="table-trash"><i
+                                                                        onClick={() => deleteTransaction(transaction._id)}
+                                                                        className="fa fa-trash fa-2x "
+                                                                        aria-hidden="true"/></span>
+                                                                </td>
+                                                            </tr>
+                                                        )
+
+
 
                                                 }
 

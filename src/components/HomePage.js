@@ -22,6 +22,24 @@ import CustomerOnBoardLogin from "./CustomerOnBoardLogin";
 import AdminMainPage from "./AdminMainPage";
 import CheckingAccountAddModal from "./CheckingAccountAddModal";
 import StockSearchDetailsMainComponent from "./StockSearchDetailsMainComponent";
+import SavingHomePage from "./SavingHomePage";
+import CheckingHomePage from "./CheckingHomePage";
+import CreditCardHomePage from "./CreditCardHomePage";
+import ApplyForProduct from "./ApplyForProduct";
+import SavingsAccountApplyMain from "./SavingsAccountApplyMain";
+import CheckingAccountApplyMain from "./CheckingAccountApplyMain";
+import ApplyProductMainPage from "./ApplyProductMainPage";
+import TransactionsForAdmin from "./TransactionsForAdmin";
+import TransactionListParent from "./TransactionListParent";
+import AdminUsersListMainContent from "./AdminUsersListMainContent";
+import { AnimatedSwitch } from 'react-router-transition';
+import ProductApplicationsMain from "./ProductApplicationsMain";
+import ProductAddPageMain from "./ProductAddPageMain";
+import ProfilePage from "./ProfilePage";
+import AnotherUserProfileLookupMain from "./AnotherUserProfileLookupMain";
+import ProfileLookup from "./ProfileLookup";
+import ProfileMainContent from "./ProfileMainContent";
+import AdminBillsEditorMain from "./AdminBillsEditorMain";
 
 class HomePage extends Component{
 
@@ -32,6 +50,7 @@ class HomePage extends Component{
         this.alpha = require('alphavantage')({key: 'QZTS8QOG36E6LQEI'});
         this.state = {
             stockSymbolForSearch: null,
+            state: undefined
 
         }
     }
@@ -42,7 +61,8 @@ class HomePage extends Component{
             <div>
                 <MyProvider>
                 <Router>
-                    <div>
+                  <div>
+
 
                         <Route path='/' exact
                                render={(props) =>{
@@ -61,6 +81,31 @@ class HomePage extends Component{
                                render={(props) =>{
                                    document.body.style.backgroundColor="#FFFFFF";
                                    return( <CustomerOnBoardLogin {...props}
+
+                                   />) } }/>
+
+
+                        <Route path='/home/creditCard' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <CreditCardHomePage {...props}
+
+                                   />) } }/>
+
+
+
+                        <Route path='/home/saving' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <SavingsAccountApplyMain {...props}
+
+                                   />) } }/>
+
+
+                        <Route path='/home/checking' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <CheckingAccountApplyMain {...props}
 
                                    />) } }/>
 
@@ -136,7 +181,7 @@ class HomePage extends Component{
 
                                    />) } }/>
 
-                        StockSearchDetailsMainComponent
+
                         <Route path='/search/details' exact
                                render={(props) =>{
                                    document.body.style.backgroundColor="#FFFFFF";
@@ -161,19 +206,69 @@ class HomePage extends Component{
 
                                    />) } }/>
 
-                        <ModalRoute path='/modal-test' parentPath='/'>
-                            Hello
-                        </ModalRoute>
-                        <ModalRoute component={UserOnboardModal} path='/login' className='test-modal test-modal-foo'/>
+
+                        <Route path='/home/apply/:id/:name' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <ApplyProductMainPage {...props}
+
+                                   />) } }/>
+
+                        <Route path='/transactions-admins/:userid' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <TransactionListParent {...props}
+
+                                   />) } }/>
+
+                        <Route path='/admin/users' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <AdminUsersListMainContent {...props}
+
+                                   />) } }/>
+
+                        <Route path='/admin/applications' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <ProductApplicationsMain {...props}
+
+                                   />) } }/>
+
+                        <Route path='/admin/products' exact
+                               render={(props) =>{
+                                   document.body.style.backgroundColor="#FFFFFF";
+                                   return( <ProductAddPageMain {...props}
+
+                                   />) } }/>
+
+                      <Route path='/admin/bills/:id' exact
+                             render={(props) =>{
+                                 document.body.style.backgroundColor="#FFFFFF";
+                                 return( <AdminBillsEditorMain {...props}
+
+                                 />) } }/>
+
+                      <Route path='/profile' exact
+                             render={(props) =>{
+                                 document.body.style.backgroundColor="#FFFFFF";
+                                 return( <ProfileMainContent {...props}
+
+                                 />) } }/>
+
+                      <Route path='/profile/:id' exact
+                             render={(props) =>{
+                                 document.body.style.backgroundColor="#FFFFFF";
+                                 return( <ProfileLookup {...props}
+
+                                 />) } }/>
 
 
 
 
 
 
-
-
-                    </div>
+                  </div>
                 </Router>
                 </MyProvider>
 

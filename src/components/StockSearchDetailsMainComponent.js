@@ -3,13 +3,8 @@ import MyContext from "./MyContext";
 import SideBarUser from "./SideBarUser";
 import UserNavBar from "./UserNavBar";
 import UserOptionTabsNav from "./UserOptionTabsNav";
-import CreditScoreContent from "./CreditScoreContent";
-import StockSearchContent from "./StockSearchContent";
 import queryString from 'query-string'
-import AlphaVantageService from '../service/AlphaVantage';
 import StockService from '../service/stocks.service.client'
-import StockDetailsModal from "./StockDetailsModal";
-import StockDetailsContent from "./StockDetailsContent";
 import {Line} from "react-chartjs-2";
 import {Link} from "react-router-dom";
 
@@ -21,7 +16,7 @@ const options = {
             },
             ticks: {
                 beginAtZero:true,
-                fontColor: 'white'
+                fontColor: 'black'
             }
         }],
         yAxes: [{
@@ -30,13 +25,13 @@ const options = {
             },
             ticks: {
                 beginAtZero:true,
-                fontColor: 'white'
+                fontColor: 'black'
             }
         }]
     },
     legend: {
         labels: {
-            fontColor: 'white'
+            fontColor: 'black'
         }
     }
 };
@@ -55,7 +50,8 @@ class StockSearchDetailsMainComponent  extends Component{
             data: undefined,
                 noOfShares: 0,
             ownedNoOFSharen: 0,
-            values: values
+            values: values,
+            selectedStockId: undefined
 
         }
     }
@@ -71,23 +67,27 @@ class StockSearchDetailsMainComponent  extends Component{
             .then(stocks=>{ console.log("Stocks in details", stocks);
             let ownedNoOFSharen;
             let compName;
+            let stockId;
             for(let i in stocks){
                let  key = i;
                 if(stocks[key].stock_symbol === this.state.stockSymbol){
+
                     ownedNoOFSharen = stocks[key].no_of_shares;
                     compName = stocks[key].stock_name;
+                    stockId  = stocks[key]._id;
                 }
             }
 
 
-           let t =  stocks.map((stock) =>  stock.stock_symbol === this.state.stockSymbol)
+           //let t =  stocks.map((stock) =>  stock.stock_symbol === this.state.stockSymbol)
 
-            console.log("ownedNoOFSharen",ownedNoOFSharen,"compName", compName , "T", t );
+           // console.log("ownedNoOFSharen",ownedNoOFSharen,"compName", compName , "T", t );
 
 
             this.setState({
                 ownedNoOFShare: ownedNoOFSharen===undefined ? 0 : ownedNoOFSharen,
-                stock_name: compName===undefined ? values.stockName.replace(/%20/g, " ") : compName
+                stock_name: compName===undefined ? values.stockName.replace(/%20/g, " ") : compName,
+                selectedStockId: stockId
             })
             })
 
@@ -142,14 +142,14 @@ class StockSearchDetailsMainComponent  extends Component{
                                 label: this.state.stockSymbol,
                                 fill: false,
                                 lineTension: 0.1,
-                                backgroundColor: '#fff',
-                                borderColor: '#fff',
+                                backgroundColor: '#000000',
+                                borderColor: '#000000',
                                 borderCapStyle: 'butt',
                                 borderDash: [],
                                 borderDashOffset: 0.0,
                                 borderJoinStyle: 'miter',
-                                pointBorderColor: 'rgba(0, 0, 0, 0.5)',
-                                pointBackgroundColor: '#fff',
+                                pointBorderColor: 'rgba(96,96,96,0.5)',
+                                pointBackgroundColor: '#ffffff',
                                 pointBorderWidth: 1,
                                 pointHoverRadius: 5,
                                 pointHoverBackgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -186,7 +186,9 @@ class StockSearchDetailsMainComponent  extends Component{
                 no_of_shares: this.state.ownedNoOFShare + this.state.noOfShares
             }
             this.stockService.createStock(newStock)
-                .then(stock =>{ this.context.pushStockOwned(stock);
+                .then(stock =>{
+
+                this.context.pushStockOwned(stock);
                     this.setState({
                         ownedNoOFShare: this.state.ownedNoOFShare + this.state.noOfShares,
                         noOfShares : 0
@@ -195,7 +197,13 @@ class StockSearchDetailsMainComponent  extends Component{
 
         }
         else if(this.state.ownedNoOFShare > 0){
+
+            console.log("Here",this.state.ownedNoOFShare + this.state.noOfShares );
+            let check
+
+
             let newStock = {
+                _id: this.state.selectedStockId,
                 stock_name: this.state.stockName,
                 stock_symbol: this.state.stockSymbol,
                 purchase_price: this.state.purchase_price,
@@ -206,7 +214,8 @@ class StockSearchDetailsMainComponent  extends Component{
 
                 this.stockService.updateStock(newStock)
                     .then(res=> this.stockService.findAllStocks()
-                        .then(stocks=>{ this.context.setStocksOwned(stocks);
+                        .then(stocks=>{
+                        this.context.setStocksOwned(stocks);
                         this.setState({
                             ownedNoOFShare: this.state.ownedNoOFShare + this.state.noOfShares,
                             noOfShares : 0
@@ -234,13 +243,16 @@ class StockSearchDetailsMainComponent  extends Component{
                                 <div id="content" className={` ${context.state.sidebarAct  ? 'active' : ''} `}>
                                     <UserNavBar
                                         sidebarCollapse={context.sidebarCollapse}/>
-                                    <div className="ml-5">
-                                        <UserOptionTabsNav/></div>
-                                    <div className="container ">
+                                    <div className="ml-5  row">
+                                        <div className="col-12">
+                                        <UserOptionTabsNav/>
+                                        </div></div>
+                                    <div className="container">
                                         <br/><br/> <br/>
                                         <div className="card">
                                             <div className="card mb-3">
-                                                {this.state.data!==undefined && <div className="card-img-top">  <Line  data={this.state.data} options={options}/></div>}
+                                                {this.state.data!==undefined && <div className="card-img-top">
+                                                    <Line  data={this.state.data} options={options}/></div>}
                                                     <div className="card-body">
 
                                                         <form id="stock-form">
@@ -274,8 +286,9 @@ class StockSearchDetailsMainComponent  extends Component{
                                                             </div>
                                                             <div className="form-group">
 
-                                                                <Link to={`/search/details?stockSymbol=${this.state.stock_symbol}&stockName=${this.state.stock_name}&stockType=${this.state.category}`}>    <button type="number"     className="form-control btn btn-info"
-                                                                                                                                                                                                                    placeholder="0"  onClick={()=>this.buyByUpadatingStock()}>Buy Stock </button> </Link>
+                                                                <Link to={`/search/details?stockSymbol=${this.state.stock_symbol}&stockName=${this.state.stock_name}&stockType=${this.state.category}`}>
+                                                                    <button type="number"     className="form-control btn btn-info"
+                                                                            placeholder="0"  onClick={()=>this.buyByUpadatingStock()}>Buy Stock </button> </Link>
                                                             </div>
 
 
@@ -298,5 +311,12 @@ class StockSearchDetailsMainComponent  extends Component{
 
 
 }
+
+/*export default (props) => (
+    <MyContext.Consumer>
+        {(context) => <StockSearchDetailsMainComponent {...props} context={context}/>}
+    </MyContext.Consumer>
+)*/
+
 StockSearchDetailsMainComponent.contextType = MyContext;
 export default StockSearchDetailsMainComponent

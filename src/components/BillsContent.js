@@ -73,22 +73,28 @@ class BillsContent extends React.Component {
                 <TabContainer >
                         <div className="card-columns" >
                         {
+                                this.props.unpaidBills!==undefined ? <div>
+                                {
 
-                                        this.props.unpaidBills.map((bill,index)  =>
+                                        this.props.unpaidBills.map((bill, index) =>
 
-                                <div className="card text-center" key={index}>
-                                        <div className="card-body">
-                                                <h5 className="card-title">Bill Type: {bill.billType}</h5>
-                                                <p className="card-text">Bill Name: {bill.billName}</p>
-                                                <p className="card-text">Bill Name: {bill.bill_due_date}</p>
-                                                <p className="card-text">Bill Name:{bill.bill_posted_date}</p>
-                                                <p className="card-text">Bill Amount: <b>{bill.bill_amount}</b></p>
-                                                <button className="btn bg-secondary card-footer" onClick={()=> this.props.payBill(bill)}>
-                                                        <b className=" web-dev-white-text" >Mark as paid</b>
-                                                </button>
-                                        </div>
-                                </div>
+                                            <div className="card text-center" key={index}>
+                                                    <div className="card-body">
+                                                            <h5 className="card-title">Bill Type: {bill.billType}</h5>
+                                                            <p className="card-text">Bill Name: {bill.billName}</p>
+                                                            <p className="card-text">Bill Name: {bill.bill_due_date}</p>
+                                                            <p className="card-text">Bill
+                                                                    Name:{bill.bill_posted_date}</p>
+                                                            <p className="card-text">Bill
+                                                                    Amount: <b>{bill.bill_amount}</b></p>
+                                                            <button className="btn bg-secondary card-footer"
+                                                                    onClick={() => this.props.payBill(bill)}>
+                                                                    <b className=" web-dev-white-text">Mark as paid</b>
+                                                            </button>
+                                                    </div>
+                                            </div>
                                         )
+                                }</div>:<div></div>
 
                         }
                         </div>
@@ -99,6 +105,8 @@ class BillsContent extends React.Component {
                 <TabContainer><div className="card-columns" >
                         {
 
+                                this.props.unpaidBills!==undefined ? <div>
+                                        {
                                 this.props.paidBills.map((bill,index)  =>
 
                                     <div className="card text-center" key={index}>
@@ -109,6 +117,7 @@ class BillsContent extends React.Component {
                                             </div>
                                     </div>
                                 )
+                                        }</div>:<div></div>
 
                         }
                 </div></TabContainer>

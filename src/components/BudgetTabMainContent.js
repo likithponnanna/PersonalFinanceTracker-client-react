@@ -19,7 +19,36 @@ class BudgetTabMainContent  extends Component{
             newBudget: "",
             spendsJson: [],
             labelsJson:[],
-            data: undefined
+            data: [],
+            dataNew : {
+                labels: ["April", "March","April", "March","April", "March"],
+                datasets: [
+                    {
+                        label: "Spend Trend",
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: '#000000',
+                        borderColor: '#000000',
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: 'rgba(96,96,96,0.5)',
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        pointHoverBorderColor: 'rgba(0, 0, 0, 0.5)',
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: [1,2,3,4,6],
+                        display: false
+                    }
+                ]
+            },
+            dataLine: undefined
+
 
 
         }
@@ -30,7 +59,7 @@ class BudgetTabMainContent  extends Component{
         this.budgetService.findBudget()
             .then(budget => {
                 this.setState({
-                budget: budget.length>0? budget[0] : budget
+                budget: budget!==undefined && budget.length>0? budget[0] : budget
             })});
 
         let labelsMix = [];
@@ -46,52 +75,112 @@ class BudgetTabMainContent  extends Component{
             let labels =[];
             let spends =[];
 
-            for(let i in budget["amount"]){
+          /*  for(let i in budget["amount"]){
                 console.log("Inside budget for", budget[i], "I", i)
 
-            }
+            }*/
 
-                for (let i = 0; i <budget["amount"].length ; i++) {
+                    for (let i = 0; i < budget["amount"].length; i++) {
 
-                   //console.log("Inside second for", budget["amount"][i]);
-                   spends.push(budget["amount"][i])
-                    labels.push(budget["month"][i])
-                }
+                        //console.log("Inside second for", budget["amount"][i]);
+                        spends.push(budget["amount"][i])
+                        labels.push(budget["month"][i])
+                    }
+                    labels = labels.reverse();
+                    spends =spends.reverse();
+
                /* var object =   budget["amount"] ,
                     result = Object.keys(object).reduce(function (r, k) {
                         return k.concat(object[k]);
                     }, []);*/
 
-                let spendsNew = JSON.stringify(budget["amount"]);
-                let labelsNew  = JSON.stringify(budget["month"]);
+                    let spendsNew = JSON.stringify(budget["amount"]);
+                    let labelsNew = JSON.stringify(budget["month"]);
 
-              this.setState({
-                  spendsJson: spendsNew,
-                  labelsJson : labelsNew,
-                  data : {
-                      labels: budget["month"],
-                      datasets: [{
-                          label: 'Monthly Trends',
-                          data: budget["amount"],
-                          backgroundColor: [
-                              '#FF6384',
-                              '#36A2EB',
-                              '#FFCE56',
-                              '#85ff63',
-                              '#20ebd2',
-                              '#8238ff'
-                          ],
-                          hoverBackgroundColor: [
-                              '#FF6384',
-                              '#36A2EB',
-                              '#FFCE56',
-                              '#85ff63',
-                              '#20ebd2',
-                              '#8238ff'
-                          ]
-                      }]
-                  }
-              })
+                    this.setState({
+                        spendsJson: spendsNew,
+                        labelsJson: labelsNew,
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: "Monthly Average Spend",
+                                data: spends,
+                                backgroundColor: [
+                                    '#FF6384',
+                                    '#36A2EB',
+                                    '#FFCE56',
+                                    '#85ff63',
+                                    '#20ebd2',
+                                    '#8238ff'
+                                ],
+                                hoverBackgroundColor: [
+                                    '#FF6384',
+                                    '#36A2EB',
+                                    '#FFCE56',
+                                    '#85ff63',
+                                    '#20ebd2',
+                                    '#8238ff'
+                                ]
+                            }]
+                        },
+                        dataLine : {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: "Spend Trend",
+                                    fill: false,
+                                    lineTension: 0.1,
+                                    backgroundColor: '#000000',
+                                    borderColor: '#000000',
+                                    borderCapStyle: 'butt',
+                                    borderDash: [],
+                                    borderDashOffset: 0.0,
+                                    borderJoinStyle: 'miter',
+                                    pointBorderColor: 'rgba(96,96,96,0.5)',
+                                    pointBackgroundColor: '#ffffff',
+                                    pointBorderWidth: 1,
+                                    pointHoverRadius: 5,
+                                    pointHoverBackgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                    pointHoverBorderColor: 'rgba(0, 0, 0, 0.5)',
+                                    pointHoverBorderWidth: 2,
+                                    pointRadius: 1,
+                                    pointHitRadius: 10,
+                                    data: spends,
+                                    display: false
+                                }
+                            ]
+                        },
+                        dataMix: {
+                            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                            datasets: [{
+                                label: 'Sales',
+                                type:'line',
+                                data: [51, 65, 40, 49, 60, 37, 40],
+                                fill: false,
+                                borderColor: '#EC932F',
+                                backgroundColor: '#EC932F',
+                                pointBorderColor: '#EC932F',
+                                pointBackgroundColor: '#EC932F',
+                                pointHoverBackgroundColor: '#EC932F',
+                                pointHoverBorderColor: '#EC932F',
+                                yAxisID: 'y-axis-2'
+                            },{
+                                label: 'Other',
+                                type:'line',
+                                data: [12, 32, 32, 32, 23, 32, 32],
+                                fill: false,
+                                borderColor: '#EC932F',
+                                backgroundColor: '#EC932F',
+                                pointBorderColor: '#EC932F',
+                                pointBackgroundColor: '#EC932F',
+                                pointHoverBackgroundColor: '#EC932F',
+                                pointHoverBorderColor: '#EC932F',
+                                yAxisID: 'y-axis-2'
+                            }]
+                        }
+                    })
+
+}
 
 
 
@@ -126,7 +215,7 @@ class BudgetTabMainContent  extends Component{
 
             })*/
 
-            })
+            )
 
     }
 
@@ -207,6 +296,8 @@ class BudgetTabMainContent  extends Component{
                                             budgetFlag ={this.state.budgetFlag}
                                             data ={this.state.data}
                                             dataMix ={this.state.dataMix}
+                                            dataNew={ this.state.dataNew}
+                                            dataLine = {this.state.dataLine}
                                         />
                                     </div>
                                 </div>

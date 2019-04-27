@@ -9,13 +9,14 @@ import CreditCardModal from "./CreditCardModal";
 import AdminSideBar from "./AdminSideBar";
 import AdminOverView from "./AdminOverView";
 import '../styling/admin.style.client.css'
-import AdminInfoPills from "./AdminInfoPills";
-import AdminUserListContent from "./AdminUserListContent";
+import TransactionsForAdmin from "./TransactionsForAdmin";
 
-class AdminMainPage extends Component{
+class TransactionListParent extends Component{
     constructor(props){
         super(props);
-        this.state = {}
+        this.state = {
+            userid: props.match.params.userid
+        }
     }
     render() {
         return(
@@ -33,29 +34,11 @@ class AdminMainPage extends Component{
                                         sidebarCollapse={context.sidebarCollapse}/>
 
                                     <div className="container">
-
-
-                                        <div className="container ">
-
-                                            <h2 className="web-dev-text-center mb-2"> Overview </h2>
-
-
-                                            <AdminInfoPills/>
-
-                                            <div className="row card mt-4">
-
-
-                                                <AdminOverView/>
-
-                                            </div>
-
-
-
-                                        </div>
+                                        <TransactionsForAdmin
+                                            userid ={this.state.userid}/>
                                     </div>
                                 </div>
                             </div>
-
 
 
                         </React.Fragment>
@@ -65,4 +48,4 @@ class AdminMainPage extends Component{
         )
     }
 }
-export default AdminMainPage
+export default TransactionListParent

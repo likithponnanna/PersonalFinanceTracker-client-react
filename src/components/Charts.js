@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {Line, Bar, Doughnut, Pie} from 'react-chartjs-2';
 import AlphaVantageService from '../service/AlphaVantage';
 import TransactionService from '../service/TransactionService';
-import '../styling/Charts.css'
 import BarChart from "./BarChart";
 import PieChart from "./PieChart";
 import DoughnutChart from "./DoughnutChart";

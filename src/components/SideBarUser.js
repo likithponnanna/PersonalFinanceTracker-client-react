@@ -214,28 +214,37 @@ class SideBarUser extends Component {
     componentDidMount() {
         this.creditCardService.findAllCreditCards()
             .then(credits => {console.log("Credit Cards in Sidebar",credits);
-             this.context.setCreditCards(credits)});
+            credits!==undefined ? this.props.context.setCreditCards(credits): this.props.context.setCreditCards([])});
         this.propertyService.findAllProperties()
             .then(properties => {console.log("Properties in Sidebar", properties);
-            this.context.setProperties(properties)});
+                properties!==undefined ? this.props.context.setProperties(properties): this.props.context.setProperties([])
+            });
         this.stockService.findAllStocks()
             .then(stocks => {console.log("Stocks in Sidebar", stocks);
-            this.context.setStocksOwned(stocks)});
+            this.props.context.setStocksOwned(stocks);
+                stocks!==undefined ?  this.props.context.setStocksOwned(stocks):  this.props.context.setStocksOwned([])
+            });
 
         this.savingsAccountService.findAllSavingsAccounts()
             .then(savingsAccounts => {console.log("Savings Account in Sidebar", savingsAccounts);
-            this.context.setSavingsAccounts(savingsAccounts)});
+
+                savingsAccounts!==undefined ?  this.props.context.setSavingsAccounts(savingsAccounts):  this.props.context.setSavingsAccounts([])
+            });
 
         this.checkingAccountService.findAllCheckingAccounts()
             .then(checkingAccounts => {console.log("Checking Account in Sidebar", checkingAccounts);
-                this.context.setcheckingAccounts(checkingAccounts)})
+                checkingAccounts!==undefined ?  this.props.context.setcheckingAccounts(checkingAccounts):  this.props.context.setcheckingAccounts([])
+            })
     }
 
     addCreditCard = (creditCard) => {
+
+        console.log("Credit Card",creditCard);
         if (creditCard !== [] || creditCard!==undefined) {
             this.creditCardService.createCreditCard(creditCard)
                 .then(creditCard => {
-                    this.context.pushCreditCard(creditCard)
+                    console.log("Credit Card Inside", creditCard )
+                    this.props.context.pushCreditCard(creditCard)
                 })
                 .catch(reason => {console.log(reason)})
         }
@@ -245,7 +254,7 @@ class SideBarUser extends Component {
         if (SavingsAccount !== [] || SavingsAccount!==undefined) {
             this.savingsAccountService.createSavingsAccount(SavingsAccount)
                 .then(SavingsAccount => {
-                    this.context.pushSavingsAccount(SavingsAccount)
+                    this.props.context.pushSavingsAccount(SavingsAccount)
                 })
                 .catch(reason => {console.log(reason)})
         }
@@ -255,7 +264,7 @@ class SideBarUser extends Component {
         if (CheckingAccount !== [] || CheckingAccount!==undefined) {
             this.checkingAccountService.createCheckingAccount(CheckingAccount)
                 .then(CheckingAccount => {
-                    this.context.pushCheckingAccount(CheckingAccount)
+                    this.props.context.pushCheckingAccount(CheckingAccount)
                 })
                 .catch(reason => {console.log(reason)})
         }
@@ -265,7 +274,7 @@ class SideBarUser extends Component {
         if(property!==[] || property!==undefined){
             this.propertyService.createProperty(property)
                 .then(property => {
-                    this.context.pushProperty(property)
+                    this.props.context.pushProperty(property)
                 })
         }
     };
@@ -275,7 +284,7 @@ class SideBarUser extends Component {
         if(Stock!==[] || Stock!==undefined){
             this.stockService.createStock(Stock)
                 .then(Stock => {
-                    this.context.pushStockOwned(Stock)
+                    this.props.context.pushStockOwned(Stock)
                 })
         }
     };
@@ -283,35 +292,35 @@ class SideBarUser extends Component {
     deleteCreditCard = (creditCardId) =>
         this.creditCardService.deleteCreditCard(creditCardId)
             .then(response => {
-                this.context.deleteCreditCard(creditCardId);
+                this.props.context.deleteCreditCard(creditCardId);
             })
             .catch(reason => {console.log(reason)});
 
     deleteSavingsAccount = (SavingsAccount) =>
         this.savingsAccountService.deleteSavingsAccount(SavingsAccount)
             .then(response => {
-                this.context.deleteSavingsAccount(SavingsAccount);
+                this.props.context.deleteSavingsAccount(SavingsAccount);
             })
             .catch(reason => {console.log(reason)});
 
     deleteCheckingAccount = (CheckingAccount) =>
         this.checkingAccountService.deleteCheckingAccount(CheckingAccount)
             .then(response => {
-                this.context.deleteCheckingAccount(CheckingAccount);
+                this.props.context.deleteCheckingAccount(CheckingAccount);
             })
             .catch(reason => {console.log(reason)});
 
     deleteProperty = (Property) =>
         this.propertyService.deleteProperty(Property)
             .then(response => {
-                this.context.deleteProperty(Property);
+                this.props.context.deleteProperty(Property);
             })
             .catch(reason => {console.log(reason)});
 
     deleteStock = (StockId) =>
         this.stockService.deleteStock(StockId)
             .then(response => {
-                this.context.deleteStockOwned(StockId);
+                this.props.context.deleteStockOwned(StockId);
             })
             .catch(reason => {console.log(reason)});
 
@@ -377,7 +386,7 @@ class SideBarUser extends Component {
             creditCard.accountNo = this.state.cardNumChanged;
             this.creditCardService.updateCreditCard(creditCard)
                 .then(
-                        this.context.updateCreditCard(creditCard)
+                        this.props.context.updateCreditCard(creditCard)
                 ).catch(reason => {console.log(reason)})
 
 
@@ -393,7 +402,7 @@ class SideBarUser extends Component {
             Property.value = this.state.propValueChanged;
             this.propertyService.updateProperty(Property)
                 .then(
-                    this.context.updateProperty(Property)
+                    this.props.context.updateProperty(Property)
                 ).catch(reason => {console.log(reason)})
 
 
@@ -408,7 +417,7 @@ class SideBarUser extends Component {
             SavingsAcc.balance = this.state.savingsAccBalChanged;
             this.savingsAccountService.updateSavingsAccount(SavingsAcc)
                 .then(
-                    this.context.updateSavingsAccount(SavingsAcc)
+                    this.props.context.updateSavingsAccount(SavingsAcc)
                 ).catch(reason => {console.log(reason)})
 
 
@@ -423,7 +432,7 @@ class SideBarUser extends Component {
             CheckingAcc.balance = this.state.checkingAccBalChanged;
             this.checkingAccountService.updateCheckingAccount(CheckingAcc)
                 .then(
-                    this.context.updateCheckingAccount(CheckingAcc)
+                    this.props.context.updateCheckingAccount(CheckingAcc)
                 ).catch(reason => {console.log(reason)})
 
 
@@ -442,7 +451,7 @@ class SideBarUser extends Component {
             Property.value = this.state.propValueChanged;
             this.propertyService.updateProperty(Property)
                 .then(
-                    this.context.updateProperty(Property)
+                    this.props.context.updateProperty(Property)
                 ).catch(reason => {console.log(reason)})
 
 
@@ -457,7 +466,7 @@ class SideBarUser extends Component {
             Stock.address = this.state.stockNameChanged;
             this.stockService.updateStock(Stock)
                 .then(
-                    this.context.updateStockOwned(Stock)
+                    this.props.context.updateStockOwned(Stock)
                 ).catch(reason => {console.log(reason)})
 
 
@@ -473,7 +482,7 @@ class SideBarUser extends Component {
     render(){
         return(
 
-            <div>
+            <div id="hideOverflowFld" className="container-fluid">
 
                 <MyContext.Consumer>
                     {(context) => (
@@ -489,8 +498,8 @@ class SideBarUser extends Component {
                         <h3>Finance Tracker</h3>
                     </div>
 
-                    <div>
-                        <Button className="btn-block mb-0" onClick={context.toggleCreditCard} style={{marginBottom: '1rem'}}>Credit Cards</Button>
+                    <div className="container-fluid web-dev-overflowScrollN">
+                        <Button className="btn-block mb-0 web-dev-collapse-border" onClick={context.toggleCreditCard} style={{marginBottom: '1rem'}}>Credit Cards</Button>
                         <Collapse  isOpen={context.state.creditItemsCollapse}>
                             <div className="bg-light">
                                 <ListGroup>
@@ -498,58 +507,98 @@ class SideBarUser extends Component {
                                             data-target="#exampleModalCenter" onClick={this.handleCreditModalShow}>
                                         Add Credit Card
                                     </button>
+
                                     <div>
                                         {
 
-                                            context.state.creditCards.map((creditCard,index)  =>
-                                                <div>
-                                                <div key={index}>
-                                                    {creditCard._id !== this.state.selectedCreditCard  &&
-                                                    <div className="list-group border border-white m-2" key={index} onMouseEnter={()=>{ this.flipCreditCardOpen(); this.selectCreditCard(creditCard._id)}}>
-                                                        <div className="list-group-item list-group-item-action flex-column align-items-start web-dev-credit-card"
-                                                        >
-                                                            <div className="d-flex w-100 justify-content-between"  >
-                                                                <h6 className="mb-1"> Card: {creditCard.accountName}  </h6>
-                                                                <small>Limit: {creditCard.maxLimit}</small>
-                                                            </div>
-                                                            <p className="mb-1">  {creditCard.accountNo}   </p>
-                                                            <div className="row">
-                                                                <small className="col-12">Bank: {creditCard.bankName}</small>
-                                                                <small className="col-12">Reward: {creditCard.rewardAmount}</small>
+
+
+                                            context.state.creditCards!==undefined  ?
+                                            <div>
+                                                {
+
+                                                    context.state.creditCards.map((creditCard, index) =>
+                                                        <div>
+                                                            <div key={index}>
+                                                                {creditCard._id !== this.state.selectedCreditCard &&
+                                                                <div className="list-group border border-white m-2"
+                                                                     key={index} onMouseEnter={() => {
+                                                                    this.flipCreditCardOpen();
+                                                                    this.selectCreditCard(creditCard._id)
+                                                                }}>
+                                                                    <div
+                                                                        className="list-group-item list-group-item-action flex-column align-items-start web-dev-credit-card"
+                                                                    >
+                                                                        <div
+                                                                            className="d-flex w-100 justify-content-between">
+                                                                            <h6 className="mb-1"> Card: {creditCard.accountName}  </h6>
+                                                                            <small>Limit: {creditCard.maxLimit}</small>
+                                                                        </div>
+                                                                        <p className="mb-1">  {creditCard.accountNo}   </p>
+                                                                        <div className="row">
+                                                                            <small
+                                                                                className="col-12">Bank: {creditCard.bankName}</small>
+                                                                            <small
+                                                                                className="col-12">Reward: {creditCard.rewardAmount}</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>}
+                                                                {creditCard._id === this.state.selectedCreditCard &&
+                                                                <div className="list-group border border-info m-2"
+                                                                     key={index} onMouseLeave={() => {
+                                                                    this.flipCreditCardClose();
+                                                                    this.selectCreditCard("");
+                                                                }}>
+                                                                    <div
+                                                                        className="list-group-item list-group-item-action flex-column align-items-start"
+                                                                    >
+                                                                        <div
+                                                                            className="d-flex w-100 justify-content-between">
+                                                                            <div className="row">
+                                                                                <button
+                                                                                    className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2"
+                                                                                    onClick={() => this.deleteCreditCard(creditCard._id)}> Delete
+                                                                                    Card
+                                                                                </button>
+                                                                                {this.state.toggleUpdate === false &&
+                                                                                <button
+                                                                                    className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2"
+                                                                                    onClick={() => {
+                                                                                        this.toggleUpdate()
+                                                                                    }}> Update Card Num </button>}
+                                                                            </div>
+                                                                        </div>
+                                                                        {this.state.toggleUpdate === false && <div>
+                                                                            <small
+                                                                                className="mb-1 web-dev-credit-card-black overflow-auto"> Card: {creditCard.accountName}   </small>
+                                                                            <h6 className="mb-1 web-dev-credit-card-black">  {creditCard.accountNo}   </h6>
+                                                                        </div>}
+                                                                        {this.state.toggleUpdate === true && creditCard._id === this.state.selectedCreditCard
+                                                                        && <div><input type="number"
+                                                                                       onChange={(event) => this.cardNumChanged(event)}
+                                                                                       placeholder="Enter CardNumber"
+                                                                                       className="col-12"/>
+                                                                            <i onClick={() => {
+                                                                                this.updateCreditCardNum(creditCard);
+                                                                                this.toggleUpdate();
+                                                                            }}
+                                                                               className="fa fa-check my-float ml-4 align-content-center col-2"/>
+                                                                        </div>}
+
+                                                                    </div>
+                                                                </div>
+                                                                }
                                                             </div>
                                                         </div>
-                                                    </div> }
-                                                    {creditCard._id === this.state.selectedCreditCard &&
-                                                    <div className="list-group border border-info m-2" key={index} onMouseLeave={()=>{ this.flipCreditCardClose();this.selectCreditCard("");}}>
-                                                        <div className="list-group-item list-group-item-action flex-column align-items-start"
-                                                        >
-                                                            <div className="d-flex w-100 justify-content-between" >
-                                                                <div className="row">
-                                                                    <button className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2" onClick={()=> this.deleteCreditCard(creditCard._id)}>  Delete Card </button>
-                                                                    { this.state.toggleUpdate===false && <button className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2" onClick={()=>{ this.toggleUpdate()}}> Update Card Num </button>}
-                                                                </div>
-                                                            </div>
-                                                            { this.state.toggleUpdate===false &&  <div>
-                                                                <small className="mb-1 web-dev-credit-card-black overflow-auto"> Card: {creditCard.accountName}   </small>
-                                                                <h6 className="mb-1 web-dev-credit-card-black">  {creditCard.accountNo}   </h6>
-                                                            </div>}
-                                                            { this.state.toggleUpdate===true && creditCard._id ===this.state.selectedCreditCard
-                                                            &&  <div><input type="number" onChange={(event) => this.cardNumChanged(event)} placeholder="Enter CardNumber" className="col-12"/>
-                                                                <i onClick={()=>{ this.updateCreditCardNum(creditCard); this.toggleUpdate();}} className="fa fa-check my-float ml-4 align-content-center col-2"/></div>}
-
-                                                        </div>}
-                                                    </div>
-                                                    }
-                                                </div>
-                                                </div>
-                                            )
+                                                    )
+                                                }</div>:<div/>
 
                                         }
                                     </div>
                                 </ListGroup>
                             </div>
                         </Collapse>
-                        <Button className="btn-block mb-0" onClick={context.toggleSavings} style={{marginBottom: '1rem'}}>Savings Account</Button>
+                        <Button className="btn-block mb-0 web-dev-collapse-border" onClick={context.toggleSavings} style={{marginBottom: '1rem'}}>Savings Account</Button>
                         <Collapse  isOpen={context.state.savingsCollapse}>
                             <div className="bg-light">
                                 <ListGroup>
@@ -560,127 +609,205 @@ class SideBarUser extends Component {
                                     <div>
                                         {
 
-                                            context.state.savingsAccounts.map((SavingsAccount,index)  =>
+                                            context.state.savingsAccounts!==undefined ?
                                                 <div>
-                                                    <div key={index}>
-                                                        {SavingsAccount._id !== this.state.selectedSavingsAcc  &&
-                                                        <div className="list-group border border-white m-2" key={index} onMouseEnter={()=>{ this.flipSavingsAccOpen(); this.selectedSavingsAcc(SavingsAccount._id)}}>
-                                                            <div className="list-group-item list-group-item-action flex-column align-items-start web-dev-savings"
-                                                            >
-                                                                <div className="d-flex w-100 justify-content-between"  >
-                                                                    <h6 className="mb-1"> Bank: {SavingsAccount.bankName} </h6>
+                                                    {
 
-                                                                </div>
-                                                                <h6> Balance: ${SavingsAccount.balance} </h6>
-                                                                <p className="mb-1 ">Acc No:  {SavingsAccount.accountNo}   </p>
-                                                                <small className="mb-1">Acc Name:  {SavingsAccount.accountName}   </small>
-                                                            </div>
-                                                        </div> }
-                                                        {SavingsAccount._id === this.state.selectedSavingsAcc &&
-                                                        <div className="list-group border border-info m-2" key={index} onMouseLeave={()=>{ this.flipSavingsAccClose();this.selectedSavingsAcc("");}}>
-                                                            <div className="list-group-item list-group-item-action flex-column align-items-start"
-                                                            >
-                                                                <div className="d-flex w-100 justify-content-between" >
-                                                                    <div className="row">
-                                                                        <button className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2" onClick={()=> this.deleteSavingsAccount(SavingsAccount._id)}>  Delete Account </button>
-                                                                        { this.state.toggleSavingsUpdate===false && <button className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2" onClick={()=>{ this.toggleSavingsUpdate()}}> Update Balance Value </button>}
+                                                        context.state.savingsAccounts.map((SavingsAccount, index) =>
+                                                            <div>
+                                                                <div key={index}>
+                                                                    {SavingsAccount._id !== this.state.selectedSavingsAcc &&
+                                                                    <div className="list-group border border-white m-2"
+                                                                         key={index} onMouseEnter={() => {
+                                                                        this.flipSavingsAccOpen();
+                                                                        this.selectedSavingsAcc(SavingsAccount._id)
+                                                                    }}>
+                                                                        <div
+                                                                            className="list-group-item list-group-item-action flex-column align-items-start web-dev-savings"
+                                                                        >
+                                                                            <div
+                                                                                className="d-flex w-100 justify-content-between">
+                                                                                <h6 className="mb-1"> Bank: {SavingsAccount.bankName} </h6>
+
+                                                                            </div>
+                                                                            <h6> Balance:
+                                                                                ${SavingsAccount.balance} </h6>
+                                                                            <p className="mb-1 ">Acc
+                                                                                No: {SavingsAccount.accountNo}   </p>
+                                                                            <small className="mb-1">Acc
+                                                                                Name: {SavingsAccount.accountName}   </small>
+                                                                        </div>
+                                                                    </div>}
+                                                                    {SavingsAccount._id === this.state.selectedSavingsAcc &&
+                                                                    <div className="list-group border border-info m-2"
+                                                                         key={index} onMouseLeave={() => {
+                                                                        this.flipSavingsAccClose();
+                                                                        this.selectedSavingsAcc("");
+                                                                    }}>
+                                                                        <div
+                                                                            className="list-group-item list-group-item-action flex-column align-items-start"
+                                                                        >
+                                                                            <div
+                                                                                className="d-flex w-100 justify-content-between">
+                                                                                <div className="row">
+                                                                                    <button
+                                                                                        className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2"
+                                                                                        onClick={() => this.deleteSavingsAccount(SavingsAccount._id)}> Delete
+                                                                                        Account
+                                                                                    </button>
+                                                                                    {this.state.toggleSavingsUpdate === false &&
+                                                                                    <button
+                                                                                        className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2"
+                                                                                        onClick={() => {
+                                                                                            this.toggleSavingsUpdate()
+                                                                                        }}> Update Balance
+                                                                                        Value </button>}
+                                                                                </div>
+                                                                            </div>
+                                                                            {this.state.toggleSavingsUpdate === false &&
+                                                                            <div>
+
+                                                                                <h6 className="mb-1 web-dev-credit-card-black"> Balance: {SavingsAccount.balance}   </h6>
+                                                                            </div>}
+                                                                            {this.state.toggleSavingsUpdate === true && SavingsAccount._id === this.state.selectedSavingsAcc
+                                                                            && <div><input type="number"
+                                                                                           onChange={(event) => this.savingsAccBalChanged(event)}
+                                                                                           placeholder="Enter New Balance"
+                                                                                           className="col-12"/>
+                                                                                <i onClick={() => {
+                                                                                    this.updateSavingsAccBal(SavingsAccount);
+                                                                                    this.toggleSavingsUpdate();
+                                                                                }}
+                                                                                   className="fa fa-check my-float ml-4 align-content-center col-2"/>
+                                                                            </div>}
+
+                                                                        </div>
+                                                                        }
                                                                     </div>
+                                                                    }
                                                                 </div>
-                                                                { this.state.toggleSavingsUpdate===false &&  <div>
-                                                                    <small className="mb-1 web-dev-credit-card-black overflow-auto"> Address: {SavingsAccount.address}   </small>
-                                                                    <h6 className="mb-1 web-dev-credit-card-black">  Value: {SavingsAccount.value}   </h6>
-                                                                </div>}
-                                                                { this.state.toggleSavingsUpdate===true && SavingsAccount._id ===this.state.selectedSavingsAcc
-                                                                &&  <div><input type="number" onChange={(event) => this.savingsAccBalChanged(event)}
-                                                                                placeholder="Enter New Balance" className="col-12"/>
-                                                                    <i onClick={()=>{ this.updateSavingsAccBal(SavingsAccount); this.toggleSavingsUpdate();}}
-                                                                       className="fa fa-check my-float ml-4 align-content-center col-2"/></div>}
-
-                                                            </div>}
-                                                        </div>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            )
+                                                            </div>
+                                                        )
+                                                    }</div>:<div/>
 
                                         }
                                     </div>
                                 </ListGroup>
                             </div>
                         </Collapse>
-                        <Button className="btn-block mb-0" onClick={context.toggleChecking} style={{marginBottom: '1rem'}}>Checking Accounts</Button>
+                        <Button className="btn-block mb-0 web-dev-collapse-border" onClick={context.toggleChecking} style={{marginBottom: '1rem'}}>Checking Accounts</Button>
                         <Collapse  isOpen={context.state.checkingCollapse}>
                             <div className="bg-light">
                                 <ListGroup>
                                     <button type="button" className="btn  btn-outline-secondary m-2" data-toggle="modal"
-                                            data-target="#checkingModalCenter" onClick={this.handleCheckingModalShow}>
-                                        Add Checking Account
+                                            data-target="#savingsModalCenter" onClick={this.handleCreditModalShow}>
+                                        Add Savings Account
                                     </button>
                                     <div>
                                         {
 
-                                            context.state.checkingAccounts.map((CheckingAccount,index)  =>
+                                            context.state.checkingAccounts!==undefined ?
                                                 <div>
-                                                    <div key={index}>
-                                                        {CheckingAccount._id !== this.state.selectedChecking  &&
-                                                        <div className="list-group border border-white m-2" key={index} onMouseEnter={()=>{ this.flipCheckingAccOpen(); this.selectedChecking(CheckingAccount._id)}}>
-                                                            <div className="list-group-item list-group-item-action flex-column align-items-start web-dev-checking"
-                                                            >
-                                                                <div className="d-flex w-100 justify-content-between"  >
-                                                                    <h6 className="mb-1"> Bank: {CheckingAccount.bankName} </h6>
+                                                    {
 
-                                                                </div>
-                                                                <h6> Balance: ${CheckingAccount.balance} </h6>
-                                                                <p className="mb-1 ">Acc No:  {CheckingAccount.accountNo}   </p>
-                                                                <small className="mb-1">Acc Name:  {CheckingAccount.accountName}   </small>
-                                                            </div>
-                                                        </div> }
-                                                        {CheckingAccount._id === this.state.selectedChecking &&
-                                                        <div className="list-group border border-info m-2" key={index} onMouseLeave={()=>{ this.flipCheckingAccClose();this.selectedChecking("");}}>
-                                                            <div className="list-group-item list-group-item-action flex-column align-items-start"
-                                                            >
-                                                                <div className="d-flex w-100 justify-content-between" >
-                                                                    <div className="row">
-                                                                        <button className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2" onClick={()=> this.deleteSavingsAccount(CheckingAccount._id)}>  Delete Account </button>
-                                                                        { this.state.toggleCheckingUpdate===false && <button className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2" onClick={()=>{ this.toggleCheckingUpdate()}}> Update Balance Value </button>}
+                                                        context.state.checkingAccounts.map((CheckingAccount, index) =>
+                                                            <div>
+                                                                <div key={index}>
+                                                                    {CheckingAccount._id !== this.state.selectedChecking &&
+                                                                    <div className="list-group border border-white m-2"
+                                                                         key={index} onMouseEnter={() => {
+                                                                        this.flipCheckingAccOpen();
+                                                                        this.selectedChecking(CheckingAccount._id)
+                                                                    }}>
+                                                                        <div
+                                                                            className="list-group-item list-group-item-action flex-column align-items-start web-dev-checking"
+                                                                        >
+                                                                            <div
+                                                                                className="d-flex w-100 justify-content-between">
+                                                                                <h6 className="mb-1"> Bank: {CheckingAccount.bankName} </h6>
+
+                                                                            </div>
+                                                                            <h6> Balance:
+                                                                                ${CheckingAccount.balance} </h6>
+                                                                            <p className="mb-1 ">Acc
+                                                                                No: {CheckingAccount.accountNo}   </p>
+                                                                            <small className="mb-1">Acc
+                                                                                Name: {CheckingAccount.accountName}   </small>
+                                                                        </div>
+                                                                    </div>}
+                                                                    {CheckingAccount._id === this.state.selectedChecking &&
+                                                                    <div className="list-group border border-info m-2"
+                                                                         key={index} onMouseLeave={() => {
+                                                                        this.flipCheckingAccClose();
+                                                                        this.selectedChecking("");
+                                                                    }}>
+                                                                        <div
+                                                                            className="list-group-item list-group-item-action flex-column align-items-start"
+                                                                        >
+                                                                            <div
+                                                                                className="d-flex w-100 justify-content-between">
+                                                                                <div className="row">
+                                                                                    <button
+                                                                                        className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2"
+                                                                                        onClick={() => this.deleteCheckingAccount(CheckingAccount._id)}> Delete
+                                                                                        Account
+                                                                                    </button>
+                                                                                    {this.state.toggleCheckingUpdate === false &&
+                                                                                    <button
+                                                                                        className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2"
+                                                                                        onClick={() => {
+                                                                                            this.toggleCheckingUpdate()
+                                                                                        }}> Update Balance</button>}
+                                                                                </div>
+                                                                            </div>
+                                                                            {this.state.toggleCheckingUpdate === false &&
+                                                                            <div>
+
+                                                                                <h6 className="mb-1 web-dev-credit-card-black"> Balance: {CheckingAccount.balance}   </h6>
+                                                                            </div>}
+                                                                            {this.state.toggleCheckingUpdate === true && CheckingAccount._id === this.state.selectedChecking
+                                                                            && <div><input type="number"
+                                                                                           onChange={(event) => this.checkingAccBalChanged(event)}
+                                                                                           placeholder="Enter New Balance"
+                                                                                           className="col-12"/>
+                                                                                <i onClick={() => {
+                                                                                    this.updateCheckingAccBal(CheckingAccount);
+                                                                                    this.toggleCheckingUpdate();
+                                                                                }}
+                                                                                   className="fa fa-check my-float ml-4 align-content-center col-2"/>
+                                                                            </div>}
+
+                                                                        </div>
+                                                                        }
                                                                     </div>
+                                                                    }
                                                                 </div>
-                                                                { this.state.toggleCheckingUpdate===false &&  <div>
-                                                                    <small className="mb-1 web-dev-credit-card-black overflow-auto"> Address: {CheckingAccount.address}   </small>
-                                                                    <h6 className="mb-1 web-dev-credit-card-black">  Value: {CheckingAccount.value}   </h6>
-                                                                </div>}
-                                                                { this.state.toggleCheckingUpdate===true && CheckingAccount._id ===this.state.selectedProperty
-                                                                &&  <div><input type="number" onChange={(event) => this.checkingAccBalChanged(event)}
-                                                                                placeholder="Enter New Balance" className="col-12"/>
-                                                                    <i onClick={()=>{ this.updateCheckingAccBal(CheckingAccount); this.toggleCheckingUpdate();}}
-                                                                       className="fa fa-check my-float ml-4 align-content-center col-2"/></div>}
-
-                                                            </div>}
-                                                        </div>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            )
+                                                            </div>
+                                                        )
+                                                    }</div>:<div/>
 
                                         }
                                     </div>
                                 </ListGroup>
                             </div>
                         </Collapse>
-                        <Button className="btn-block mb-0" onClick={context.toggleStocks} style={{marginBottom: '1rem'}}>Stock Investment</Button>
+                        <Button className="btn-block mb-0 web-dev-collapse-border" onClick={context.toggleStocks} style={{marginBottom: '1rem'}}>Stock Investment</Button>
                         <Collapse  isOpen={context.state.stockCollapse}>
                             <div className="bg-light">
                                 <ListGroup>
-                                    <small className="bg-info m-2"> Goto Stock Search to add Stock</small>
+
+                                    {
+                                        context.state.stocksOwned!==undefined && context.state.stocksOwned.length>=0 ?
                                     <div>
                                         {
 
                                             context.state.stocksOwned.map((Stock,index)  =>
                                                 <div>
+
                                                     <div key={index}>
                                                         {Stock._id !== this.state.selectedStock  &&
                                                         <div className="list-group border border-white m-2" key={index} onMouseEnter={()=>{ this.flipStockOpen(); this.selectedStock(Stock._id)}}>
-                                                            <div className="list-group-item list-group-item-action flex-column align-items-start web-dev-property"
+                                                            <div className="list-group-item list-group-item-action flex-column align-items-start web-dev-stock"
                                                             >
                                                                 <div className="d-flex w-100 justify-content-between"  >
                                                                     <h6 className="mb-1"> Stock Name: {Stock.stock_name}  </h6>
@@ -709,11 +836,15 @@ class SideBarUser extends Component {
                                             )
 
                                         }
-                                    </div>
+                                    </div>:<div/>
+
+
+
+                                    }
                                 </ListGroup>
                             </div>
                         </Collapse>
-                        <Button className="btn-block mb-0" onClick={context.toggleProperty} style={{marginBottom: '1rem'}}>Properties</Button>
+                        <Button className="btn-block mb-0 web-dev-collapse-border" onClick={context.toggleProperty} style={{marginBottom: '1rem'}}>Properties</Button>
                         <Collapse  isOpen={context.state.propertyCollapse}>
                             <div className="bg-light">
                                 <ListGroup>
@@ -724,46 +855,77 @@ class SideBarUser extends Component {
                                     <div>
                                         {
 
-                                            context.state.properties.map((Property,index)  =>
-                                                <div>
-                                                    <div key={index}>
-                                                        {Property._id !== this.state.selectedProperty  &&
-                                                        <div className="list-group border border-white m-2" key={index} onMouseEnter={()=>{ this.flipPropertyOpen(); this.selectedProperty(Property._id)}}>
-                                                            <div className="list-group-item list-group-item-action flex-column align-items-start web-dev-property"
-                                                            >
-                                                                <div className="d-flex w-100 justify-content-between"  >
-                                                                    <h6 className="mb-1"> Address: {Property.address}  </h6>
-                                                                    <small>Area: {Property.area} Sq.Ft</small>
-                                                                </div>
-                                                                <p className="mb-1">Value:  ${Property.value}   </p>
-                                                            </div>
-                                                        </div> }
-                                                        {Property._id === this.state.selectedProperty &&
-                                                        <div className="list-group border border-info m-2" key={index} onMouseLeave={()=>{ this.flipCPropertyClose();this.selectedProperty("");}}>
-                                                            <div className="list-group-item list-group-item-action flex-column align-items-start"
-                                                            >
-                                                                <div className="d-flex w-100 justify-content-between" >
-                                                                    <div className="row">
-                                                                        <button className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2" onClick={()=> this.deleteProperty(Property._id)}>  Delete Property </button>
-                                                                        { this.state.togglePropertyUpdate===false && <button className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2" onClick={()=>{ this.togglePropertyUpdate()}}> Update Property Value </button>}
+                                            context.state.properties!==undefined ? <div>{
+
+                                                    context.state.properties.map((Property, index) =>
+                                                        <div>
+                                                            <div key={index}>
+                                                                {Property._id !== this.state.selectedProperty &&
+                                                                <div className="list-group border border-white m-2"
+                                                                     key={index} onMouseEnter={() => {
+                                                                    this.flipPropertyOpen();
+                                                                    this.selectedProperty(Property._id)
+                                                                }}>
+                                                                    <div
+                                                                        className="list-group-item list-group-item-action flex-column align-items-start web-dev-property"
+                                                                    >
+                                                                        <div
+                                                                            className="d-flex w-100 justify-content-between">
+                                                                            <h6 className="mb-1"> Address: {Property.address}  </h6>
+                                                                            <small>Area: {Property.area} Sq.Ft</small>
+                                                                        </div>
+                                                                        <p className="mb-1">Value: ${Property.value}   </p>
+                                                                    </div>
+                                                                </div>}
+                                                                {Property._id === this.state.selectedProperty &&
+                                                                <div className="list-group border border-info m-2"
+                                                                     key={index} onMouseLeave={() => {
+                                                                    this.flipCPropertyClose();
+                                                                    this.selectedProperty("");
+                                                                }}>
+                                                                    <div
+                                                                        className="list-group-item list-group-item-action flex-column align-items-start"
+                                                                    >
+                                                                        <div
+                                                                            className="d-flex w-100 justify-content-between">
+                                                                            <div className="row">
+                                                                                <button
+                                                                                    className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2"
+                                                                                    onClick={() => this.deleteProperty(Property._id)}> Delete
+                                                                                    Property
+                                                                                </button>
+                                                                                {this.state.togglePropertyUpdate === false &&
+                                                                                <button
+                                                                                    className=" web-dev-active-dark btn btn-block btn-outline-primary web-dev-credit-card m-2"
+                                                                                    onClick={() => {
+                                                                                        this.togglePropertyUpdate()
+                                                                                    }}> Update Property Value </button>}
+                                                                            </div>
+                                                                        </div>
+                                                                        {this.state.togglePropertyUpdate === false && <div>
+                                                                            <small
+                                                                                className="mb-1 web-dev-credit-card-black overflow-auto"> Address: {Property.address}   </small>
+                                                                            <h6 className="mb-1 web-dev-credit-card-black"> Value: {Property.value}   </h6>
+                                                                        </div>}
+                                                                        {this.state.togglePropertyUpdate === true && Property._id === this.state.selectedProperty
+                                                                        && <div><input type="number"
+                                                                                       onChange={(event) => this.propValueChanged(event)}
+                                                                                       placeholder="Enter Value"
+                                                                                       className="col-12"/>
+                                                                            <i onClick={() => {
+                                                                                this.updatePropertyValue(Property);
+                                                                                this.togglePropertyUpdate();
+                                                                            }}
+                                                                               className="fa fa-check my-float ml-4 align-content-center col-2"/>
+                                                                        </div>}
+
                                                                     </div>
                                                                 </div>
-                                                                { this.state.togglePropertyUpdate===false &&  <div>
-                                                                    <small className="mb-1 web-dev-credit-card-black overflow-auto"> Address: {Property.address}   </small>
-                                                                    <h6 className="mb-1 web-dev-credit-card-black">  Value: {Property.value}   </h6>
-                                                                </div>}
-                                                                { this.state.togglePropertyUpdate===true && Property._id ===this.state.selectedProperty
-                                                                &&  <div><input type="number" onChange={(event) => this.propValueChanged(event)}
-                                                                                placeholder="Enter Value" className="col-12"/>
-                                                                    <i onClick={()=>{ this.updatePropertyValue(Property); this.togglePropertyUpdate();}}
-                                                                       className="fa fa-check my-float ml-4 align-content-center col-2"/></div>}
-
-                                                            </div>}
+                                                                }
+                                                            </div>
                                                         </div>
-                                                        }
-                                                    </div>
-                                                </div>
-                                            )
+                                                    )
+                                            }</div>:<div></div>
 
                                         }
                                     </div>
@@ -787,5 +949,8 @@ class SideBarUser extends Component {
 
 }
 
-SideBarUser.contextType = MyContext;
-export default SideBarUser
+export default (props) => (
+    <MyContext.Consumer>
+        {(context) => <SideBarUser {...props} context={context}/>}
+    </MyContext.Consumer>
+)

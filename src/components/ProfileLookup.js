@@ -10,41 +10,51 @@ import StockSearchMainComponent from "./StockSearchMainComponent";
 import CenterLoginModal from "./CenterLoginModal";
 import {Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import CreditCardHomePage from "./CreditCardHomePage";
-import SavingHomePage from "./SavingHomePage";
-import ApplyForProduct from "./ApplyForProduct";
-import ProfileLookup from "./ProfileLookup";
-import GuestProductService from "../service/GuestProductService";
 
-class ApplyProductMainPage extends Component{
+import GuestProductService from "../service/GuestProductService";
+import AdminUserService from "../service/admin.service.client";
+
+class ProfileLookup extends Component{
 
 
     constructor(props){
         super(props);
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
+
         this.guestProductService = new GuestProductService();
+        this.adminService = new AdminUserService();
         this.state = {
             show: false,
             modalShow: true,
             collapseHideBrand:  false,
-            firstName:" ",
-            lastName:" ",
-            dob:" ",
-            address:" ",
-            phoneNumber:" ",
-            email:" ",
-            product:props.match.params.id,
-            prodName:props.match.params.name,
-            registeredFlag: false,
-            registeredFlagTrue: true,
+            userId:undefined,
+            userFound: false,
+            user: undefined,
+            modal: false,
+            userSearch: false,
+            statusLookup: false,
+            username: '',
+            id: undefined
+
         }
 
     }
-    setRegisteredFlagTrue = () => {
-        this.setState({
-            registeredFlag:this.state.registeredFlagTrue
-        })
+
+    componentDidMount() {
+
+        console.log("Params", this.props.match.params.id);
+       this.adminService.getAllUsers()
+           .then(users => {
+               for (let i = 0; i <users.length ; i++) {
+                   if(users[i]._id === this.props.match.params.id){
+                       this.setState({
+                           user: users[i]
+                       })
+
+                   }
+               }
+           })
+
+        console.log(this.state.user);
     }
 
     toggleCollapseHide =()=>
@@ -52,48 +62,47 @@ class ApplyProductMainPage extends Component{
             collapseHideBrand: !this.state.collapseHideBrand
         })
 
-
-    firstNameChanged = event => {
+    usernameChanged = (event) =>
         this.setState({
-            firstName: event.target.value
-        })
-    };
-
-    lastNameChanged = event => {
-        this.setState({
-            lastName: event.target.value
+            username: event.target.value
         });
-    };
 
-    dobChanged = event => {
-        this.setState({
-            dob: event.target.value
-        });
-    };
+    searchUser = () => {
+        if(this.state.username!=="") {
+            this.adminService.getAllUsers()
+                .then(users =>{
 
-    addressChanged = event => {
-        this.setState({
-            address: event.target.value
-        });
-    };
+                    console.log("Users", users);
+                    for (let i = 0; i <users.length ; i++) {
+                        if(users[i].username === this.state.username){
+                            this.setState({
+                                id: users[i]._id
+                            })
+                            this.props.history.push(`/profile/${users[i]._id}`);
 
-    phoneNumberChanged = event => {
-        this.setState({
-            phoneNumber: event.target.value
-        });
-    };
+                        }
 
-    emailChanged = event => {
-        this.setState({
-            email: event.target.value
-        });
-    };
+                    }
+                    if(this.state.id===undefined){
+                        alert("No Matching User Found!!")
+                    }
 
-    createGuest = () => {
-        this.guestProductService.createGuestProduct(this.state)
-            .then(reposne => console.log("Gues Prod", reposne));
+                })
+        }else {
+            alert("Enter Valid Username");
+        }
+
 
     }
+
+    toggleUserSearch = ()=>
+        this.setState({
+            userSearch: !this.state.userSearch
+        })
+    toggleStatusLookup = ()=>
+        this.setState({
+            statusLookup: !this.state.statusLookup
+        })
 
 
     handleClose() {
@@ -104,11 +113,16 @@ class ApplyProductMainPage extends Component{
         this.setState({ show: true });
     }
 
+    toggle() {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+    }
 
 
 
     render() {
-        let modalClose = () => this.setState({ modalShow: false });
+
 
 
         return(
@@ -124,7 +138,7 @@ class ApplyProductMainPage extends Component{
                                         aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="navbar-toggler-icon"></span>
                                 </button>
-                                <ProfileLookup/>
+
 
 
                                 <div className="collapse navbar-collapse " id="navbarTogglerDemo02">
@@ -142,14 +156,7 @@ class ApplyProductMainPage extends Component{
                                                                       data-target="#exampleModalCenter" onClick={()=>{this.handleShow();this.toggle();}}>
                                             Login / SignUp
                                         </button> </Link>
-                                        <button type="button" className="btn  btn-outline-secondary web-dev-logo mb-2 mt-2 mr-2" data-toggle="modal"
-                                                data-target="#profileLookupModalCenter" >
-                                            Profile LookUp
-                                        </button>
-                                        <button type="button" className="btn  btn-outline-secondary web-dev-logo mb-2 mt-2 mr-2" data-toggle="modal"
-                                                data-target="#exampleModalCenter" >
-                                            Application Status
-                                        </button>
+
                                     </div>
                                 </div>
                             </nav>
@@ -165,9 +172,10 @@ class ApplyProductMainPage extends Component{
                                     <div className="d-inline-block"/>
                                     <div className=""/>
                                     <div className=""/>
-                                    <h1>Hello Financial Freedom</h1></div>
+                                    <h1>Profile Lookup</h1></div>
                             </div>
 
+                            {this.state.user!==undefined ?
                             <div className="container card mt-5 bg-light mb-4">
                                 <div className="web-dev-particle-text-center-child m-4">
 
@@ -182,7 +190,7 @@ class ApplyProductMainPage extends Component{
                                                     className="form-control"
                                                     placeholder="firstName"
                                                     id="firstName"
-                                                    onChange={this.firstNameChanged}
+                                                    value={this.state.user.firstName}
                                                 />
                                             </div>
                                         </div>
@@ -197,7 +205,7 @@ class ApplyProductMainPage extends Component{
                                                     className="form-control"
                                                     placeholder="lastName"
                                                     id="lastName"
-                                                    onChange={this.lastNameChanged}
+                                                    value={this.state.user.lastName}
                                                 />
                                             </div>
                                         </div>
@@ -212,7 +220,7 @@ class ApplyProductMainPage extends Component{
                                                     className="form-control"
                                                     placeholder="dob"
                                                     id="dob"
-                                                    onChange={this.dobChanged}
+                                                    value={this.state.user.DOB}
                                                 />
                                             </div>
                                         </div>
@@ -226,7 +234,7 @@ class ApplyProductMainPage extends Component{
                                                     className="form-control"
                                                     placeholder="address"
                                                     id="address"
-                                                    onChange={this.addressChanged}
+                                                    value={this.state.user.address}
                                                 />
                                             </div>
                                         </div>
@@ -241,7 +249,7 @@ class ApplyProductMainPage extends Component{
                                                     className="form-control"
                                                     placeholder="phoneNumber"
                                                     id="phoneNumber"
-                                                    onChange={this.phoneNumberChanged}
+                                                    value={this.state.user.phoneNumber}
                                                 />
                                             </div>
                                         </div>
@@ -256,41 +264,16 @@ class ApplyProductMainPage extends Component{
                                                     className="form-control"
                                                     placeholder="email"
                                                     id="email"
-                                                    onChange={this.emailChanged}
+                                                    value={this.state.user.email}
                                                 />
                                             </div>
                                         </div>
 
-                                        <button
-                                            className="btn btn-block btn-info mb-4"
-                                            onClick={() => {
-                                                this.createGuest();
-                                                this.setRegisteredFlagTrue();
-
-                                            }
-                                            }
-                                        >
-                                            REGISTER
-                                        </button>
-
-
-                                        {this.state.registeredFlag === true &&
-
-                                        <div className="alert alert-success" role="alert" id="alert">
-                                            You have successfully applied to {this.state.prodName}
-                                        </div>
-
-                                        }
-
-
-
-
-
-
 
                                     </div>
                                 </div>
-                            </div>
+                            </div>:<div></div>}
+
 
                         </React.Fragment>
                     )}
@@ -304,5 +287,5 @@ class ApplyProductMainPage extends Component{
 
 
 }
-ApplyProductMainPage.contextType = MyContext;
-export default ApplyProductMainPage
+ProfileLookup.contextType = MyContext;
+export default ProfileLookup

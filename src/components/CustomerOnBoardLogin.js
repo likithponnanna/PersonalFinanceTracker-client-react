@@ -4,11 +4,12 @@ import MyContext from './MyContext'
 import '../styling/CustomerOnboard.style.client.css'
 import UserOnboardModal from "./UserOnboardModal";
 import ParticlesComponent from "./ParticlesComponent";
-import { withRouter } from 'react-router'
+import {Redirect, withRouter} from 'react-router'
 import {ModalRoute}  from 'react-router-modal';
 import StockSearchMainComponent from "./StockSearchMainComponent";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import CenterLoginModal from "./CenterLoginModal";
+import ProfileLookup from "./ProfileLookup";
 
 class CustomerOnBoardLogin extends Component{
 
@@ -51,14 +52,22 @@ class CustomerOnBoardLogin extends Component{
 
     render() {
         let modalClose = () => this.setState({ modalShow: false });
+
+        if(this.props.context.state.user !==undefined && this.props.context.state.user.isAdmin ===true) {
+            // this.props.history.push('/user')
+            return (<Redirect to="/admin"/>)
+        }else if(this.props.context.state.user !==undefined && this.props.context.state.user.isAdmin ===false) {
+            return (<Redirect to="/user"/>)
+        }
         return(
 
             <div className="container-fluid p-0 m-0">
                 <MyContext.Consumer>
                     {(context) => (
                         <React.Fragment>
-                            <nav className="navbar navbar-expand-lg navbar-light bg-dark pb-0 mb-0 mt-0 pt-0">
-                                <a className="web-dev-logo" href="#">Logo<i className="fa fa-piggy-bank btn-outline-success p-1 web-dev-logo"/></a>
+
+                            <nav className="navbar navbar-expand-lg navbar-light bg-dark pb-4 mb-0 mt-0 pt-0">
+                                <a className="web-dev-logo " href="#">Sprint<i className="fa fa-piggy-bank btn-outline-success p-1 web-dev-logo"/></a>
                                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                                         data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
                                         aria-expanded="false" aria-label="Toggle navigation">
@@ -66,20 +75,12 @@ class CustomerOnBoardLogin extends Component{
                                 </button>
 
                                 <div className="collapse navbar-collapse " id="navbarTogglerDemo02">
-                                    <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-                                        <li className="nav-item active">
-                                            <a className="nav-link" href="#">Home <span
-                                                className="sr-only">(current)</span></a>
-                                        </li>
-                                        <li className="nav-item">
-                                            <a className="nav-link" href="#">About</a>
-                                        </li>
-                                    </ul>
+
                                     <div className="form-inline">
-                                        <button type="button" className="btn  btn-outline-secondary web-dev-logo" data-toggle="modal"
+                                       {/* <button type="button" className="btn float-right  btn-outline-secondary web-dev-logo" data-toggle="modal"
                                                 data-target="#exampleModalCenter" onClick={()=>this.handleShow()}>
-                                            Login / SingUp
-                                        </button>
+                                            Login / SignUp
+                                        </button>*/}
 
                                     </div>
                                 </div>
@@ -94,9 +95,7 @@ class CustomerOnBoardLogin extends Component{
                                 <div className="web-dev-particle-text-center-child"><h1>Hello Financial Freedom</h1></div>
                             </div>
 
-                            <div className="container mt-5 bg-light ">
-                                <div className="web-dev-particle-text-center-child">Content</div>
-                            </div>
+
 
                         </React.Fragment>
                     )}
@@ -109,5 +108,8 @@ class CustomerOnBoardLogin extends Component{
 
 
 }
-CustomerOnBoardLogin.contextType = MyContext;
-export default CustomerOnBoardLogin
+export default (props) => (
+    <MyContext.Consumer>
+        {(context) => <CustomerOnBoardLogin {...props} context={context}/>}
+    </MyContext.Consumer>
+)
