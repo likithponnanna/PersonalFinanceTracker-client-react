@@ -675,7 +675,8 @@ class ForexConversionContent extends React.Component {
         isLoading: false,
         isRtl: false,
         isSearchable: true,
-        convertedTog: false
+        convertedTog: false,
+        convertedFinalAns: 69.91
     };
 
     handleChange = (selectedOption) => {
@@ -700,9 +701,12 @@ class ForexConversionContent extends React.Component {
 
 
     convertCurrency = ()=> {
+
         if(this.state.currencyAmount===""|| this.state.currencyAmount===undefined || this.state.currencyAmount===null ){
             alert("Enter the amount first");
         }else {
+
+            console.log("State See", this.state.selectedOption, " Dest" ,this.state.selectedOptionDest );
 
             if(this.state.selectedOption===undefined  && this.state.selectedOptionDest===undefined ){
                 alpha.forex.rate("USD", "EUR")
@@ -716,12 +720,9 @@ class ForexConversionContent extends React.Component {
             else if(this.state.selectedOption===undefined )
             {
 
-                let dest = "EUR";
-                if(this.state.selectedOptionDest !==undefined && this.state.selectedOptionDest.value!==undefined){
-                    dest = this.state.selectedOptionDest.value;
-                }
+                let src = "EUR";
 
-                alpha.forex.rate("USD", dest )
+                alpha.forex.rate(src, this.state.selectedOptionDest )
                     .then(conversion => {
                         console.log("Forex Response", conversion);
                         this.setState({
@@ -729,13 +730,26 @@ class ForexConversionContent extends React.Component {
                         })
                     })
             }else if(this.state.selectedOptionDest===undefined ){
-                alpha.forex.rate("EUR", this.state.selectedOptionDest!==undefined ? this.state.selectedOptionDest.value : "USD")
+
+                let dest = "USD";
+
+                alpha.forex.rate(this.state.selectedOption.value, dest)
                     .then(conversion => {
                         console.log("Forex Response", conversion);
                         this.setState({
                             convertedFinalAns: this.state.currencyAmount * conversion["Realtime Currency Exchange Rate"]["5. Exchange Rate"]
                         })
                     })
+            }else {
+
+                alpha.forex.rate(this.state.selectedOption.value, this.state.selectedOptionDest.value)
+                    .then(conversion => {
+                        console.log("Forex Response", conversion);
+                        this.setState({
+                            convertedFinalAns: this.state.currencyAmount * conversion["Realtime Currency Exchange Rate"]["5. Exchange Rate"]
+                        })
+                    })
+
             }
 
             this.toggleConvertedVal();
@@ -787,7 +801,7 @@ class ForexConversionContent extends React.Component {
 
 
                 <div className="card row web-dev-card-header-bg p-1" >
-                    <label htmlFor="forCur" className="text-center web-dev-card-header-bg web-dev-white-text"> Select Source Currency</label>
+                    <label htmlFor="forCur" className="text-center web-dev-card-header-bg web-dev-white-text"> Select Destination Currency</label>
                     <Select id="forCur"  options={options}
                             isClearable={isClearable}
                             isSearchable={isSearchable}

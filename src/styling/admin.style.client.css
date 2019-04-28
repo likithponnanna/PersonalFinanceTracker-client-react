@@ -2,6 +2,19 @@
     font-size: 0.6em !important;
 }
 
+.web-dev-fa-blue{
+    color:#007bff;
+}
+
+.web-dev-fa-green{
+
+    color:#079f4b;
+}
+
+.web-dev-fa-red{
+    color:crimson;
+}
+
 
 .web-dev-text-white{
     color: white;
@@ -46,6 +59,16 @@ div.modal-body{
     padding-left: 0;
     padding-top: 0;
     padding-bottom: 5px;
+}
+
+.web-dev-center-image{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.web-dev-app-check-z{
+    z-index:9999999 !important;
 }
 
 
