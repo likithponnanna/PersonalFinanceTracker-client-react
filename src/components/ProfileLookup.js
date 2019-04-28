@@ -187,10 +187,11 @@ class ProfileLookup extends Component{
                                             </label>
                                             <div className="col-sm-10 mt-4">
                                                 <input
-                                                    className="form-control"
+                                                    className="form-control bg-gray"
                                                     placeholder="firstName"
                                                     id="firstName"
                                                     value={this.state.user.firstName}
+                                                    disabled="disabled"
                                                 />
                                             </div>
                                         </div>
@@ -202,9 +203,10 @@ class ProfileLookup extends Component{
                                             </label>
                                             <div className="col-sm-10">
                                                 <input
-                                                    className="form-control"
+                                                    className="form-control bg-gray"
                                                     placeholder="lastName"
                                                     id="lastName"
+                                                    disabled="disabled"
                                                     value={this.state.user.lastName}
                                                 />
                                             </div>
@@ -217,9 +219,10 @@ class ProfileLookup extends Component{
                                             <div className="col-sm-10">
                                                 <input
                                                     type="date"
-                                                    className="form-control"
+                                                    className="form-control bg-gray"
                                                     placeholder="dob"
                                                     id="dob"
+                                                    disabled="disabled"
                                                     value={this.state.user.DOB}
                                                 />
                                             </div>
@@ -231,9 +234,10 @@ class ProfileLookup extends Component{
                                             </label>
                                             <div className="col-sm-10">
                                                 <input
-                                                    className="form-control"
+                                                    className="form-control bg-gray"
                                                     placeholder="address"
                                                     id="address"
+                                                    disabled="disabled"
                                                     value={this.state.user.address}
                                                 />
                                             </div>
@@ -246,9 +250,10 @@ class ProfileLookup extends Component{
                                             <div className="col-sm-10">
                                                 <input
                                                     type="number"
-                                                    className="form-control"
+                                                    className="form-control bg-gray"
                                                     placeholder="phoneNumber"
                                                     id="phoneNumber"
+                                                    disabled="disabled"
                                                     value={this.state.user.phoneNumber}
                                                 />
                                             </div>
@@ -261,9 +266,10 @@ class ProfileLookup extends Component{
                                             </label>
                                             <div className="col-sm-10">
                                                 <input
-                                                    className="form-control"
+                                                    className="form-control bg-gray"
                                                     placeholder="email"
                                                     id="email"
+                                                    disabled="disabled"
                                                     value={this.state.user.email}
                                                 />
                                             </div>

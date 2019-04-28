@@ -2,13 +2,16 @@ import React from "react";
 import MainPageService from "../service/MainPageService";
 import AdminUserService from "../service/admin.service.client";
 import MyContext from "./MyContext";
+import UserService from "../service/user.service.client";
+import {withRouter} from "react-router";
 
 
 class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
         this.mainPageService = MainPageService.getInstance();
-        this.adminUserService = AdminUserService.getInstance()
+        this.adminUserService = AdminUserService.getInstance();
+        this.userService = new UserService();
         this.state = {
             updateUserFormNeeded: false,
             updateUserForm: true,
@@ -46,7 +49,8 @@ class ProfilePage extends React.Component {
                 email: this.state.profile.email,
                 username: event.target.value,
                 password: this.state.profile.password,
-                _id: this.state.profile._id
+                _id: this.state.profile._id,
+                isAdmin: false
             }
 
         })
@@ -63,7 +67,8 @@ class ProfilePage extends React.Component {
                 email: this.state.profile.email,
                 username: this.state.profile.username,
                 password: event.target.value,
-                _id: this.state.profile._id
+                _id: this.state.profile._id,
+                isAdmin: false
             }
 
         })
@@ -80,7 +85,8 @@ class ProfilePage extends React.Component {
                 email: this.state.profile.email,
                 username: this.state.profile.username,
                 password: this.state.profile.password,
-                _id: this.state.profile._id
+                _id: this.state.profile._id,
+                isAdmin: false
             }
         })
     };
@@ -96,7 +102,8 @@ class ProfilePage extends React.Component {
                 email: this.state.profile.email,
                 username: this.state.profile.username,
                 password: this.state.profile.password,
-                _id: this.state.profile._id
+                _id: this.state.profile._id,
+                isAdmin: false
             }
         });
     };
@@ -112,7 +119,8 @@ class ProfilePage extends React.Component {
                 email: this.state.profile.email,
                 username: this.state.profile.username,
                 password: this.state.profile.password,
-                _id: this.state.profile._id
+                _id: this.state.profile._id,
+                isAdmin: false
             }
         });
     };
@@ -128,7 +136,8 @@ class ProfilePage extends React.Component {
                 email: this.state.profile.email,
                 username: this.state.profile.username,
                 password: this.state.profile.password,
-                _id: this.state.profile._id
+                _id: this.state.profile._id,
+                isAdmin: false
             }
         });
     };
@@ -145,7 +154,8 @@ class ProfilePage extends React.Component {
                 email:this.state.profile.email,
                 username:this.state.profile.username,
                 password:this.state.profile.password,
-                _id:this.state.profile._id
+                _id:this.state.profile._id,
+                isAdmin: false
             }
             // phoneNumber: event.target.value
         });
@@ -162,7 +172,8 @@ class ProfilePage extends React.Component {
                 email:event.target.value,
                 username:this.state.profile.username,
                 password:this.state.profile.password,
-                _id:this.state.profile._id
+                _id:this.state.profile._id,
+                isAdmin: false
             }
         });
     };
@@ -173,15 +184,33 @@ class ProfilePage extends React.Component {
             (sess) => {
                 this.setState({
                     profile:sess
-                })
-                console.log(this.state.profile)
+                });
+
             }
         )
     }
 
+    getAndLogout = () =>
+    {
+    /*    this.mainPageService.getProfile().then (
+            (sess) => {
+                this.setState({
+                    profile:sess
+                });
+
+            }
+        )*/
+
+
+        this.userService.logoutUser()
+            .then(resposne =>{
+                alert("Login Again!!");
+                this.props.history.push('/')})
+    }
+
     editUser = (user) =>{
         this.mainPageService.updateUserWithSession(user)
-            .then(() => this.getProfile())
+            .then(() => this.getAndLogout())
 
     };
 
@@ -273,21 +302,6 @@ class ProfilePage extends React.Component {
 
 
 
-                 {/*   <div className="form-group row">
-                        <label htmlFor="DOB" className="col-sm-2">
-                            Date of Birth
-                        </label>
-                        <div className="col-sm-10">
-                            <input
-                                type="date"
-                                className="form-control"
-                                value={this.state.profile.DOB !==undefined ? this.state.profile.DOB : '11-04-1994'}
-                                id="DOB"
-                                onChange={this.DOBChanged}
-                            />
-                        </div>
-                    </div>
-*/}
 
                     <div className="form-group row">
                         <label htmlFor="address" className="col-sm-2">
@@ -361,4 +375,10 @@ class ProfilePage extends React.Component {
     }
 
 }
-export default ProfilePage
+
+
+export default withRouter((props) => (
+    <MyContext.Consumer>
+        {(context) => <ProfilePage {...props} context={context}/>}
+    </MyContext.Consumer>
+))

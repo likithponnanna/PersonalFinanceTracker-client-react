@@ -87,7 +87,7 @@ const TransactionTabContent =({categoryChanged, paymentTypeChanged, dateChanged,
                                                     <td className="pt-3-half">
                                                                     <span className="table-remove"><i onClick={() => {
                                                                         toggleUpdate();
-                                                                        setUpdateId(transaction._id)
+                                                                        setUpdateId(transaction)
                                                                     }} className="fa fa-edit fa-2x" aria-hidden="true"/></span>
                                                     </td>
                                                     <td>
@@ -113,7 +113,7 @@ const TransactionTabContent =({categoryChanged, paymentTypeChanged, dateChanged,
                                             <td className="pt-3-half"><input value={payment_type} type="text"
                                                                              onChange={(event) => paymentTypeChanged(event)}/>
                                             </td>
-                                            <td className="pt-3-half"><input value={date_of_transaction} type="date"
+                                            <td className="pt-3-half"><input value={date_of_transaction.toString()} type="date"
                                                                              onChange={(event) => dateChanged(event)}/>
                                             </td>
                                             <td className="pt-3-half">
