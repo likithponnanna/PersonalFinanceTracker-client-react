@@ -16,7 +16,6 @@ class ProfilePage extends React.Component {
             updateUserFormNeeded: false,
             updateUserForm: true,
             editForm:true,
-            profile:{
                 firstName:" ",
                 lastName:" ",
                 DOB:" ",
@@ -25,8 +24,9 @@ class ProfilePage extends React.Component {
                 email:" ",
                 username:" ",
                 password:" ",
-                _id:" "
-            }
+                _id:" ",
+            userEdited: false
+
 
         }
     }
@@ -37,144 +37,63 @@ class ProfilePage extends React.Component {
         })
     };
 
-    userNameChanged = event => {
-        this.setState({
-
-            profile: {
-                firstName: this.state.profile.firstName,
-                lastName: this.state.profile.lastName,
-                DOB: this.state.profile.DOB,
-                address: this.state.profile.address,
-                phoneNumber: this.state.profile.phoneNumber,
-                email: this.state.profile.email,
-                username: event.target.value,
-                password: this.state.profile.password,
-                _id: this.state.profile._id,
-                isAdmin: false
-            }
-
-        })
-    };
 
     passwordChanged = event => {
         this.setState({
-            profile: {
-                firstName: this.state.profile.firstName,
-                lastName: this.state.profile.lastName,
-                DOB: this.state.profile.DOB,
-                address: this.state.profile.address,
-                phoneNumber: this.state.profile.phoneNumber,
-                email: this.state.profile.email,
-                username: this.state.profile.username,
+
                 password: event.target.value,
-                _id: this.state.profile._id,
-                isAdmin: false
-            }
+
 
         })
     };
 
     firstNameChanged = event => {
         this.setState({
-            profile: {
+
                 firstName: event.target.value,
-                lastName: this.state.profile.lastName,
-                DOB: this.state.profile.DOB,
-                address: this.state.profile.address,
-                phoneNumber: this.state.profile.phoneNumber,
-                email: this.state.profile.email,
-                username: this.state.profile.username,
-                password: this.state.profile.password,
-                _id: this.state.profile._id,
-                isAdmin: false
-            }
+
+
         })
     };
 
     lastNameChanged = event => {
         this.setState({
-            profile: {
-                firstName: this.state.profile.firstName,
+
                 lastName: event.target.value,
-                DOB: this.state.profile.DOB,
-                address: this.state.profile.address,
-                phoneNumber: this.state.profile.phoneNumber,
-                email: this.state.profile.email,
-                username: this.state.profile.username,
-                password: this.state.profile.password,
-                _id: this.state.profile._id,
-                isAdmin: false
-            }
+
+
         });
     };
 
     DOBChanged = event => {
         this.setState({
-            profile: {
-                firstName: this.state.profile.firstName,
-                lastName: this.state.profile.lastName,
                 DOB: event.target.value,
-                address: this.state.profile.address,
-                phoneNumber: this.state.profile.phoneNumber,
-                email: this.state.profile.email,
-                username: this.state.profile.username,
-                password: this.state.profile.password,
-                _id: this.state.profile._id,
-                isAdmin: false
-            }
+
+
         });
     };
 
     addressChanged = event => {
         this.setState({
-            profile: {
-                firstName: this.state.profile.firstName,
-                lastName: this.state.profile.lastName,
-                DOB: this.state.profile.DOB,
+
                 address: event.target.value,
-                phoneNumber: this.state.profile.phoneNumber,
-                email: this.state.profile.email,
-                username: this.state.profile.username,
-                password: this.state.profile.password,
-                _id: this.state.profile._id,
-                isAdmin: false
-            }
+
+
         });
     };
 
     phoneNumberChanged = event => {
         this.setState({
 
-            profile: {
-                firstName:this.state.profile.firstName,
-                lastName:this.state.profile.lastName,
-                DOB:this.state.profile.DOB,
-                address:this.state.profile.address,
                 phoneNumber:event.target.value,
-                email:this.state.profile.email,
-                username:this.state.profile.username,
-                password:this.state.profile.password,
-                _id:this.state.profile._id,
-                isAdmin: false
-            }
-            // phoneNumber: event.target.value
+
         });
     };
 
     emailChanged = event => {
         this.setState({
-            profile: {
-                firstName:this.state.profile.firstName,
-                lastName:this.state.profile.lastName,
-                DOB:this.state.profile.DOB,
-                address:this.state.profile.address,
-                phoneNumber:this.state.profile.phoneNumber,
-                email:event.target.value,
-                username:this.state.profile.username,
-                password:this.state.profile.password,
-                _id:this.state.profile._id,
-                isAdmin: false
-            }
+                email:event.target.value
+
         });
     };
 
@@ -201,24 +120,80 @@ class ProfilePage extends React.Component {
             }
         )*/
 
+    this.userService.getProfile()
+        .then(user => {
 
+            console.log("User on mount", user);
+            this.setState({
+                firstName:user.firstName,
+                lastName:user.lastName,
+                DOB:user.DOB,
+                address:user.address,
+                phoneNumber:user.phoneNumber,
+                email:user.email,
+                _id:user._id,
+                isAdmin: user.isAdmin,
+                username : user.username,
+                password: user.password
+            })
+
+          /*  this.adminUserService.loginUser()
+        console.log("User From Session", user);*/
+    })
+
+
+
+/*
         this.userService.logoutUser()
             .then(resposne =>{
                 alert("Login Again!!");
                 this.props.history.push('/')})
+    }*/
     }
 
-    editUser = (user) =>{
-        this.mainPageService.updateUserWithSession(user)
-            .then(() => this.getAndLogout())
+    editUser = () =>{
+        this.userService.updateProfileNew(this.state._id,this.state)
+            .then(user =>{ console.log("User", user);
+            this.userService.getProfile()
+                .then(user =>{ this.props.context.setUser(user);
+                console.log("Profile", user);
+
+                //alert(this.state.username.concat("    Updated"))
+
+                this.setState({
+                    firstName:user.firstName,
+                    lastName:user.lastName,
+                    DOB:user.DOB,
+                    address:user.address,
+                    phoneNumber:user.phoneNumber,
+                    email:user.email,
+                    _id:user._id,
+                    isAdmin: user.isAdmin,
+                    userEdited: true
+                }) }
+
+                )
+            }
+
+
+            );
+
+
+      /*  this.mainPageService.updateUserWithSession(user)
+            .then(() => this.getAndLogout())*/
 
     };
+
+    resetUserEdited = () =>
+        this.setState({
+            userEdited: false
+        })
 
 
 
     componentDidMount() {
-        this.getProfile()
-        console.log(this.state.profile)
+        this.getAndLogout();
+        console.log("State", this.state);
     }
 
     render () {
@@ -234,8 +209,15 @@ class ProfilePage extends React.Component {
                 <h1 className="text-center"> PROFILE</h1>
 
                 <div className="container">
+                    {this.state.userEdited===true  &&
+                    <div className="alert alert-success alert-dismissible fade show " role="alert">
+                        <strong>{this.state.username}</strong> Updated
+                        <button onClick={()=> this.resetUserEdited()} type="button" className="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>}
 
-                    <div className="form-group row">
+                    <div className="form-group row mt-2">
 
                         <label htmlFor="username" className="col-sm-2">
                             UserName
@@ -243,7 +225,7 @@ class ProfilePage extends React.Component {
                         <div className="col-sm-10">
                             <input
                                 className="form-control bg-gray"
-                                placeholder={this.state.profile.username}
+                                placeholder={this.state.username}
                                 id="username"
                                 disabled="disabled"
                                 // value={this.props.userToBeEdited[0].username}
@@ -260,7 +242,7 @@ class ProfilePage extends React.Component {
                             <input
                                 className="form-control"
                                 placeholder="alice"
-                                value={this.state.profile.password}
+                                value={this.state.password}
                                 // value={this.props.userToBeEdited[0].password}
                                 id="password"
                                 onChange={this.passwordChanged}
@@ -277,7 +259,7 @@ class ProfilePage extends React.Component {
                             <input
                                 className="form-control"
 
-                                 value={this.state.profile.firstName!==undefined ? this.state.profile.firstName : 'Alice' }
+                                 value={this.state.firstName!==undefined ? this.state.firstName : 'Alice' }
                                 id="firstName"
                                 onChange={this.firstNameChanged}
                             />
@@ -292,7 +274,7 @@ class ProfilePage extends React.Component {
                         <div className="col-sm-10">
                             <input
                                 className="form-control"
-                                value={this.state.profile.lastName !==undefined ? this.state.profile.lastName: 'Wonder' }
+                                value={this.state.lastName !==undefined ? this.state.lastName: 'Wonder' }
                                 // value={this.props.userToBeEdited[0].lastName}
                                 id="lastName"
                                 onChange={this.lastNameChanged}
@@ -310,7 +292,7 @@ class ProfilePage extends React.Component {
                         <div className="col-sm-10">
                             <input
                                 className="form-control"
-                                value={this.state.profile.address!==undefined ? this.state.profile.address : 'Boston'}
+                                value={this.state.address!==undefined ? this.state.address : 'Boston'}
                                 // value={this.props.userToBeEdited[0].address}
                                 id="address"
                                 onChange={this.addressChanged}
@@ -327,7 +309,7 @@ class ProfilePage extends React.Component {
                             <input
                                 type="number"
                                 className="form-control"
-                                value={this.state.profile.phoneNumber!==undefined ?this.state.profile.phoneNumber: '726663662' }
+                                value={this.state.phoneNumber!==undefined ?this.state.phoneNumber: '726663662' }
                                 // value={this.props.userToBeEdited[0].phoneNumber}
                                 id="phoneNumber"
                                 onChange={this.phoneNumberChanged}
@@ -344,8 +326,7 @@ class ProfilePage extends React.Component {
                             <input
                                 type="email"
                                 className="form-control"
-                                value={this.state.profile.email!==undefined ? this.state.profile.email: 'matan@gl.com'  }
-                                //value={this.props.userToBeEdited[0].email}
+                                value={this.state.email!==undefined ? this.state.email: 'matan@gl.com'  }
                                 id="email"
                                 onChange={this.emailChanged}
                             />
@@ -357,12 +338,12 @@ class ProfilePage extends React.Component {
                 <button type="button"
                         className="btn btn-dark ml-2 mr-2 mb-4 mt-1" onClick={() => {
                     this.setUpdateuserForm()
-                    console.log("clicking edit",this.state.profile)
-                    console.log(this.state.phoneNumber)
-                    this.editUser(this.state.profile)
+                    this.editUser()
                 }}>
                     Save after editing
                 </button>
+
+
 
 
                         </React.Fragment>

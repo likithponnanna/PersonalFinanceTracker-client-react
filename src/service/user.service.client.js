@@ -51,6 +51,21 @@ class UserService {
         })
     };
 
+    updateProfileNew = (userId, user) => {
+
+        console.log("Inside update service", userId, user)
+        return fetch(this.API_URL +'update/session/'+ userId, {
+            body: JSON.stringify(user),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'PUT',
+            credentials: 'include'
+        }).then( function(response){
+            return response.json()
+        })
+    };
+
     registerUser = (user) => {
         return fetch(this.API_URL+'register', {
             body: JSON.stringify(user),
