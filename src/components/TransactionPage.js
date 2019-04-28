@@ -102,20 +102,40 @@ class TransactionPage  extends Component{
 
     getAllTransactions = () =>
         this.transactionService.findAllTransactions()
-            .then(transactions =>
-                this.context.setTransactions(transactions))
+            .then(transactions =>{
+
+                this.setState({
+                    transactions: transactions
+                })
+
+                this.context.setTransactions(transactions)})
 
     getLastWeekTransaction = () =>
         this.transactionService.findAllTransactionWeek()
-            .then(transactions => this.context.setTransactions(transactions))
+            .then(transactions =>{
+                this.setState({
+                    transactions: transactions
+                })
+                this.context.setTransactions(transactions)})
 
     getLastMonthTransaction = () =>
         this.transactionService.findAllTransactionMonth()
-            .then(transactions => this.context.setTransactions(transactions))
+            .then(transactions =>{
+                this.setState({
+                    transactions: transactions
+                })
 
-    setUpdateId = (updateId)=>
+                this.context.setTransactions(transactions)})
+
+    setUpdateId = (transaction)=>
         this.setState({
-            updateId: updateId
+            updateId: transaction._id,
+            category: transaction.category,
+            payment_type: transaction.payment_type,
+            date_of_transaction: transaction.date_of_transaction,
+            payment_source: transaction.payment_source,
+            amount: transaction.amount,
+
         })
 
     toggleUpdate =() =>
@@ -225,22 +245,3 @@ export default withRouter((props) => (
 ))
 
 
-
-
-/*
-setTransactions: (transactions) =>
-    this.setState(state => ({ transactions: transactions })),
-    pushTransaction: (transaction) => {
-    let newTransactions = this.state.transactions;
-    newTransactions.push(transaction);
-    this.setState(state => ({transactions: newTransactions}))
-},
-    deleteTransaction: (transactionId) => {
-    this.setState(state => ({ transactions:  this.state.transactions.filter(transaction => transaction._id !== transactionId) }))
-},
-    updateTransaction: (transactionN) =>{
-    this.setState({
-        transactions: this.state.transactions.map(transaction =>
-            transaction._id === transactionN._id ? transactionN : transaction,
-        )})
-}*/
