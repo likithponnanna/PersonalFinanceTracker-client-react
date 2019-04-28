@@ -79,7 +79,7 @@ class CheckingAccountApplyMain extends Component{
                                     </ul>
                                     <div className="form-inline">
                                         <Link to="/login">    <button type="button" className="btn  btn-outline-secondary web-dev-logo mb-2 mt-2 mr-2" data-toggle="modal"
-                                                                      data-target="#exampleModalCenter" onClick={()=>{this.handleShow();this.toggle();}}>
+                                                                      data-target="#exampleModalCenter" onClick={()=>{this.handleShow();}}>
                                             Login / SignUp
                                         </button> </Link>
                                     </div>
