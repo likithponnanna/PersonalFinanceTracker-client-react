@@ -84,7 +84,7 @@ class BillsContent extends React.Component {
                                                             <p className="card-text">Bill Name: {bill.billName}</p>
                                                             <p className="card-text">Bill Due: {bill.bill_due_date.length>11 ? bill.bill_due_date.slice(0,10): bill.bill_due_date}</p>
                                                             <p className="card-text">Bill Amount: <b>{bill.bill_amount}</b></p>
-                                                            <button className="btn bg-secondary card-footer"
+                                                            <button className="btn bg-dark card-footer"
                                                                     onClick={() => this.props.payBill(bill)}>
                                                                     <b className=" web-dev-white-text">Mark as paid</b>
                                                             </button>

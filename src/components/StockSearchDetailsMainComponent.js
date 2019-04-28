@@ -287,7 +287,7 @@ class StockSearchDetailsMainComponent  extends Component{
                                                             <div className="form-group">
 
                                                                 <Link to={`/search/details?stockSymbol=${this.state.stock_symbol}&stockName=${this.state.stock_name}&stockType=${this.state.category}`}>
-                                                                    <button type="number"     className="form-control btn btn-info"
+                                                                    <button type="number"     className="form-control btn btn-dark"
                                                                             placeholder="0"  onClick={()=>this.buyByUpadatingStock()}>Buy Stock </button> </Link>
                                                             </div>
 
